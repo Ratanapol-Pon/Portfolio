@@ -1,0 +1,40 @@
+{
+  "coursera": [
+    {
+      "title": "Foundations of Cybersecurity",
+      "issuer": "Google",
+      "platform": "Coursera",
+      "date": "May 2026",
+      "grade": "90.89%",
+      "hours": "9 hours",
+      "link": "https://coursera.org/account/accomplishments/verify/RSG3W1VBGPC1",
+      "skills": [
+        "Cyber Risk",
+        "SIEM",
+        "Cyber Attacks",
+        "Network Security",
+        "Information Assurance",
+        "Security Management",
+        "Cybersecurity",
+        "Data Ethics",
+        "Security Controls"
+      ]
+    }
+  ],
+  "ncsa": [
+    {
+      "title": "Basic Cybersecurity",
+      "issuer": "MOOC NCSA",
+      "platform": "MOOC NCSA",
+      "date": "April 2026",
+      "cert_id": "SPG-VFNWOLJKNA5HS",
+      "link": "https://media.mooc.ncsa.or.th/certificate/VFNWOLJKNA5HS.pdf",
+      "skills": [
+        "Cybersecurity Fundamentals",
+        "Network Security",
+        "Information Security",
+        "Cyber Threats"
+      ]
+    }
+  ]
+}

@@ -96,3 +96,159 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+/* ── HackTheBox live data ───────────────────────────────── */
+function rankClass(rank) {
+  if (!rank) return 'rank-beginner';
+  return 'rank-' + rank.toLowerCase().replace(/\s+/g, '-');
+}
+
+function renderHTBLive(d) {
+  const owns = (d.user_owns != null && d.system_owns != null)
+    ? `<div class="htb-stat-box"><span class="htb-stat-num">${d.user_owns + d.system_owns}</span><span class="htb-stat-lbl">Machines Owned</span></div>`
+    : '';
+  const ranking = d.ranking
+    ? `<div class="htb-stat-box"><span class="htb-stat-num">#${d.ranking.toLocaleString()}</span><span class="htb-stat-lbl">Global Rank</span></div>`
+    : '';
+  const avatar = d.avatar
+    ? `<img src="${d.avatar}" alt="${d.name}" class="htb-avatar" />`
+    : `<div class="htb-avatar-box"><i class="fas fa-cube htb-cube-icon"></i></div>`;
+
+  return `
+    <div class="htb-header">
+      ${avatar}
+      <div class="htb-header-info">
+        <h3 class="htb-name">${d.name}</h3>
+        <div class="htb-meta">
+          <span class="htb-rank-badge ${rankClass(d.rank)}">${d.rank || 'Beginner'}</span>
+          ${d.country ? `<span class="htb-loc"><i class="fas fa-location-dot"></i> ${d.country}</span>` : ''}
+        </div>
+      </div>
+      <a href="https://profile.hackthebox.com/${d.name}" class="btn btn-htb" target="_blank" rel="noopener">
+        <i class="fas fa-arrow-up-right-from-square"></i> View Profile
+      </a>
+    </div>
+    <div class="htb-stats-row">
+      <div class="htb-stat-box">
+        <span class="htb-stat-num">${d.level ?? '—'}</span>
+        <span class="htb-stat-lbl">Level</span>
+      </div>
+      <div class="htb-stat-box">
+        <span class="htb-stat-num">${d.points != null ? d.points : '—'}</span>
+        <span class="htb-stat-lbl">Points</span>
+      </div>
+      ${owns}
+      ${ranking}
+    </div>
+  `;
+}
+
+async function loadHTB() {
+  const loading  = document.getElementById('htbLoading');
+  const live     = document.getElementById('htbLive');
+  const fallback = document.getElementById('htbFallback');
+
+  try {
+    const res = await fetch('/.netlify/functions/htb');
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    live.innerHTML = renderHTBLive(data);
+    loading.classList.add('hidden');
+    live.classList.remove('hidden');
+  } catch {
+    loading.classList.add('hidden');
+    fallback.classList.remove('hidden');
+  }
+}
+
+/* ── Certificates from certs.json ──────────────────────── */
+function certPlatformIcon(issuer) {
+  const low = (issuer || '').toLowerCase();
+  if (low.includes('google'))  return 'google';
+  if (low.includes('ncsa') || low.includes('mooc')) return 'ncsa';
+  return 'default';
+}
+
+function certPlatformLabel(issuer) {
+  const low = (issuer || '').toLowerCase();
+  if (low.includes('google'))  return '<i class="fab fa-google"></i>';
+  if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved"></i>';
+  return '<i class="fas fa-graduation-cap"></i>';
+}
+
+function renderCertCard(c) {
+  const iconClass = certPlatformIcon(c.issuer);
+  const iconLabel = certPlatformLabel(c.issuer);
+  const grade  = c.grade    ? `<div class="cert-grade"><i class="fas fa-star"></i> ${c.grade}${c.hours ? ' &nbsp;·&nbsp; ' + c.hours : ''}</div>` : '';
+  const certId = c.cert_id  ? `<div class="cert-id"><i class="fas fa-fingerprint"></i> ${c.cert_id}</div>` : '';
+  const tags   = (c.skills || []).map(s => `<span class="tag sm">${s}</span>`).join('');
+
+  return `
+    <div class="glass-card cert-card reveal">
+      <div class="cert-card-top">
+        <div class="cert-platform-icon ${iconClass}">${iconLabel}</div>
+        <div class="cert-meta">
+          <span class="cert-issuer">${c.issuer}</span>
+          <span class="cert-date">${c.date}${c.platform ? ' · ' + c.platform : ''}</span>
+        </div>
+      </div>
+      <h4 class="cert-title">${c.title}</h4>
+      ${grade}
+      ${certId}
+      <div class="tags">${tags}</div>
+      <a href="${c.link}" class="cert-btn" target="_blank" rel="noopener">
+        <i class="fas fa-arrow-up-right-from-square"></i> Verify Certificate
+      </a>
+    </div>
+  `;
+}
+
+function populateGrid(certs, gridId, countId) {
+  const grid  = document.getElementById(gridId);
+  const count = document.getElementById(countId);
+  if (!grid) return;
+
+  if (!certs || certs.length === 0) {
+    grid.innerHTML = `<p style="color:var(--muted);font-size:.88rem;padding:.5rem 0">No certificates added yet — edit <code>certs.json</code> to add some.</p>`;
+    if (count) count.textContent = '0';
+    return;
+  }
+
+  grid.innerHTML = certs.map(renderCertCard).join('');
+  if (count) count.textContent = certs.length;
+
+  // Observe new cards for scroll-reveal
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+async function loadCerts() {
+  try {
+    const res  = await fetch('/certs.json');
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    populateGrid(data.coursera || [], 'courseraGrid', 'courseraCount');
+    populateGrid(data.ncsa     || [], 'ncsaGrid',     'ncsaCount');
+  } catch {
+    ['courseraGrid','ncsaGrid'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = `<p style="color:var(--muted);font-size:.88rem">Could not load certificates.</p>`;
+    });
+  }
+}
+
+/* ── Certificate tabs ───────────────────────────────────── */
+document.querySelectorAll('.cert-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.cert-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cert-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById(`panel-${tab.dataset.tab}`);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+/* ── Init async loads ───────────────────────────────────── */
+loadHTB();
+loadCerts();

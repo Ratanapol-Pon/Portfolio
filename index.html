@@ -30,6 +30,7 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#learning">Progress</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -411,6 +412,107 @@
                 <span class="tag sm">Preparing for OSCP</span>
               </div>
             </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LEARNING & PROGRESS ─── -->
+  <section class="section" id="learning">
+    <div class="container">
+      <h2 class="section-title">Learning &amp; Progress</h2>
+
+      <!-- HackTheBox -->
+      <div class="learn-block">
+        <h3 class="learn-subtitle">
+          <span class="learn-icon htb-color"><i class="fas fa-cube"></i></span>
+          HackTheBox
+        </h3>
+        <div class="glass-card htb-card" id="htbCard">
+
+          <!-- Loading -->
+          <div class="htb-state" id="htbLoading">
+            <i class="fas fa-circle-notch fa-spin htb-spin"></i>
+            <span>Fetching live data…</span>
+          </div>
+
+          <!-- Live (filled by JS) -->
+          <div id="htbLive" class="hidden"></div>
+
+          <!-- Static fallback -->
+          <div id="htbFallback" class="hidden">
+            <div class="htb-header">
+              <div class="htb-avatar-box">
+                <i class="fas fa-cube htb-cube-icon"></i>
+              </div>
+              <div class="htb-header-info">
+                <h3 class="htb-name">ReRoyZ</h3>
+                <div class="htb-meta">
+                  <span class="htb-rank-badge rank-beginner">Beginner</span>
+                  <span class="htb-loc"><i class="fas fa-location-dot"></i> Thailand</span>
+                </div>
+              </div>
+              <a href="https://profile.hackthebox.com/ReRoyZ" class="btn btn-htb" target="_blank" rel="noopener">
+                <i class="fas fa-arrow-up-right-from-square"></i> View Profile
+              </a>
+            </div>
+            <div class="htb-stats-row">
+              <div class="htb-stat-box">
+                <span class="htb-stat-num">13</span>
+                <span class="htb-stat-lbl">Level</span>
+              </div>
+              <div class="htb-stat-box">
+                <span class="htb-stat-num">356</span>
+                <span class="htb-stat-lbl">XP</span>
+              </div>
+              <div class="htb-stat-box">
+                <span class="htb-stat-num">♦♦♦</span>
+                <span class="htb-stat-lbl">Grade</span>
+              </div>
+            </div>
+            <div class="htb-xp-wrap">
+              <div class="htb-xp-labels">
+                <span>Level 13 Progress</span>
+                <span>356 / 376 XP</span>
+              </div>
+              <div class="htb-xp-bar">
+                <div class="htb-xp-fill" style="width:94.7%"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Certificates -->
+      <div class="learn-block">
+        <h3 class="learn-subtitle">
+          <span class="learn-icon cert-color"><i class="fas fa-certificate"></i></span>
+          Certificates
+          <span class="learn-hint">Edit <code>certs.json</code> to add new certificates</span>
+        </h3>
+
+        <div class="cert-tabs">
+          <button class="cert-tab active" data-tab="coursera">
+            <i class="fas fa-graduation-cap"></i> Coursera
+            <span class="cert-count" id="courseraCount">–</span>
+          </button>
+          <button class="cert-tab" data-tab="ncsa">
+            <i class="fas fa-shield-halved"></i> MOOC NCSA
+            <span class="cert-count" id="ncsaCount">–</span>
+          </button>
+        </div>
+
+        <div class="cert-panel active" id="panel-coursera">
+          <div class="cert-grid" id="courseraGrid">
+            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+          </div>
+        </div>
+        <div class="cert-panel" id="panel-ncsa">
+          <div class="cert-grid" id="ncsaGrid">
+            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
           </div>
         </div>
 
