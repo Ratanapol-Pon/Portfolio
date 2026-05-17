@@ -159,7 +159,7 @@ async function loadHTB() {
     live.classList.remove('hidden');
 
     const achieveDetail = document.getElementById('htbAchieveDetail');
-    if (achieveDetail) {
+    if (achieveDetail && (data.rank || data.level)) {
       achieveDetail.textContent = `Rank: ${data.rank || 'Beginner'} · Level ${data.level ?? '—'} — working through HTB Academy modules and Beginner-track challenges`;
     }
   } catch {
