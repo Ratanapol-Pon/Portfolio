@@ -19,7 +19,7 @@ exports.handler = async () => {
   }
 
   try {
-    const res = await fetch('https://www.hackthebox.com/api/v4/user/info', {
+    const res = await fetch('https://www.hackthebox.com/api/v4/profile/info', {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -36,7 +36,7 @@ exports.handler = async () => {
     }
 
     const json = await res.json();
-    const u = json.info;
+    const u = json.info ?? json.profile ?? json;
 
     return {
       statusCode: 200,
