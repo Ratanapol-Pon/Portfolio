@@ -257,3 +257,26 @@ document.querySelectorAll('.cert-tab').forEach(tab => {
 /* ── Init async loads ───────────────────────────────────── */
 loadHTB();
 loadCerts();
+
+/* ── GA4 section dwell-time tracking ───────────────────── */
+const sectionTimers = {};
+const dwellObserver = new IntersectionObserver(
+  entries => entries.forEach(e => {
+    const id = e.target.id;
+    if (e.isIntersecting) {
+      sectionTimers[id] = Date.now();
+    } else if (sectionTimers[id]) {
+      const seconds = Math.round((Date.now() - sectionTimers[id]) / 1000);
+      if (seconds > 1 && typeof gtag !== 'undefined') {
+        gtag('event', 'section_dwell', {
+          section_id: id,
+          seconds_spent: seconds,
+        });
+      }
+      delete sectionTimers[id];
+    }
+  }),
+  { threshold: 0.3 }
+);
+
+document.querySelectorAll('section[id]').forEach(sec => dwellObserver.observe(sec));
