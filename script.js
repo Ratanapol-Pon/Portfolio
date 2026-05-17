@@ -157,6 +157,11 @@ async function loadHTB() {
     live.innerHTML = renderHTBLive(data);
     loading.classList.add('hidden');
     live.classList.remove('hidden');
+
+    const achieveDetail = document.getElementById('htbAchieveDetail');
+    if (achieveDetail) {
+      achieveDetail.textContent = `Rank: ${data.rank || 'Beginner'} · Level ${data.level ?? '—'} — working through HTB Academy modules and Beginner-track challenges`;
+    }
   } catch {
     loading.classList.add('hidden');
     fallback.classList.remove('hidden');
