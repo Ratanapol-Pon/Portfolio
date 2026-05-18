@@ -79,7 +79,7 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll(
-  '.glass-card, .section-title, .section-sub, .tl-item, .hero-text > *'
+  '.card, .section-title, .section-sub, .tl-item, .hero-inner > *'
 ).forEach((el, i) => {
   el.classList.add('reveal');
   el.style.transitionDelay = `${(i % 5) * 0.07}s`;
@@ -191,7 +191,7 @@ function renderCertCard(c) {
   const tags   = (c.skills || []).map(s => `<span class="tag sm">${s}</span>`).join('');
 
   return `
-    <div class="glass-card cert-card reveal">
+    <div class="cert-card reveal">
       <div class="cert-card-top">
         <div class="cert-platform-icon ${iconClass}">${iconLabel}</div>
         <div class="cert-meta">

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rattanapol Chongchirakitkul | Cybersecurity & ICT</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DF2G53VKGS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,24 +15,14 @@
     gtag('js', new Date());
     gtag('config', 'G-DF2G53VKGS');
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Animated background blobs -->
-  <div class="bg-scene" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
-
-  <!-- ─── NAVBAR ─── -->
+  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="#home" class="nav-logo">
-        <span class="bracket">&lt;</span>RC<span class="bracket">/&gt;</span>
+        <span class="accent">&lt;</span>RC<span class="accent">/&gt;</span>
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
@@ -47,18 +40,21 @@
     </div>
   </nav>
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO -->
   <section class="hero" id="home">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <p class="hero-greeting">Hello, I'm</p>
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-status">
+          <span class="status-dot"></span>
+          Final Year · Mahidol University · Bangkok, Thailand
+        </p>
         <h1 class="hero-name">Rattanapol<br /><span class="accent">Chongchirakitkul</span></h1>
         <div class="hero-role">
           <span class="prompt">~$&nbsp;</span>
           <span id="typeTarget"></span><span class="caret">|</span>
         </div>
         <p class="hero-bio">
-          Final-year ICT student specialising in <strong>Computer Networks &amp; Cybersecurity</strong>
+          Final-year B.Sc. ICT student specialising in <strong>Computer Networks &amp; Cybersecurity</strong>
           at Mahidol University. Hands-on offensive security experience through CTF competitions and
           RAT research — balanced with enterprise defensive work using AWS, ELK, and Splunk SIEM.
           Bilingual in English and Thai.
@@ -67,19 +63,13 @@
           <a href="https://www.linkedin.com/in/rattanapol" class="btn btn-primary" target="_blank" rel="noopener">
             <i class="fab fa-linkedin"></i> LinkedIn
           </a>
-          <a href="https://github.com/Ratanapol-Pon" class="btn btn-glass" target="_blank" rel="noopener">
+          <a href="https://github.com/Ratanapol-Pon" class="btn btn-outline" target="_blank" rel="noopener">
             <i class="fab fa-github"></i> GitHub
           </a>
-          <a href="mailto:RatChng@hotmail.com" class="btn btn-glass">
+          <a href="mailto:RatChng@hotmail.com" class="btn btn-outline">
             <i class="fas fa-envelope"></i> Email
           </a>
         </div>
-      </div>
-      <div class="hero-avatar">
-        <div class="avatar-ring">
-          <div class="avatar-inner">RC</div>
-        </div>
-        <div class="avatar-badge"><i class="fas fa-shield-halved"></i> Cybersecurity</div>
       </div>
     </div>
     <a href="#about" class="scroll-hint" aria-label="Scroll down">
@@ -87,12 +77,12 @@
     </a>
   </section>
 
-  <!-- ─── ABOUT ─── -->
+  <!-- ABOUT -->
   <section class="section" id="about">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title">About</h2>
       <div class="about-grid">
-        <div class="glass-card about-bio">
+        <div class="card about-bio">
           <p>
             I'm a final-year <strong>B.Sc. Information &amp; Communication Technology</strong> student
             (International Program) at <strong>Mahidol University</strong>, majoring in Computer Networks,
@@ -108,24 +98,20 @@
             aim to bridge the gap between red-team findings and blue-team defence.
           </p>
         </div>
-        <div class="stats-grid">
-          <div class="glass-card stat-card">
-            <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+        <div class="stats-row">
+          <div class="stat-item">
             <div class="stat-val">60<span class="stat-unit">th</span></div>
-            <div class="stat-label">ARCHA CTF 2026<br />out of 244 teams</div>
+            <div class="stat-label">ARCHA CTF 2026<br/>out of 244 teams</div>
           </div>
-          <div class="glass-card stat-card">
-            <div class="stat-icon"><i class="fas fa-flag"></i></div>
+          <div class="stat-item">
             <div class="stat-val">3</div>
             <div class="stat-label">CTF Competitions</div>
           </div>
-          <div class="glass-card stat-card">
-            <div class="stat-icon"><i class="fas fa-code"></i></div>
+          <div class="stat-item">
             <div class="stat-val">7<span class="stat-unit">+</span></div>
             <div class="stat-label">Languages Known</div>
           </div>
-          <div class="glass-card stat-card">
-            <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="stat-item">
             <div class="stat-val">2.99</div>
             <div class="stat-label">Cumulative GPA</div>
           </div>
@@ -134,15 +120,15 @@
     </div>
   </section>
 
-  <!-- ─── SKILLS ─── -->
+  <!-- SKILLS -->
   <section class="section" id="skills">
     <div class="container">
       <h2 class="section-title">Skills</h2>
       <div class="skills-grid">
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon red"><i class="fas fa-crosshairs"></i></span>
+            <span class="skill-icon" style="color:#f87171"><i class="fas fa-crosshairs"></i></span>
             <h3>Penetration Testing &amp; Offensive</h3>
           </div>
           <div class="tags">
@@ -153,9 +139,9 @@
           </div>
         </div>
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon blue"><i class="fas fa-shield-halved"></i></span>
+            <span class="skill-icon" style="color:#60a5fa"><i class="fas fa-shield-halved"></i></span>
             <h3>Defensive Security &amp; Analysis</h3>
           </div>
           <div class="tags">
@@ -168,9 +154,9 @@
           </div>
         </div>
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon green"><i class="fas fa-code"></i></span>
+            <span class="skill-icon" style="color:#4ade80"><i class="fas fa-code"></i></span>
             <h3>Programming Languages</h3>
           </div>
           <div class="tags">
@@ -184,9 +170,9 @@
           </div>
         </div>
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon purple"><i class="fas fa-screwdriver-wrench"></i></span>
+            <span class="skill-icon" style="color:#c084fc"><i class="fas fa-screwdriver-wrench"></i></span>
             <h3>Tools &amp; Platforms</h3>
           </div>
           <div class="tags">
@@ -201,9 +187,9 @@
           </div>
         </div>
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon cyan"><i class="fas fa-network-wired"></i></span>
+            <span class="skill-icon" style="color:var(--accent)"><i class="fas fa-network-wired"></i></span>
             <h3>Networking</h3>
           </div>
           <div class="tags">
@@ -215,9 +201,9 @@
           </div>
         </div>
 
-        <div class="glass-card skill-card">
+        <div class="card skill-card">
           <div class="skill-head">
-            <span class="skill-icon yellow"><i class="fas fa-language"></i></span>
+            <span class="skill-icon" style="color:#facc15"><i class="fas fa-language"></i></span>
             <h3>Languages</h3>
           </div>
           <div class="tags">
@@ -230,7 +216,7 @@
     </div>
   </section>
 
-  <!-- ─── EXPERIENCE ─── -->
+  <!-- EXPERIENCE -->
   <section class="section" id="experience">
     <div class="container">
       <h2 class="section-title">Experience</h2>
@@ -238,7 +224,7 @@
 
         <div class="tl-item">
           <div class="tl-dot"></div>
-          <div class="glass-card tl-card">
+          <div class="card tl-card">
             <div class="tl-header">
               <div>
                 <h3>IT Audit Lecturer Assistant</h3>
@@ -255,7 +241,7 @@
 
         <div class="tl-item">
           <div class="tl-dot"></div>
-          <div class="glass-card tl-card">
+          <div class="card tl-card">
             <div class="tl-header">
               <div>
                 <h3>Network and Security Intern</h3>
@@ -272,7 +258,7 @@
 
         <div class="tl-item">
           <div class="tl-dot"></div>
-          <div class="glass-card tl-card">
+          <div class="card tl-card">
             <div class="tl-header">
               <div>
                 <h3>Lecturer Assistant</h3>
@@ -291,19 +277,16 @@
     </div>
   </section>
 
-  <!-- ─── PROJECTS ─── -->
+  <!-- PROJECTS -->
   <section class="section" id="projects">
     <div class="container">
-      <h2 class="section-title">Academic Research &amp; Projects</h2>
+      <h2 class="section-title">Research &amp; Projects</h2>
       <div class="projects-grid">
 
-        <div class="glass-card project-card">
+        <div class="card project-card">
           <div class="project-top">
-            <div class="project-icon cyan-grad"><i class="fas fa-magnifying-glass-chart"></i></div>
-            <div>
-              <span class="project-type">Senior Project</span>
-              <span class="badge purple">IAIT 2026 — In Preparation</span>
-            </div>
+            <span class="project-type">Senior Project</span>
+            <span class="badge">IAIT 2026 — In Preparation</span>
           </div>
           <h3>Anomaly Detection &amp; Alerting System Utilising Splunk Free License</h3>
           <p>
@@ -321,12 +304,9 @@
           </div>
         </div>
 
-        <div class="glass-card project-card">
+        <div class="card project-card">
           <div class="project-top">
-            <div class="project-icon red-grad"><i class="fas fa-bug"></i></div>
-            <div>
-              <span class="project-type">Security Research</span>
-            </div>
+            <span class="project-type">Security Research</span>
           </div>
           <h3>Remote Access Trojan (RAT) Investigation for Prevention</h3>
           <p>
@@ -348,20 +328,19 @@
     </div>
   </section>
 
-  <!-- ─── ACHIEVEMENTS ─── -->
+  <!-- ACHIEVEMENTS -->
   <section class="section" id="achievements">
     <div class="container">
       <h2 class="section-title">Achievements &amp; Training</h2>
       <div class="achieve-grid">
 
-        <div class="glass-card achieve-card">
-          <div class="achieve-icon orange"><i class="fas fa-flag"></i></div>
-          <h3>CTF Competitions</h3>
+        <div class="card achieve-card">
+          <h3><i class="fas fa-flag"></i> CTF Competitions</h3>
           <div class="achieve-list">
             <div class="achieve-item">
               <div class="achieve-name">ARCHA CTF 2026 (DropCTF)</div>
               <div class="achieve-detail">60th place / 244 teams — National level</div>
-              <div class="tags mt-6">
+              <div class="tags mt-4">
                 <span class="tag sm">Networking</span>
                 <span class="tag sm">Web Exploitation</span>
                 <span class="tag sm">Cryptography</span>
@@ -371,7 +350,7 @@
             <div class="achieve-item">
               <div class="achieve-name">Thailand Cyber Top Talent 2025 (NCSA)</div>
               <div class="achieve-detail">Team "Fallen Feline" — Mahidol University</div>
-              <div class="tags mt-6">
+              <div class="tags mt-4">
                 <span class="tag sm">Web Exploitation</span>
                 <span class="tag sm">Forensics</span>
               </div>
@@ -383,14 +362,13 @@
           </div>
         </div>
 
-        <div class="glass-card achieve-card">
-          <div class="achieve-icon yellow"><i class="fas fa-certificate"></i></div>
-          <h3>Certifications</h3>
+        <div class="card achieve-card">
+          <h3><i class="fas fa-certificate"></i> Certifications</h3>
           <div class="achieve-list">
             <div class="achieve-item">
               <div class="achieve-name">IELTS Academic — Overall Band 6.5 (CEFR B2)</div>
               <div class="achieve-detail">British Council / IDP — January 2026</div>
-              <div class="tags mt-6">
+              <div class="tags mt-4">
                 <span class="tag sm">Listening 6.5</span>
                 <span class="tag sm">Reading 6.5</span>
                 <span class="tag sm">Writing 6.5</span>
@@ -408,14 +386,13 @@
           </div>
         </div>
 
-        <div class="glass-card achieve-card">
-          <div class="achieve-icon green"><i class="fas fa-terminal"></i></div>
-          <h3>Self-Directed Practice</h3>
+        <div class="card achieve-card">
+          <h3><i class="fas fa-terminal"></i> Self-Directed Practice</h3>
           <div class="achieve-list">
             <div class="achieve-item">
               <div class="achieve-name">HackTheBox</div>
               <div class="achieve-detail" id="htbAchieveDetail">Working through HTB Academy modules and Beginner-track challenges</div>
-              <div class="tags mt-6">
+              <div class="tags mt-4">
                 <span class="tag sm">Preparing for OSCP</span>
               </div>
             </div>
@@ -426,29 +403,22 @@
     </div>
   </section>
 
-  <!-- ─── LEARNING & PROGRESS ─── -->
+  <!-- LEARNING & PROGRESS -->
   <section class="section" id="learning">
     <div class="container">
       <h2 class="section-title">Learning &amp; Progress</h2>
 
-      <!-- HackTheBox -->
       <div class="learn-block">
         <h3 class="learn-subtitle">
           <span class="learn-icon htb-color"><i class="fas fa-cube"></i></span>
           HackTheBox
         </h3>
-        <div class="glass-card htb-card" id="htbCard">
-
-          <!-- Loading -->
+        <div class="card htb-card" id="htbCard">
           <div class="htb-state" id="htbLoading">
             <i class="fas fa-circle-notch fa-spin htb-spin"></i>
             <span>Fetching live data…</span>
           </div>
-
-          <!-- Live (filled by JS) -->
           <div id="htbLive" class="hidden"></div>
-
-          <!-- Static fallback -->
           <div id="htbFallback" class="hidden">
             <div class="htb-header">
               <div class="htb-avatar-box">
@@ -460,7 +430,7 @@
                   <span class="htb-loc"><i class="fas fa-location-dot"></i> Thailand</span>
                 </div>
               </div>
-              <a href="https://profile.hackthebox.com/ReRoyZ" class="btn btn-htb" target="_blank" rel="noopener">
+              <a href="https://profile.hackthebox.com/ReRoyZ" class="btn-htb" target="_blank" rel="noopener">
                 <i class="fas fa-arrow-up-right-from-square"></i> View Profile
               </a>
             </div>
@@ -469,17 +439,14 @@
               <span>Live stats unavailable — visit the profile for up-to-date progress.</span>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- Certificates -->
       <div class="learn-block">
         <h3 class="learn-subtitle">
           <span class="learn-icon cert-color"><i class="fas fa-certificate"></i></span>
           Certificates
         </h3>
-
         <div class="cert-tabs">
           <button class="cert-tab active" data-tab="coursera">
             <i class="fas fa-graduation-cap"></i> Coursera
@@ -490,7 +457,6 @@
             <span class="cert-count" id="ncsaCount">–</span>
           </button>
         </div>
-
         <div class="cert-panel active" id="panel-coursera">
           <div class="cert-grid" id="courseraGrid">
             <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
@@ -501,16 +467,15 @@
             <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ─── EDUCATION ─── -->
+  <!-- EDUCATION -->
   <section class="section" id="education">
     <div class="container">
       <h2 class="section-title">Education</h2>
-      <div class="glass-card edu-card">
+      <div class="card edu-card">
         <div class="edu-logo">
           <i class="fas fa-university"></i>
         </div>
@@ -537,28 +502,28 @@
     </div>
   </section>
 
-  <!-- ─── CONTACT ─── -->
+  <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="container">
       <h2 class="section-title">Get In Touch</h2>
       <p class="section-sub">Open to cybersecurity roles, internships, and collaborations.</p>
       <div class="contact-grid">
-        <a href="mailto:RatChng@hotmail.com" class="glass-card contact-card">
+        <a href="mailto:RatChng@hotmail.com" class="card contact-card">
           <i class="fas fa-envelope"></i>
           <h3>Email</h3>
           <p>RatChng@hotmail.com</p>
         </a>
-        <a href="https://www.linkedin.com/in/rattanapol" class="glass-card contact-card" target="_blank" rel="noopener">
+        <a href="https://www.linkedin.com/in/rattanapol" class="card contact-card" target="_blank" rel="noopener">
           <i class="fab fa-linkedin"></i>
           <h3>LinkedIn</h3>
           <p>/in/rattanapol</p>
         </a>
-        <a href="https://github.com/Ratanapol-Pon" class="glass-card contact-card" target="_blank" rel="noopener">
+        <a href="https://github.com/Ratanapol-Pon" class="card contact-card" target="_blank" rel="noopener">
           <i class="fab fa-github"></i>
           <h3>GitHub</h3>
           <p>Ratanapol-Pon</p>
         </a>
-        <div class="glass-card contact-card static">
+        <div class="card contact-card static">
           <i class="fas fa-phone"></i>
           <h3>Phone</h3>
           <p>065-951-9065</p>
@@ -567,12 +532,10 @@
     </div>
   </section>
 
-  <!-- ─── FOOTER ─── -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p class="footer-logo">
-        <span class="bracket">&lt;</span>Rattanapol Chongchirakitkul<span class="bracket">/&gt;</span>
-      </p>
+      <p class="footer-logo"><span class="accent">&lt;</span>Rattanapol Chongchirakitkul<span class="accent">/&gt;</span></p>
       <p class="footer-copy">© 2026 · Bangkok, Thailand</p>
     </div>
   </footer>
