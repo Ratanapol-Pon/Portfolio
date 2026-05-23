@@ -19,6 +19,26 @@
         "Data Ethics",
         "Security Controls"
       ]
+    },
+    {
+      "title": "Play It Safe: Manage Security Risks",
+      "issuer": "Google",
+      "platform": "Coursera",
+      "date": "May 2026",
+      "grade": "88.42%",
+      "hours": "9 hours",
+      "link": "https://coursera.org/share/a624ad90769d2e527bfdc8650efeef56",
+      "skills": [
+        "Threat Management",
+        "Risk Analysis",
+        "Event Monitoring",
+        "Cybersecurity",
+        "Threat Detection",
+        "Business Risk Management",
+        "Risk Management Framework",
+        "Computer Security",
+        "Risk Mitigation"
+      ]
     }
   ],
   "ncsa": [
@@ -34,6 +54,20 @@
         "Network Security",
         "Information Security",
         "Cyber Threats"
+      ]
+    }
+  ],
+  "workshop": [
+    {
+      "title": "ThaiREN Cloud Virtualization Workshop",
+      "issuer": "NSRC / Kasetsart University",
+      "platform": "ThaiREN",
+      "date": "May 19–21, 2026",
+      "skills": [
+        "Cloud Virtualization",
+        "Network Infrastructure",
+        "Linux Networking",
+        "Virtualization Technologies"
       ]
     }
   ]

@@ -180,6 +180,7 @@ function certPlatformLabel(issuer) {
   const low = (issuer || '').toLowerCase();
   if (low.includes('google'))  return '<i class="fab fa-google"></i>';
   if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved"></i>';
+  if (low.includes('nsrc') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud"></i>';
   return '<i class="fas fa-graduation-cap"></i>';
 }
 
@@ -203,9 +204,7 @@ function renderCertCard(c) {
       ${grade}
       ${certId}
       <div class="tags">${tags}</div>
-      <a href="${c.link}" class="cert-btn" target="_blank" rel="noopener">
-        <i class="fas fa-arrow-up-right-from-square"></i> Verify Certificate
-      </a>
+      ${c.link ? `<a href="${c.link}" class="cert-btn" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Verify Certificate</a>` : ''}
     </div>
   `;
 }
@@ -233,8 +232,9 @@ async function loadCerts() {
     const res  = await fetch('/certs.json');
     if (!res.ok) throw new Error();
     const data = await res.json();
-    populateGrid(data.coursera || [], 'courseraGrid', 'courseraCount');
-    populateGrid(data.ncsa     || [], 'ncsaGrid',     'ncsaCount');
+    populateGrid(data.coursera || [], 'courseraGrid',  'courseraCount');
+    populateGrid(data.ncsa     || [], 'ncsaGrid',      'ncsaCount');
+    populateGrid(data.workshop || [], 'workshopGrid',  'workshopCount');
   } catch {
     ['courseraGrid','ncsaGrid'].forEach(id => {
       const el = document.getElementById(id);
