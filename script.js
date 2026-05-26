@@ -71,12 +71,10 @@ function rankClass(rank) {
 }
 
 function renderHTBLive(d) {
-  const owns = (d.user_owns != null && d.system_owns != null)
-    ? `<div class="htb-stat-box"><span class="htb-stat-num">${d.user_owns + d.system_owns}</span><span class="htb-stat-lbl">Machines Owned</span></div>`
-    : '';
-  const ranking = d.ranking
-    ? `<div class="htb-stat-box"><span class="htb-stat-num">#${d.ranking.toLocaleString()}</span><span class="htb-stat-lbl">Global Rank</span></div>`
-    : '';
+  const machines   = d.user_owns      != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${d.user_owns}</span><span class="htb-stat-lbl">Machines</span></div>` : '';
+  const challenges = d.challenge_owns != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${d.challenge_owns}</span><span class="htb-stat-lbl">Challenges</span></div>` : '';
+  const ranking    = d.ranking        != null ? `<div class="htb-stat-box"><span class="htb-stat-num">#${d.ranking.toLocaleString()}</span><span class="htb-stat-lbl">Global Rank</span></div>` : '';
+  const progress   = d.rank_progress  != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${Math.round(d.rank_progress)}%</span><span class="htb-stat-lbl">To ${d.next_rank || 'Next Rank'}</span></div>` : '';
   const avatar = d.avatar
     ? `<img src="${d.avatar}" alt="${d.name}" class="htb-avatar" />`
     : `<div class="htb-avatar-box"><i class="fas fa-cube htb-cube-icon"></i></div>`;
@@ -87,7 +85,7 @@ function renderHTBLive(d) {
       <div class="htb-header-info">
         <h3 class="htb-name">${d.name}</h3>
         <div class="htb-meta">
-          <span class="htb-rank-badge ${rankClass(d.rank)}">${d.rank || 'Beginner'}</span>
+          <span class="htb-rank-badge ${rankClass(d.rank)}">${d.rank || 'Noob'}</span>
           ${d.country ? `<span class="htb-loc"><i class="fas fa-location-dot"></i> ${d.country}</span>` : ''}
         </div>
       </div>
@@ -96,13 +94,10 @@ function renderHTBLive(d) {
       </a>
     </div>
     <div class="htb-stats-row">
-      <div class="htb-stat-box">
-        <span class="htb-stat-num">${d.points != null ? d.points : '—'}</span>
-        <span class="htb-stat-lbl">Points</span>
-      </div>
-      ${owns}
+      ${machines}
+      ${challenges}
       ${ranking}
-      ${d.rank_progress != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${Math.round(d.rank_progress)}%</span><span class="htb-stat-lbl">To ${d.next_rank || 'Next Rank'}</span></div>` : ''}
+      ${progress}
     </div>
   `;
 }
