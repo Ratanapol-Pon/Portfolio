@@ -28,15 +28,23 @@ exports.handler = async () => {
     });
 
     if (!res.ok) {
+      const errBody = await res.text();
       return {
         statusCode: res.status,
         headers,
-        body: JSON.stringify({ error: `HTB API responded with ${res.status}` }),
+        body: JSON.stringify({ error: `HTB API responded with ${res.status}`, detail: errBody }),
       };
     }
 
     const json = await res.json();
     const u = json.info ?? json.profile ?? json;
+    if (!u || !u.name) {
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({ error: 'Unexpected API shape', raw: JSON.stringify(json).slice(0, 300) }),
+      };
+    }
 
     return {
       statusCode: 200,
