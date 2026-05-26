@@ -160,16 +160,9 @@ strong { color: var(--text); font-weight: 600; }
   padding: 0 2rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.nav-logo {
-  font-family: var(--mono);
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--text);
-  text-decoration: none;
-}
 
 .nav-links {
   display: flex;
