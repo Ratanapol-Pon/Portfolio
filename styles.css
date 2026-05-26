@@ -127,7 +127,7 @@ strong { color: var(--text); font-weight: 600; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 1.1rem 0;
+  padding: 1.6rem 0;
   transition: background 0.3s, border-color 0.3s;
 }
 
@@ -149,7 +149,7 @@ strong { color: var(--text); font-weight: 600; }
 
 .nav-logo {
   font-family: var(--mono);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--text);
   text-decoration: none;
@@ -164,7 +164,7 @@ strong { color: var(--text); font-weight: 600; }
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.855rem;
+  font-size: 0.95rem;
   font-weight: 400;
   transition: color 0.2s;
 }
@@ -203,29 +203,6 @@ strong { color: var(--text); font-weight: 600; }
 
 .hero-inner { max-width: 680px; }
 
-.hero-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-bottom: 1.6rem;
-  letter-spacing: 0.3px;
-}
-
-.status-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #4ade80;
-  flex-shrink: 0;
-  animation: pulse-dot 2.5s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.35; }
-}
 
 .hero-name {
   font-family: var(--heading);
@@ -236,24 +213,6 @@ strong { color: var(--text); font-weight: 600; }
   margin-bottom: 1.2rem;
 }
 
-.hero-role {
-  font-family: var(--mono);
-  font-size: 0.97rem;
-  color: var(--muted);
-  margin-bottom: 1.6rem;
-  min-height: 1.7em;
-  display: flex;
-  align-items: center;
-}
-
-.prompt { color: var(--accent); }
-
-.caret {
-  color: var(--accent);
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
 .hero-bio {
   color: var(--muted);
@@ -836,6 +795,7 @@ strong { color: var(--text); font-weight: 600; }
   border-radius: 0;
   border: none;
   transition: background 0.2s;
+  cursor: pointer;
 }
 
 .contact-card:hover:not(.static) { background: #1c1c1c; }

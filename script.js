@@ -1,36 +1,3 @@
-/* ── Typing animation ──────────────────────────────────── */
-const roles = [
-  'Cybersecurity Student',
-  'Network Security Enthusiast',
-  'CTF Competitor',
-  'Penetration Tester (Aspiring)',
-  'SIEM & Log Analyst',
-  'OSCP Candidate',
-];
-
-let roleIdx = 0, charIdx = 0, deleting = false;
-const typeEl = document.getElementById('typeTarget');
-
-function type() {
-  const word = roles[roleIdx];
-  typeEl.textContent = deleting
-    ? word.slice(0, charIdx - 1)
-    : word.slice(0, charIdx + 1);
-
-  deleting ? charIdx-- : charIdx++;
-
-  if (!deleting && charIdx === word.length) {
-    setTimeout(() => { deleting = true; }, 2200);
-  } else if (deleting && charIdx === 0) {
-    deleting = false;
-    roleIdx = (roleIdx + 1) % roles.length;
-  }
-
-  setTimeout(type, deleting ? 45 : 75);
-}
-
-type();
-
 /* ── Navbar scroll + active link ───────────────────────── */
 const navbar  = document.getElementById('navbar');
 const sections = document.querySelectorAll('section[id]');
