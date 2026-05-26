@@ -97,15 +97,12 @@ function renderHTBLive(d) {
     </div>
     <div class="htb-stats-row">
       <div class="htb-stat-box">
-        <span class="htb-stat-num">${d.level ?? '—'}</span>
-        <span class="htb-stat-lbl">Level</span>
-      </div>
-      <div class="htb-stat-box">
         <span class="htb-stat-num">${d.points != null ? d.points : '—'}</span>
         <span class="htb-stat-lbl">Points</span>
       </div>
       ${owns}
       ${ranking}
+      ${d.rank_progress != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${Math.round(d.rank_progress)}%</span><span class="htb-stat-lbl">To ${d.next_rank || 'Next Rank'}</span></div>` : ''}
     </div>
   `;
 }
@@ -126,8 +123,9 @@ async function loadHTB() {
     live.classList.remove('hidden');
 
     const achieveDetail = document.getElementById('htbAchieveDetail');
-    if (achieveDetail && (data.rank || data.level)) {
-      achieveDetail.textContent = `Rank: ${data.rank || 'Beginner'} · Level ${data.level ?? '—'} — working through HTB Academy modules and Beginner-track challenges`;
+    if (achieveDetail && data.rank) {
+      const progress = data.rank_progress != null ? ` · ${Math.round(data.rank_progress)}% to ${data.next_rank || 'next rank'}` : '';
+      achieveDetail.textContent = `Rank: ${data.rank}${progress} — working through HTB challenges and Beginner track`;
     }
   } catch {
     loading.classList.add('hidden');
