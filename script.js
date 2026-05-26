@@ -91,7 +91,7 @@ function renderHTBLive(d) {
           ${d.country ? `<span class="htb-loc"><i class="fas fa-location-dot"></i> ${d.country}</span>` : ''}
         </div>
       </div>
-      <a href="https://profile.hackthebox.com/${d.name}" class="btn btn-htb" target="_blank" rel="noopener">
+      <a href="https://app.hackthebox.com/profile/${d.id}" class="btn btn-htb" target="_blank" rel="noopener">
         <i class="fas fa-arrow-up-right-from-square"></i> View Profile
       </a>
     </div>

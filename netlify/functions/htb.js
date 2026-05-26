@@ -61,6 +61,7 @@ exports.handler = async () => {
     statusCode: 200,
     headers: { ...respHeaders, 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     body: JSON.stringify({
+      id:            HTB_UID,
       name:          raw.name,
       rank:          raw.rank           ?? raw.rank_name       ?? raw.current_rank  ?? null,
       rank_id:       raw.rank_id        ?? null,
