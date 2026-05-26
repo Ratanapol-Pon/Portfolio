@@ -19,7 +19,7 @@ exports.handler = async () => {
   }
 
   try {
-    const res = await fetch('https://www.hackthebox.com/api/v4/profile/info', {
+    const res = await fetch('https://www.hackthebox.com/api/v4/user/info', {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
