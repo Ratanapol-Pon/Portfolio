@@ -1,21 +1,20 @@
 // Netlify serverless function — proxies HackTheBox API v4
 // Requires env variable: HTB_APP_TOKEN
-// Generate at: app.hackthebox.com → Account Settings → API Tokens → Add New Token
+
+const HTB_UID  = 2950735;          // ReRoyZ — avoids an extra /user/info call
+const BASE_LAB = 'https://labs.hackthebox.com';
+const BASE_WWW = 'https://www.hackthebox.com';
 
 exports.handler = async () => {
   const token = process.env.HTB_APP_TOKEN;
 
-  const headers = {
+  const respHeaders = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   };
 
   if (!token) {
-    return {
-      statusCode: 503,
-      headers,
-      body: JSON.stringify({ error: 'HTB_APP_TOKEN not configured.' }),
-    };
+    return { statusCode: 503, headers: respHeaders, body: JSON.stringify({ error: 'HTB_APP_TOKEN not set.' }) };
   }
 
   const authHeaders = {
@@ -25,90 +24,55 @@ exports.handler = async () => {
   };
 
   async function tryGet(url) {
-    const res = await fetch(url, { headers: authHeaders });
-    const ct = res.headers.get('content-type') || '';
-    if (!ct.includes('json')) return null;
-    const json = await res.json();
-    if (!res.ok) return null;
-    return json;
-  }
-
-  // Step 1: find a working user/info endpoint and get the user ID
-  const infoUrls = [
-    'https://labs.hackthebox.com/api/v4/user/info',
-    'https://www.hackthebox.com/api/v4/user/info',
-  ];
-
-  let info = null;
-  let workingBase = null;
-
-  for (const url of infoUrls) {
     try {
-      const json = await tryGet(url);
-      const u = json?.info ?? json;
-      if (u?.id && u?.name) {
-        info = u;
-        workingBase = url.replace('/api/v4/user/info', '');
-        break;
-      }
-    } catch (_) {}
-  }
-
-  if (!info) {
-    return {
-      statusCode: 502,
-      headers,
-      body: JSON.stringify({ error: 'Could not fetch user info from any HTB endpoint' }),
-    };
-  }
-
-  // Step 2: fetch full profile stats using the discovered base URL and user ID
-  let p = {};
-  let profileError = null;
-
-  const profileUrls = [
-    `${workingBase}/api/v4/profile/${info.id}`,
-    `https://www.hackthebox.com/api/v4/profile/${info.id}`,
-    `https://labs.hackthebox.com/api/v4/profile/${info.id}`,
-  ];
-
-  for (const url of profileUrls) {
-    try {
-      const json = await tryGet(url);
-      const u = json?.profile ?? json;
-      if (u && (u.level != null || u.points != null || u.rank)) {
-        p = u;
-        profileError = null;
-        break;
-      }
-      profileError = `no stats in response from ${url}`;
-    } catch (e) {
-      profileError = `${url}: ${e.message}`;
+      const res = await fetch(url, { headers: authHeaders });
+      const ct  = res.headers.get('content-type') || '';
+      if (!ct.includes('json')) return null;
+      const json = await res.json();
+      return res.ok ? json : null;
+    } catch {
+      return null;
     }
   }
 
-  const avatar = p.avatar ?? info.avatar ?? null;
+  // Try multiple profile endpoints — accept the first that returns a name
+  const profileUrls = [
+    `${BASE_LAB}/api/v4/profile/${HTB_UID}`,
+    `${BASE_WWW}/api/v4/profile/${HTB_UID}`,
+    `${BASE_LAB}/api/v4/user/profile/basic/${HTB_UID}`,
+    `${BASE_WWW}/api/v4/user/profile/basic/${HTB_UID}`,
+  ];
+
+  let raw = null;
+  for (const url of profileUrls) {
+    const json = await tryGet(url);
+    const u = json?.profile ?? json?.info ?? json;
+    if (u?.name) { raw = u; break; }
+  }
+
+  if (!raw) {
+    return { statusCode: 502, headers: respHeaders, body: JSON.stringify({ error: 'All profile endpoints failed' }) };
+  }
+
+  // Cover every field-name variant HTB has used across API versions
+  const avatar = raw.avatar ?? raw.avatar_thumb ?? null;
 
   return {
     statusCode: 200,
-    headers: {
-      ...headers,
-      'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-    },
+    headers: { ...respHeaders, 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     body: JSON.stringify({
-      name:           p.name           ?? info.name,
-      rank:           p.rank           ?? null,
-      rank_id:        p.rank_id        ?? info.rank_id  ?? null,
-      level:          p.level          ?? null,
-      points:         p.points         ?? null,
-      ranking:        p.ranking        ?? null,
+      name:           raw.name,
+      rank:           raw.rank           ?? raw.rank_name        ?? raw.current_rank   ?? null,
+      rank_id:        raw.rank_id        ?? null,
+      level:          raw.level          ?? raw.current_level    ?? raw.user_level     ?? null,
+      points:         raw.points         ?? raw.user_points      ?? raw.total_points   ?? null,
+      ranking:        raw.ranking        ?? raw.global_rank      ?? raw.rank_position  ?? null,
       avatar:         avatar ? `https://www.hackthebox.com${avatar}` : null,
-      country:        p.country_name   ?? p.country     ?? null,
-      user_owns:      p.user_owns      ?? null,
-      system_owns:    p.system_owns    ?? null,
-      challenge_owns: p.challenge_owns ?? null,
-      _workingBase:   workingBase,
-      _profileError:  profileError,
+      country:        raw.country_name   ?? raw.country          ?? null,
+      user_owns:      raw.user_owns      ?? raw.userOwns         ?? null,
+      system_owns:    raw.system_owns    ?? raw.systemOwns       ?? null,
+      challenge_owns: raw.challenge_owns ?? raw.challengeOwns    ?? null,
+      _raw:           raw,
     }),
   };
 };
