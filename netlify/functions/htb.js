@@ -2,6 +2,8 @@
 // Requires env variable: HTB_APP_TOKEN
 // Generate at: app.hackthebox.com → Account Settings → API Tokens → Add New Token
 
+const BASE = 'https://www.hackthebox.com/api/v4';
+
 exports.handler = async () => {
   const token = process.env.HTB_APP_TOKEN;
 
@@ -24,57 +26,65 @@ exports.handler = async () => {
     'User-Agent': 'Portfolio/1.0',
   };
 
-  const candidates = [
-    'https://www.hackthebox.com/api/v4/user/info',
-    'https://www.hackthebox.com/api/v4/profile/info',
-    'https://labs.hackthebox.com/api/v4/user/info',
-  ];
-
-  for (const url of candidates) {
-    try {
-      const res = await fetch(url, { headers: authHeaders });
-      const ct = res.headers.get('content-type') || '';
-      if (!ct.includes('json')) continue;
-      if (!res.ok) continue;
-
-      const json = await res.json();
-      const u = json.info ?? json.profile ?? json;
-      if (!u || !u.name) continue;
-
-      // Return ALL raw fields for debugging + standard mapped fields
-      const avatar = u.avatar ?? u.avatar_thumb ?? null;
-
-      return {
-        statusCode: 200,
-        headers: {
-          ...headers,
-          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-        },
-        body: JSON.stringify({
-          // Mapped fields (used by frontend)
-          name:           u.name,
-          rank:           u.rank           ?? null,
-          rank_id:        u.rank_id        ?? null,
-          level:          u.current_level  ?? u.level          ?? null,
-          points:         u.points         ?? u.user_points    ?? null,
-          ranking:        u.ranking        ?? u.global_rank    ?? null,
-          avatar:         avatar ? `https://www.hackthebox.com${avatar}` : null,
-          country:        u.country_name   ?? u.country        ?? null,
-          user_owns:      u.user_owns      ?? null,
-          system_owns:    u.system_owns    ?? null,
-          challenge_owns: u.challenge_owns ?? null,
-          // Raw dump so we can see every field the API returns
-          _raw: u,
-        }),
-      };
-    } catch (_) {
-      continue;
-    }
+  async function htbGet(path) {
+    const res = await fetch(`${BASE}${path}`, { headers: authHeaders });
+    const ct = res.headers.get('content-type') || '';
+    if (!ct.includes('json')) throw new Error(`non-JSON from ${path} (status ${res.status})`);
+    const json = await res.json();
+    if (!res.ok) throw new Error(`${res.status} from ${path}: ${JSON.stringify(json).slice(0, 200)}`);
+    return json;
   }
 
-  return {
-    statusCode: 502,
-    headers,
-    body: JSON.stringify({ error: 'All HTB endpoints failed or returned no data' }),
-  };
+  try {
+    // Step 1: get user ID from basic info
+    const infoJson = await htbGet('/user/info');
+    const info = infoJson.info ?? infoJson;
+    const uid = info.id;
+
+    if (!uid) {
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({ error: 'No user ID returned', raw: infoJson }),
+      };
+    }
+
+    // Step 2: get full profile stats using the user ID
+    let p = {};
+    try {
+      const profJson = await htbGet(`/profile/${uid}`);
+      p = profJson.profile ?? profJson;
+    } catch (_) {
+      // profile fetch failed — p stays as {}
+    }
+
+    const avatar = p.avatar ?? info.avatar ?? null;
+
+    return {
+      statusCode: 200,
+      headers: {
+        ...headers,
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+      body: JSON.stringify({
+        name:           p.name           ?? info.name,
+        rank:           p.rank           ?? null,
+        rank_id:        p.rank_id        ?? info.rank_id ?? null,
+        level:          p.level          ?? null,
+        points:         p.points         ?? null,
+        ranking:        p.ranking        ?? null,
+        avatar:         avatar ? `https://www.hackthebox.com${avatar}` : null,
+        country:        p.country_name   ?? p.country ?? null,
+        user_owns:      p.user_owns      ?? null,
+        system_owns:    p.system_owns    ?? null,
+        challenge_owns: p.challenge_owns ?? null,
+      }),
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: err.message }),
+    };
+  }
 };
