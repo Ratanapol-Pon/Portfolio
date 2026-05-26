@@ -51,11 +51,12 @@ exports.handler = async () => {
 
     // Step 2: get full profile stats using the user ID
     let p = {};
+    let profileError = null;
     try {
       const profJson = await htbGet(`/profile/${uid}`);
       p = profJson.profile ?? profJson;
-    } catch (_) {
-      // profile fetch failed — p stays as {}
+    } catch (e) {
+      profileError = e.message;
     }
 
     const avatar = p.avatar ?? info.avatar ?? null;
@@ -78,6 +79,8 @@ exports.handler = async () => {
         user_owns:      p.user_owns      ?? null,
         system_owns:    p.system_owns    ?? null,
         challenge_owns: p.challenge_owns ?? null,
+        _profileError:  profileError,
+        _profileRaw:    Object.keys(p).length > 0 ? p : undefined,
       }),
     };
   } catch (err) {
