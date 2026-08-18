@@ -835,6 +835,7 @@ strong { color: var(--text); font-weight: 600; }
 
 .footer-logo { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
 .footer-copy { font-size: 0.78rem; color: var(--muted); }
+.footer-updated { font-size: 0.72rem; color: var(--muted); opacity: 0.75; margin-top: 0.3rem; font-family: var(--mono); }
 
 /* Scroll reveal */
 .reveal {
