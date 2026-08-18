@@ -84,21 +84,8 @@
     <div class="container">
       <div class="hero-inner">
         <h1 class="hero-name">Rattanapol<br /><span style="color:#8EB486">Chongchirakitkul</span></h1>
-        <p class="hero-bio">
-          <strong>Cybersecurity professional</strong> with hands-on offensive experience —
-          CTF competitions, HackTheBox, and RAT research — balanced with enterprise defensive
-          work using <strong>Splunk SIEM, ELK, and AWS log analysis</strong>. Now in
-          cybersecurity business development, bridging technical security capabilities with
-          business needs. Bilingual in English and Thai.
-        </p>
-        <div class="hero-cta">
-          <a href="https://www.linkedin.com/in/rattanapol" class="btn btn-linkedin" target="_blank" rel="noopener">
-            <i class="fab fa-linkedin"></i> LinkedIn
-          </a>
-          <a href="https://github.com/Ratanapol-Pon" class="btn btn-github" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-        </div>
+        <p class="hero-bio" id="heroBio"></p>
+        <div class="hero-cta" id="heroCta"></div>
       </div>
     </div>
     <a href="#about" class="scroll-hint" aria-label="Scroll down">
@@ -111,41 +98,8 @@
     <div class="container">
       <h2 class="section-title">About</h2>
       <div class="about-grid">
-        <div class="card about-bio">
-          <p>
-            I graduated in <strong>May 2026</strong> with a <strong>B.Sc. in Information &amp;
-            Communication Technology</strong> (International Program) from
-            <strong>Mahidol University</strong>, majoring in Computer Networks.
-          </p>
-          <p>
-            My experience spans both offensive and defensive cybersecurity — from building real-time SIEM detection
-            systems and analysing cloud logs during my internship at Gosoft (under CP ALL), to competing in
-            national CTF competitions and researching Remote Access Trojans in a controlled lab environment.
-          </p>
-          <p>
-            I now work in <strong>cybersecurity business development at JasTel Network</strong>, connecting
-            enterprise customers with the right security solutions — while continuing HackTheBox practice
-            in preparation for the <strong>OSCP certification</strong>.
-          </p>
-        </div>
-        <div class="stats-row">
-          <div class="stat-item">
-            <div class="stat-val stat-role">JasTel</div>
-            <div class="stat-label">Cyber Security Business Development<br/>Current Role</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-val">3</div>
-            <div class="stat-label">CTF Competitions<br/>best: 60th of 244 teams</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-val" id="statHtbRank">–</div>
-            <div class="stat-label">HackTheBox Global Rank<br/>(live)</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-val" id="statCertCount">–</div>
-            <div class="stat-label">Certifications &amp; Training</div>
-          </div>
-        </div>
+        <div class="card about-bio" id="aboutBio"></div>
+        <div class="stats-row" id="statsRow"></div>
       </div>
     </div>
   </section>
@@ -250,78 +204,7 @@
   <section class="section" id="experience">
     <div class="container">
       <h2 class="section-title">Experience</h2>
-      <div class="timeline">
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="card tl-card">
-            <div class="tl-header">
-              <div>
-                <h3>Cyber Security Business Development <span class="badge badge-current">Current</span></h3>
-                <span class="company">JasTel Network Co., Ltd.</span>
-              </div>
-              <span class="period">Jun 2026 – Present</span>
-            </div>
-            <ul class="tl-points">
-              <li>Bridge technical cybersecurity products with enterprise customer needs.</li>
-              <li>Translate complex security capabilities into clear business value for decision-makers.</li>
-              <li>Work directly with vendor solutions and customer requirements to shape security offerings.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="card tl-card">
-            <div class="tl-header">
-              <div>
-                <h3>IT Audit Lecturer Assistant</h3>
-                <span class="company">MUICT — Mahidol University</span>
-              </div>
-              <span class="period">Mar 2026 – Apr 2026</span>
-            </div>
-            <ul class="tl-points">
-              <li>Reviewed senior students' lab assignments on network security architecture, system development, and compliance.</li>
-              <li>Translated complex technical concepts to mixed-ability audiences — directly transferable to communicating vulnerabilities to non-technical stakeholders.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="card tl-card">
-            <div class="tl-header">
-              <div>
-                <h3>Network and Security Intern</h3>
-                <span class="company">Gosoft (Thailand) Co., Ltd. — Under CP ALL</span>
-              </div>
-              <span class="period">May 2025 – Jul 2025</span>
-            </div>
-            <ul class="tl-points">
-              <li>Analysed <strong>AWS WAF</strong> and <strong>CloudFront</strong> logs to evaluate cloud security posture and identify potential risks across the production environment.</li>
-              <li>Configured <strong>ELK</strong> visualisations to monitor the network status of 7-Eleven stores nationwide.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="card tl-card">
-            <div class="tl-header">
-              <div>
-                <h3>Lecturer Assistant</h3>
-                <span class="company">MUICT — Mahidol University</span>
-              </div>
-              <span class="period">Aug 2024 – Nov 2024</span>
-            </div>
-            <ul class="tl-points">
-              <li>Conducted code reviews and graded junior students' Python assignments via GitHub Classroom, identifying logical errors and vulnerabilities.</li>
-              <li>Verified students' comprehension and provided targeted clarification on programming concepts.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
+      <div class="timeline" id="timeline"></div>
     </div>
   </section>
 
@@ -329,52 +212,10 @@
   <section class="section" id="projects">
     <div class="container">
       <h2 class="section-title">Research &amp; Projects</h2>
-      <div class="projects-grid">
-
-        <div class="card project-card">
-          <div class="project-top">
-            <span class="project-type">Senior Project</span>
-            <!-- TODO: replace {{PUBLICATION_STATUS}} below with the real publication status
-                 (e.g. "IAIT 2026 — Accepted", "IAIT 2026 — Presented", or "Published"). -->
-            <span class="badge">{{PUBLICATION_STATUS}}</span>
-          </div>
-          <h3>Anomaly Detection &amp; Alerting System Utilising Splunk Free License</h3>
-          <p>
-            Designed and built a Splunk-based real-time monitoring system detecting <strong>Phishing, DoS,
-            Cryptojacking, and Brute Force</strong> attacks across endpoint and network telemetry.
-            Implemented LINE and SMTP email alerting with severity scoring and event-history context
-            for analyst handoff.
-          </p>
-          <div class="tags">
-            <span class="tag">Splunk</span>
-            <span class="tag">SIEM</span>
-            <span class="tag">Python</span>
-            <span class="tag">Anomaly Detection</span>
-            <span class="tag">Network Security</span>
-          </div>
-        </div>
-
-        <div class="card project-card">
-          <div class="project-top">
-            <span class="project-type">Security Research</span>
-          </div>
-          <h3>Remote Access Trojan (RAT) Investigation for Prevention</h3>
-          <p>
-            Designed and built a complete <strong>attacker–victim–C2 lab environment</strong> to study RAT
-            behaviour under controlled conditions. Deployed and analysed C2 channel communication patterns;
-            simulated adversary persistence and data-exfiltration techniques. Translated offensive findings
-            into practical detection signatures and prevention controls.
-          </p>
-          <div class="tags">
-            <span class="tag">C2 Analysis</span>
-            <span class="tag">Malware Research</span>
-            <span class="tag">Red Team</span>
-            <span class="tag">Blue Team</span>
-            <span class="tag">Detection Engineering</span>
-          </div>
-        </div>
-
-      </div>
+      <!-- Senior-project badge text comes from content.json -> projects[0].badge.
+           TODO: replace {{PUBLICATION_STATUS}} there with the real publication status
+           (e.g. "IAIT 2026 - Accepted", "IAIT 2026 - Presented", or "Published"). -->
+      <div class="projects-grid" id="projectsGrid"></div>
     </div>
   </section>
 
@@ -382,74 +223,7 @@
   <section class="section" id="achievements">
     <div class="container">
       <h2 class="section-title">Achievements &amp; Training</h2>
-      <div class="achieve-grid">
-
-        <div class="card achieve-card">
-          <h3><i class="fas fa-flag"></i> CTF Competitions</h3>
-          <div class="achieve-list">
-            <div class="achieve-item">
-              <div class="achieve-name">ARCHA CTF 2026 (DropCTF)</div>
-              <div class="achieve-detail">60th place / 244 teams — National level</div>
-              <div class="tags mt-4">
-                <span class="tag sm">Networking</span>
-                <span class="tag sm">Web Exploitation</span>
-                <span class="tag sm">Cryptography</span>
-                <span class="tag sm">Misc</span>
-              </div>
-            </div>
-            <div class="achieve-item">
-              <div class="achieve-name">Thailand Cyber Top Talent 2025 (NCSA)</div>
-              <div class="achieve-detail">Team "Fallen Feline" — Mahidol University</div>
-              <div class="tags mt-4">
-                <span class="tag sm">Web Exploitation</span>
-                <span class="tag sm">Forensics</span>
-              </div>
-            </div>
-            <div class="achieve-item">
-              <div class="achieve-name">STDiO CTF 2025 (2600 Thailand)</div>
-              <div class="achieve-detail">3-person team — Offensive Security categories</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card achieve-card">
-          <h3><i class="fas fa-certificate"></i> Certifications</h3>
-          <div class="achieve-list">
-            <div class="achieve-item">
-              <div class="achieve-name">IELTS Academic — Overall Band 6.5 (CEFR B2)</div>
-              <div class="achieve-detail">British Council / IDP — January 2026</div>
-              <div class="tags mt-4">
-                <span class="tag sm">Listening 6.5</span>
-                <span class="tag sm">Reading 6.5</span>
-                <span class="tag sm">Writing 6.5</span>
-                <span class="tag sm">Speaking 6.5</span>
-              </div>
-            </div>
-            <div class="achieve-item">
-              <div class="achieve-name">Basic Cybersecurity Certificate</div>
-              <div class="achieve-detail">National Cyber Security Agency (NCSA), Thailand</div>
-            </div>
-            <div class="achieve-item">
-              <div class="achieve-name">Thailand Cyber Talent 2025 — Certificate of Appreciation</div>
-              <div class="achieve-detail">NCSA · Presented 30 August 2025</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card achieve-card">
-          <h3><i class="fas fa-terminal"></i> Self-Directed Practice</h3>
-          <div class="achieve-list">
-            <div class="achieve-item">
-              <div class="achieve-name">HackTheBox</div>
-              <div class="achieve-detail" id="htbAchieveDetail">Working through HTB Academy modules and Beginner-track challenges</div>
-              <div class="tags mt-4">
-                <span class="tag sm">Preparing for OSCP</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="achieve-grid" id="achieveGrid"></div>
     </div>
   </section>
 
@@ -536,27 +310,9 @@
       <h2 class="section-title">Education</h2>
       <div class="card edu-card">
         <div class="edu-logo">
-          <i class="fas fa-university"></i>
+          <i class="fas fa-university" aria-hidden="true"></i>
         </div>
-        <div class="edu-body">
-          <h3>Mahidol University</h3>
-          <p class="edu-degree">Bachelor of Science in Information and Communication Technology (International Program)</p>
-          <p class="edu-major">Major: Computer Networks</p>
-          <div class="edu-meta">
-            <span><i class="fas fa-calendar-days"></i> 2022 – May 2026 (Graduated)</span>
-            <span><i class="fas fa-chart-simple"></i> GPA: 2.99</span>
-            <span><i class="fas fa-location-dot"></i> Salaya, Nakhon Pathom, Thailand</span>
-          </div>
-          <div class="tags">
-            <span class="tag">Computer Networks</span>
-            <span class="tag">Cybersecurity</span>
-            <span class="tag">Artificial Intelligence</span>
-            <span class="tag">Software Engineering</span>
-            <span class="tag">Database Systems</span>
-            <span class="tag">Web Programming</span>
-            <span class="tag">HCI</span>
-          </div>
-        </div>
+        <div class="edu-body" id="eduBody"></div>
       </div>
     </div>
   </section>
@@ -565,29 +321,8 @@
   <section class="section" id="contact">
     <div class="container">
       <h2 class="section-title">Get In Touch</h2>
-      <p class="section-sub">Open to cybersecurity collaboration and networking.</p>
-      <div class="contact-grid">
-        <a href="mailto:RatChng@hotmail.com" class="card contact-card">
-          <i class="fas fa-envelope"></i>
-          <h3>Email</h3>
-          <p>RatChng@hotmail.com</p>
-        </a>
-        <a href="https://www.linkedin.com/in/rattanapol" class="card contact-card" target="_blank" rel="noopener">
-          <i class="fab fa-linkedin"></i>
-          <h3>LinkedIn</h3>
-          <p>/in/rattanapol</p>
-        </a>
-        <a href="https://github.com/Ratanapol-Pon" class="card contact-card" target="_blank" rel="noopener">
-          <i class="fab fa-github"></i>
-          <h3>GitHub</h3>
-          <p>Ratanapol-Pon</p>
-        </a>
-        <div class="card contact-card static">
-          <i class="fas fa-phone"></i>
-          <h3>Phone</h3>
-          <p>065-951-9065</p>
-        </div>
-      </div>
+      <p class="section-sub" id="contactSub"></p>
+      <div class="contact-grid" id="contactGrid"></div>
     </div>
   </section>
 

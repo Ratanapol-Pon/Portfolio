@@ -1,7 +1,150 @@
-/* ── Navbar scroll + active link ───────────────────────── */
-const navbar  = document.getElementById('navbar');
+/* ════════════════════════════════════════════════════════════
+   Content loading — content.json is the single source of truth.
+   Last successful copy is cached in localStorage so the site
+   still renders when network calls fail.
+   ════════════════════════════════════════════════════════════ */
+const CONTENT_CACHE_KEY = 'contentCacheV1';
+
+async function loadContent() {
+  try {
+    const res = await fetch('/content.json');
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    try { localStorage.setItem(CONTENT_CACHE_KEY, JSON.stringify(data)); } catch { /* storage unavailable */ }
+    return data;
+  } catch {
+    try {
+      const cached = JSON.parse(localStorage.getItem(CONTENT_CACHE_KEY) || 'null');
+      if (cached) return cached;
+    } catch { /* corrupted cache */ }
+    return null;
+  }
+}
+
+/* ── Renderers ────────────────────────────────────────────── */
+function renderContent(c) {
+  // Hero
+  const heroBio = document.getElementById('heroBio');
+  if (heroBio && c.hero?.bioHtml) heroBio.innerHTML = c.hero.bioHtml;
+
+  const heroCta = document.getElementById('heroCta');
+  if (heroCta && c.hero?.cta) {
+    heroCta.innerHTML = c.hero.cta.map(b => `
+      <a href="${b.url}" class="btn ${b.class || 'btn-outline'}" target="_blank" rel="noopener">
+        <i class="${b.icon}" aria-hidden="true"></i> ${b.label}
+      </a>`).join('');
+  }
+
+  // About
+  const aboutBio = document.getElementById('aboutBio');
+  if (aboutBio && c.about?.paragraphsHtml) {
+    aboutBio.innerHTML = c.about.paragraphsHtml.map(p => `<p>${p}</p>`).join('');
+  }
+
+  // Stats
+  const statsRow = document.getElementById('statsRow');
+  if (statsRow && c.stats) {
+    statsRow.innerHTML = c.stats.map(s => `
+      <div class="stat-item">
+        <div class="stat-val ${s.valueClass || ''}"${s.id ? ` id="${s.id}"` : ''}>${s.value}</div>
+        <div class="stat-label">${s.labelHtml}</div>
+      </div>`).join('');
+  }
+
+  // Experience
+  const timeline = document.getElementById('timeline');
+  if (timeline && c.experience) {
+    timeline.innerHTML = c.experience.map(e => `
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="card tl-card">
+          <div class="tl-header">
+            <div>
+              <h3>${e.title}${e.current ? ' <span class="badge badge-current">Current</span>' : ''}</h3>
+              <span class="company">${e.company}</span>
+            </div>
+            <span class="period">${e.period}</span>
+          </div>
+          <ul class="tl-points">
+            ${(e.pointsHtml || []).map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>
+      </div>`).join('');
+  }
+
+  // Projects
+  const projectsGrid = document.getElementById('projectsGrid');
+  if (projectsGrid && c.projects) {
+    projectsGrid.innerHTML = c.projects.map(p => `
+      <div class="card project-card">
+        <div class="project-top">
+          <span class="project-type">${p.type}</span>
+          ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        </div>
+        <h3>${p.title}</h3>
+        <p>${p.bodyHtml}</p>
+        <div class="tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>`).join('');
+  }
+
+  // Achievements
+  const achieveGrid = document.getElementById('achieveGrid');
+  if (achieveGrid && c.achievements) {
+    achieveGrid.innerHTML = c.achievements.map(g => `
+      <div class="card achieve-card">
+        <h3><i class="${g.icon}" aria-hidden="true"></i> ${g.title}</h3>
+        <div class="achieve-list">
+          ${(g.items || []).map(item => `
+            <div class="achieve-item">
+              <div class="achieve-name">${item.name}</div>
+              <div class="achieve-detail"${item.detailId ? ` id="${item.detailId}"` : ''}>${item.detail}</div>
+              ${item.tags ? `<div class="tags mt-4">${item.tags.map(t => `<span class="tag sm">${t}</span>`).join('')}</div>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  }
+
+  // Education
+  const eduBody = document.getElementById('eduBody');
+  if (eduBody && c.education) {
+    const e = c.education;
+    eduBody.innerHTML = `
+      <h3>${e.school}</h3>
+      <p class="edu-degree">${e.degree}</p>
+      <p class="edu-major">${e.major}</p>
+      <div class="edu-meta">
+        ${(e.meta || []).map(m => `<span><i class="${m.icon}" aria-hidden="true"></i> ${m.text}</span>`).join('')}
+      </div>
+      <div class="tags">${(e.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
+  }
+
+  // Contact
+  const contactSub = document.getElementById('contactSub');
+  if (contactSub && c.contact?.subtitle) contactSub.textContent = c.contact.subtitle;
+
+  const contactGrid = document.getElementById('contactGrid');
+  if (contactGrid && c.contact?.cards) {
+    contactGrid.innerHTML = c.contact.cards.map(card => {
+      const inner = `
+        <i class="${card.icon}" aria-hidden="true"></i>
+        <h3>${card.title}</h3>
+        <p>${card.text}</p>`;
+      return card.href
+        ? `<a href="${card.href}" class="card contact-card"${card.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${inner}</a>`
+        : `<div class="card contact-card static">${inner}</div>`;
+    }).join('');
+  }
+
+  // Footer — last updated
+  if (c.lastUpdated) {
+    const lu = document.getElementById('lastUpdated');
+    if (lu) lu.textContent = c.lastUpdated;
+  }
+}
+
+/* ── Navbar scroll + active link ─────────────────────────── */
+const navbar   = document.getElementById('navbar');
 const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
 
 function updateNav() {
   const scrollY = window.scrollY;
@@ -57,13 +200,15 @@ const observer = new IntersectionObserver(
   { threshold: 0.08 }
 );
 
-document.querySelectorAll(
-  '.card, .section-title, .section-sub, .tl-item, .hero-inner > *'
-).forEach((el, i) => {
-  el.classList.add('reveal');
-  el.style.transitionDelay = `${(i % 5) * 0.07}s`;
-  observer.observe(el);
-});
+function initReveal() {
+  document.querySelectorAll(
+    '.card, .section-title, .section-sub, .tl-item, .hero-inner > *'
+  ).forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${(i % 5) * 0.07}s`;
+    observer.observe(el);
+  });
+}
 
 /* ── Smooth anchor scroll ───────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -76,7 +221,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ── HackTheBox live data ───────────────────────────────── */
+/* ── HackTheBox live data (with localStorage fallback) ──── */
+const HTB_CACHE_KEY = 'htbCacheV1';
+
 function rankClass(rank) {
   if (!rank) return 'rank-beginner';
   return 'rank-' + rank.toLowerCase().replace(/\s+/g, '-');
@@ -89,7 +236,7 @@ function renderHTBLive(d) {
   const progress   = d.rank_progress  != null ? `<div class="htb-stat-box"><span class="htb-stat-num">${Math.round(d.rank_progress)}%</span><span class="htb-stat-lbl">To ${d.next_rank || 'Next Rank'}</span></div>` : '';
   const avatar = d.avatar
     ? `<img src="${d.avatar}" alt="${d.name}" class="htb-avatar" />`
-    : `<div class="htb-avatar-box"><i class="fas fa-cube htb-cube-icon"></i></div>`;
+    : `<div class="htb-avatar-box"><i class="fas fa-cube htb-cube-icon" aria-hidden="true"></i></div>`;
 
   return `
     <div class="htb-header">
@@ -98,11 +245,11 @@ function renderHTBLive(d) {
         <h3 class="htb-name">${d.name}</h3>
         <div class="htb-meta">
           <span class="htb-rank-badge ${rankClass(d.rank)}">${d.rank || 'Noob'}</span>
-          ${d.country ? `<span class="htb-loc"><i class="fas fa-location-dot"></i> ${d.country}</span>` : ''}
+          ${d.country ? `<span class="htb-loc"><i class="fas fa-location-dot" aria-hidden="true"></i> ${d.country}</span>` : ''}
         </div>
       </div>
       <a href="https://app.hackthebox.com/profile/${d.id}" class="btn btn-htb" target="_blank" rel="noopener">
-        <i class="fas fa-arrow-up-right-from-square"></i> View Profile
+        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> View Profile
       </a>
     </div>
     <div class="htb-stats-row">
@@ -113,8 +260,6 @@ function renderHTBLive(d) {
     </div>
   `;
 }
-
-const HTB_CACHE_KEY = 'htbCacheV1';
 
 function updateRankStat(ranking) {
   const rankStat = document.getElementById('statHtbRank');
@@ -178,7 +323,7 @@ async function loadHTB() {
       showHTB(
         renderHTBLive(cached.data) +
         `<div class="htb-state htb-cached-note">
-           <i class="fas fa-clock-rotate-left"></i>
+           <i class="fas fa-clock-rotate-left" aria-hidden="true"></i>
            <span>Live stats unavailable — showing cached data from ${when}.</span>
          </div>`
       );
@@ -201,17 +346,17 @@ function certPlatformIcon(issuer) {
 
 function certPlatformLabel(issuer) {
   const low = (issuer || '').toLowerCase();
-  if (low.includes('google'))  return '<i class="fab fa-google"></i>';
-  if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved"></i>';
-  if (low.includes('nsrc') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud"></i>';
-  return '<i class="fas fa-graduation-cap"></i>';
+  if (low.includes('google'))  return '<i class="fab fa-google" aria-hidden="true"></i>';
+  if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved" aria-hidden="true"></i>';
+  if (low.includes('nsrc') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud" aria-hidden="true"></i>';
+  return '<i class="fas fa-graduation-cap" aria-hidden="true"></i>';
 }
 
 function renderCertCard(c) {
   const iconClass = certPlatformIcon(c.issuer);
   const iconLabel = certPlatformLabel(c.issuer);
-  const grade  = c.grade    ? `<div class="cert-grade"><i class="fas fa-star"></i> ${c.grade}${c.hours ? ' &nbsp;·&nbsp; ' + c.hours : ''}</div>` : '';
-  const certId = c.cert_id  ? `<div class="cert-id"><i class="fas fa-fingerprint"></i> ${c.cert_id}</div>` : '';
+  const grade  = c.grade    ? `<div class="cert-grade"><i class="fas fa-star" aria-hidden="true"></i> ${c.grade}${c.hours ? ' &nbsp;·&nbsp; ' + c.hours : ''}</div>` : '';
+  const certId = c.cert_id  ? `<div class="cert-id"><i class="fas fa-fingerprint" aria-hidden="true"></i> ${c.cert_id}</div>` : '';
   const tags   = (c.skills || []).map(s => `<span class="tag sm">${s}</span>`).join('');
 
   return `
@@ -227,7 +372,7 @@ function renderCertCard(c) {
       ${grade}
       ${certId}
       <div class="tags">${tags}</div>
-      ${c.link ? `<a href="${c.link}" class="cert-btn" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i> Verify Certificate</a>` : ''}
+      ${c.link ? `<a href="${c.link}" class="cert-btn" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Verify Certificate</a>` : ''}
     </div>
   `;
 }
@@ -263,7 +408,7 @@ async function loadCerts() {
     const certStat = document.getElementById('statCertCount');
     if (certStat) certStat.textContent = total;
   } catch {
-    ['courseraGrid','ncsaGrid'].forEach(id => {
+    ['courseraGrid', 'ncsaGrid', 'workshopGrid'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = `<p style="color:var(--muted);font-size:.88rem">Could not load certificates.</p>`;
     });
@@ -304,10 +449,6 @@ certTabs.forEach(tab => {
   });
 });
 
-/* ── Init async loads ───────────────────────────────────── */
-loadHTB();
-loadCerts();
-
 /* ── GA4 section dwell-time tracking ───────────────────── */
 const sectionTimers = {};
 const dwellObserver = new IntersectionObserver(
@@ -330,3 +471,20 @@ const dwellObserver = new IntersectionObserver(
 );
 
 document.querySelectorAll('section[id]').forEach(sec => dwellObserver.observe(sec));
+
+/* ── Init: render content, then start async loads ───────── */
+(async function init() {
+  const content = await loadContent();
+  if (content) {
+    renderContent(content);
+  } else {
+    const heroBio = document.getElementById('heroBio');
+    if (heroBio) {
+      heroBio.textContent = 'Content could not be loaded — please check your connection and reload the page.';
+    }
+  }
+
+  initReveal();
+  loadHTB();
+  loadCerts();
+})();

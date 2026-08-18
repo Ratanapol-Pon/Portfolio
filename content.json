@@ -1,0 +1,155 @@
+{
+  "_notes": {
+    "about": "Single source of truth for site copy. Edit this file to update the site — no HTML changes needed. Fields ending in 'Html' are injected as HTML, so keep tags balanced.",
+    "todo": "Replace {{PUBLICATION_STATUS}} in projects[0].badge with the real publication status (e.g. 'IAIT 2026 — Accepted' or 'Published')."
+  },
+  "lastUpdated": "August 2026",
+  "hero": {
+    "bioHtml": "<strong>Cybersecurity professional</strong> with hands-on offensive experience — CTF competitions, HackTheBox, and RAT research — balanced with enterprise defensive work using <strong>Splunk SIEM, ELK, and AWS log analysis</strong>. Now in cybersecurity business development, bridging technical security capabilities with business needs. Bilingual in English and Thai.",
+    "cta": [
+      { "label": "LinkedIn", "icon": "fab fa-linkedin", "url": "https://www.linkedin.com/in/rattanapol", "class": "btn-linkedin" },
+      { "label": "GitHub", "icon": "fab fa-github", "url": "https://github.com/Ratanapol-Pon", "class": "btn-github" }
+    ]
+  },
+  "about": {
+    "paragraphsHtml": [
+      "I graduated in <strong>May 2026</strong> with a <strong>B.Sc. in Information &amp; Communication Technology</strong> (International Program) from <strong>Mahidol University</strong>, majoring in Computer Networks.",
+      "My experience spans both offensive and defensive cybersecurity — from building real-time SIEM detection systems and analysing cloud logs during my internship at Gosoft (under CP ALL), to competing in national CTF competitions and researching Remote Access Trojans in a controlled lab environment.",
+      "I now work in <strong>cybersecurity business development at JasTel Network</strong>, connecting enterprise customers with the right security solutions — while continuing HackTheBox practice in preparation for the <strong>OSCP certification</strong>."
+    ]
+  },
+  "stats": [
+    { "value": "JasTel", "labelHtml": "Cyber Security Business Development<br/>Current Role", "valueClass": "stat-role" },
+    { "value": "3", "labelHtml": "CTF Competitions<br/>best: 60th of 244 teams" },
+    { "value": "–", "labelHtml": "HackTheBox Global Rank<br/>(live)", "id": "statHtbRank" },
+    { "value": "–", "labelHtml": "Certifications &amp; Training", "id": "statCertCount" }
+  ],
+  "experience": [
+    {
+      "title": "Cyber Security Business Development",
+      "current": true,
+      "company": "JasTel Network Co., Ltd.",
+      "period": "Jun 2026 – Present",
+      "pointsHtml": [
+        "Bridge technical cybersecurity products with enterprise customer needs.",
+        "Translate complex security capabilities into clear business value for decision-makers.",
+        "Work directly with vendor solutions and customer requirements to shape security offerings."
+      ]
+    },
+    {
+      "title": "IT Audit Lecturer Assistant",
+      "company": "MUICT — Mahidol University",
+      "period": "Mar 2026 – Apr 2026",
+      "pointsHtml": [
+        "Reviewed senior students' lab assignments on network security architecture, system development, and compliance.",
+        "Translated complex technical concepts to mixed-ability audiences — directly transferable to communicating vulnerabilities to non-technical stakeholders."
+      ]
+    },
+    {
+      "title": "Network and Security Intern",
+      "company": "Gosoft (Thailand) Co., Ltd. — Under CP ALL",
+      "period": "May 2025 – Jul 2025",
+      "pointsHtml": [
+        "Analysed <strong>AWS WAF</strong> and <strong>CloudFront</strong> logs to evaluate cloud security posture and identify potential risks across the production environment.",
+        "Configured <strong>ELK</strong> visualisations to monitor the network status of 7-Eleven stores nationwide."
+      ]
+    },
+    {
+      "title": "Lecturer Assistant",
+      "company": "MUICT — Mahidol University",
+      "period": "Aug 2024 – Nov 2024",
+      "pointsHtml": [
+        "Conducted code reviews and graded junior students' Python assignments via GitHub Classroom, identifying logical errors and vulnerabilities.",
+        "Verified students' comprehension and provided targeted clarification on programming concepts."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "type": "Senior Project",
+      "badge": "{{PUBLICATION_STATUS}}",
+      "title": "Anomaly Detection & Alerting System Utilising Splunk Free License",
+      "bodyHtml": "Designed and built a Splunk-based real-time monitoring system detecting <strong>Phishing, DoS, Cryptojacking, and Brute Force</strong> attacks across endpoint and network telemetry. Implemented LINE and SMTP email alerting with severity scoring and event-history context for analyst handoff.",
+      "tags": ["Splunk", "SIEM", "Python", "Anomaly Detection", "Network Security"]
+    },
+    {
+      "type": "Security Research",
+      "title": "Remote Access Trojan (RAT) Investigation for Prevention",
+      "bodyHtml": "Designed and built a complete <strong>attacker–victim–C2 lab environment</strong> to study RAT behaviour under controlled conditions. Deployed and analysed C2 channel communication patterns; simulated adversary persistence and data-exfiltration techniques. Translated offensive findings into practical detection signatures and prevention controls.",
+      "tags": ["C2 Analysis", "Malware Research", "Red Team", "Blue Team", "Detection Engineering"]
+    }
+  ],
+  "achievements": [
+    {
+      "icon": "fas fa-flag",
+      "title": "CTF Competitions",
+      "items": [
+        {
+          "name": "ARCHA CTF 2026 (DropCTF)",
+          "detail": "60th place / 244 teams — National level",
+          "tags": ["Networking", "Web Exploitation", "Cryptography", "Misc"]
+        },
+        {
+          "name": "Thailand Cyber Top Talent 2025 (NCSA)",
+          "detail": "Team \"Fallen Feline\" — Mahidol University",
+          "tags": ["Web Exploitation", "Forensics"]
+        },
+        {
+          "name": "STDiO CTF 2025 (2600 Thailand)",
+          "detail": "3-person team — Offensive Security categories"
+        }
+      ]
+    },
+    {
+      "icon": "fas fa-certificate",
+      "title": "Certifications",
+      "items": [
+        {
+          "name": "IELTS Academic — Overall Band 6.5 (CEFR B2)",
+          "detail": "British Council / IDP — January 2026",
+          "tags": ["Listening 6.5", "Reading 6.5", "Writing 6.5", "Speaking 6.5"]
+        },
+        {
+          "name": "Basic Cybersecurity Certificate",
+          "detail": "National Cyber Security Agency (NCSA), Thailand"
+        },
+        {
+          "name": "Thailand Cyber Talent 2025 — Certificate of Appreciation",
+          "detail": "NCSA · Presented 30 August 2025"
+        }
+      ]
+    },
+    {
+      "icon": "fas fa-terminal",
+      "title": "Self-Directed Practice",
+      "items": [
+        {
+          "name": "HackTheBox",
+          "detail": "Working through HTB Academy modules and Beginner-track challenges",
+          "detailId": "htbAchieveDetail",
+          "tags": ["Preparing for OSCP"]
+        }
+      ]
+    }
+  ],
+  "education": {
+    "school": "Mahidol University",
+    "degree": "Bachelor of Science in Information and Communication Technology (International Program)",
+    "major": "Major: Computer Networks",
+    "meta": [
+      { "icon": "fas fa-calendar-days", "text": "2022 – May 2026 (Graduated)" },
+      { "icon": "fas fa-chart-simple", "text": "GPA: 2.99" },
+      { "icon": "fas fa-location-dot", "text": "Salaya, Nakhon Pathom, Thailand" }
+    ],
+    "tags": ["Computer Networks", "Cybersecurity", "Artificial Intelligence", "Software Engineering", "Database Systems", "Web Programming", "HCI"]
+  },
+  "contact": {
+    "subtitle": "Open to cybersecurity collaboration and networking.",
+    "cards": [
+      { "icon": "fas fa-envelope", "title": "Email", "text": "RatChng@hotmail.com", "href": "mailto:RatChng@hotmail.com" },
+      { "icon": "fab fa-linkedin", "title": "LinkedIn", "text": "/in/rattanapol", "href": "https://www.linkedin.com/in/rattanapol" },
+      { "icon": "fab fa-github", "title": "GitHub", "text": "Ratanapol-Pon", "href": "https://github.com/Ratanapol-Pon" },
+      { "icon": "fas fa-phone", "title": "Phone", "text": "065-951-9065" }
+    ]
+  }
+}
