@@ -438,6 +438,15 @@ strong { color: var(--text); font-weight: 600; }
   font-family: var(--mono);
 }
 
+.badge-current {
+  background: rgba(184,216,181,0.3);
+  color: #4a7a47;
+  border-color: rgba(184,216,181,0.6);
+  vertical-align: 0.12em;
+}
+
+.stat-val.stat-role { font-size: 1.25rem; line-height: 1.6; }
+
 .project-card h3 { font-size: 0.96rem; font-weight: 600; line-height: 1.45; }
 .project-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.75; flex: 1; }
 .project-card p strong { color: var(--text); }

@@ -122,6 +122,11 @@ async function loadHTB() {
       const progress = data.rank_progress != null ? ` · ${Math.round(data.rank_progress)}% to ${data.next_rank || 'next rank'}` : '';
       achieveDetail.textContent = `Rank: ${data.rank}${progress} — working through HTB challenges and Beginner track`;
     }
+
+    const rankStat = document.getElementById('statHtbRank');
+    if (rankStat && data.ranking != null) {
+      rankStat.textContent = `#${Number(data.ranking).toLocaleString()}`;
+    }
   } catch {
     loading.classList.add('hidden');
     fallback.classList.remove('hidden');
@@ -195,6 +200,10 @@ async function loadCerts() {
     populateGrid(data.coursera || [], 'courseraGrid',  'courseraCount');
     populateGrid(data.ncsa     || [], 'ncsaGrid',      'ncsaCount');
     populateGrid(data.workshop || [], 'workshopGrid',  'workshopCount');
+
+    const total = (data.coursera || []).length + (data.ncsa || []).length + (data.workshop || []).length;
+    const certStat = document.getElementById('statCertCount');
+    if (certStat) certStat.textContent = total;
   } catch {
     ['courseraGrid','ncsaGrid'].forEach(id => {
       const el = document.getElementById(id);
