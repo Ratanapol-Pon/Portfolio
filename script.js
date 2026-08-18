@@ -26,12 +26,24 @@ updateNav();
 const hamburger = document.getElementById('hamburger');
 const navMenu   = document.getElementById('navLinks');
 
+function setMenuOpen(open) {
+  navMenu.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+}
+
 hamburger.addEventListener('click', () => {
-  navMenu.classList.toggle('open');
+  setMenuOpen(!navMenu.classList.contains('open'));
 });
 
 navMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navMenu.classList.remove('open'));
+  a.addEventListener('click', () => setMenuOpen(false));
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+    setMenuOpen(false);
+    hamburger.focus();
+  }
 });
 
 /* ── Scroll-reveal (IntersectionObserver) ─────────────── */
@@ -102,32 +114,78 @@ function renderHTBLive(d) {
   `;
 }
 
+const HTB_CACHE_KEY = 'htbCacheV1';
+
+function updateRankStat(ranking) {
+  const rankStat = document.getElementById('statHtbRank');
+  if (rankStat && ranking != null) {
+    rankStat.textContent = `#${Number(ranking).toLocaleString()}`;
+  }
+}
+
+function updateAchieveDetail(data) {
+  const achieveDetail = document.getElementById('htbAchieveDetail');
+  if (achieveDetail && data.rank) {
+    const progress = data.rank_progress != null ? ` · ${Math.round(data.rank_progress)}% to ${data.next_rank || 'next rank'}` : '';
+    achieveDetail.textContent = `Rank: ${data.rank}${progress} — working through HTB challenges and Beginner track`;
+  }
+}
+
+function readHTBCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(HTB_CACHE_KEY) || 'null');
+    return cached && cached.data ? cached : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeHTBCache(data) {
+  try {
+    localStorage.setItem(HTB_CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
+  } catch { /* storage unavailable — ignore */ }
+}
+
+function showHTB(html) {
+  const loading = document.getElementById('htbLoading');
+  const live    = document.getElementById('htbLive');
+  live.innerHTML = html;
+  loading.classList.add('hidden');
+  live.classList.remove('hidden');
+}
+
 async function loadHTB() {
   const loading  = document.getElementById('htbLoading');
-  const live     = document.getElementById('htbLive');
   const fallback = document.getElementById('htbFallback');
 
   try {
     const res = await fetch('/.netlify/functions/htb');
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-
-    live.innerHTML = renderHTBLive(data);
-    loading.classList.add('hidden');
-    live.classList.remove('hidden');
-
-    const achieveDetail = document.getElementById('htbAchieveDetail');
-    if (achieveDetail && data.rank) {
-      const progress = data.rank_progress != null ? ` · ${Math.round(data.rank_progress)}% to ${data.next_rank || 'next rank'}` : '';
-      achieveDetail.textContent = `Rank: ${data.rank}${progress} — working through HTB challenges and Beginner track`;
+    const payload = await res.json().catch(() => null);
+    if (!res.ok || !payload || !payload.ok || !payload.data) {
+      throw new Error((payload && payload.error) || `status ${res.status}`);
     }
 
-    const rankStat = document.getElementById('statHtbRank');
-    if (rankStat && data.ranking != null) {
-      rankStat.textContent = `#${Number(data.ranking).toLocaleString()}`;
-    }
+    const data = payload.data;
+    writeHTBCache(data);
+    showHTB(renderHTBLive(data));
+    updateAchieveDetail(data);
+    updateRankStat(data.ranking);
   } catch {
+    // Live fetch failed — fall back to the last successful response, if any
+    const cached = readHTBCache();
+    if (cached) {
+      const when = new Date(cached.ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      showHTB(
+        renderHTBLive(cached.data) +
+        `<div class="htb-state htb-cached-note">
+           <i class="fas fa-clock-rotate-left"></i>
+           <span>Live stats unavailable — showing cached data from ${when}.</span>
+         </div>`
+      );
+      updateAchieveDetail(cached.data);
+      updateRankStat(cached.data.ranking);
+      return;
+    }
     loading.classList.add('hidden');
     fallback.classList.remove('hidden');
   }
@@ -213,13 +271,36 @@ async function loadCerts() {
 }
 
 /* ── Certificate tabs ───────────────────────────────────── */
-document.querySelectorAll('.cert-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.cert-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.cert-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    const panel = document.getElementById(`panel-${tab.dataset.tab}`);
-    if (panel) panel.classList.add('active');
+const certTabs = Array.from(document.querySelectorAll('.cert-tab'));
+
+function activateCertTab(tab) {
+  certTabs.forEach(t => {
+    const selected = t === tab;
+    t.classList.toggle('active', selected);
+    t.setAttribute('aria-selected', String(selected));
+    t.tabIndex = selected ? 0 : -1;
+    const panel = document.getElementById(`panel-${t.dataset.tab}`);
+    if (panel) {
+      panel.classList.toggle('active', selected);
+      panel.hidden = !selected;
+    }
+  });
+}
+
+certTabs.forEach(tab => {
+  tab.addEventListener('click', () => activateCertTab(tab));
+  tab.addEventListener('keydown', e => {
+    const i = certTabs.indexOf(tab);
+    let next = null;
+    if (e.key === 'ArrowRight')      next = certTabs[(i + 1) % certTabs.length];
+    else if (e.key === 'ArrowLeft')  next = certTabs[(i - 1 + certTabs.length) % certTabs.length];
+    else if (e.key === 'Home')       next = certTabs[0];
+    else if (e.key === 'End')        next = certTabs[certTabs.length - 1];
+    if (next) {
+      e.preventDefault();
+      activateCertTab(next);
+      next.focus();
+    }
   });
 });
 

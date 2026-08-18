@@ -38,8 +38,14 @@
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Google Fonts: pinned families/weights, display=swap (SRI not possible —
+       Google serves per-user-agent CSS) -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Font Awesome pinned to 6.5.1 with SRI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DF2G53VKGS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -50,8 +56,10 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" aria-label="Primary">
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
@@ -63,14 +71,16 @@
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
+  <main id="main">
+
   <!-- HERO -->
-  <section class="hero" id="home">
+  <section class="hero" id="home" aria-label="Introduction">
     <div class="container">
       <div class="hero-inner">
         <h1 class="hero-name">Rattanapol<br /><span style="color:#8EB486">Chongchirakitkul</span></h1>
@@ -487,33 +497,33 @@
           <span class="learn-icon cert-color"><i class="fas fa-certificate"></i></span>
           Certificates
         </h3>
-        <div class="cert-tabs">
-          <button class="cert-tab active" data-tab="coursera">
-            <i class="fas fa-graduation-cap"></i> Coursera
+        <div class="cert-tabs" role="tablist" aria-label="Certificate categories">
+          <button class="cert-tab active" data-tab="coursera" role="tab" id="tab-coursera" aria-selected="true" aria-controls="panel-coursera">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i> Coursera
             <span class="cert-count" id="courseraCount">–</span>
           </button>
-          <button class="cert-tab" data-tab="ncsa">
-            <i class="fas fa-shield-halved"></i> MOOC NCSA
+          <button class="cert-tab" data-tab="ncsa" role="tab" id="tab-ncsa" aria-selected="false" aria-controls="panel-ncsa" tabindex="-1">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i> MOOC NCSA
             <span class="cert-count" id="ncsaCount">–</span>
           </button>
-          <button class="cert-tab" data-tab="workshop">
-            <i class="fas fa-laptop-code"></i> Workshops
+          <button class="cert-tab" data-tab="workshop" role="tab" id="tab-workshop" aria-selected="false" aria-controls="panel-workshop" tabindex="-1">
+            <i class="fas fa-laptop-code" aria-hidden="true"></i> Workshops
             <span class="cert-count" id="workshopCount">–</span>
           </button>
         </div>
-        <div class="cert-panel active" id="panel-coursera">
+        <div class="cert-panel active" id="panel-coursera" role="tabpanel" aria-labelledby="tab-coursera">
           <div class="cert-grid" id="courseraGrid">
-            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i></div>
           </div>
         </div>
-        <div class="cert-panel" id="panel-ncsa">
+        <div class="cert-panel" id="panel-ncsa" role="tabpanel" aria-labelledby="tab-ncsa" hidden>
           <div class="cert-grid" id="ncsaGrid">
-            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i></div>
           </div>
         </div>
-        <div class="cert-panel" id="panel-workshop">
+        <div class="cert-panel" id="panel-workshop" role="tabpanel" aria-labelledby="tab-workshop" hidden>
           <div class="cert-grid" id="workshopGrid">
-            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+            <div class="cert-loading"><i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i></div>
           </div>
         </div>
       </div>
@@ -580,6 +590,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer class="footer">
