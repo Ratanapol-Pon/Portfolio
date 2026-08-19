@@ -1,7 +1,7 @@
 {
   "_notes": {
     "about": "Single source of truth for site copy. Edit this file to update the site — no HTML changes needed. Fields ending in 'Html' are injected as HTML, so keep tags balanced.",
-    "todo": "Replace {{PUBLICATION_STATUS}} in projects[0].badge with the real publication status (e.g. 'IAIT 2026 — Accepted' or 'Published')."
+    "todo": "Update projects[0].badge as the publication status changes (e.g. 'IAIT 2026 — Accepted' or 'Published')."
   },
   "lastUpdated": "August 2026",
   "hero": {
@@ -67,7 +67,7 @@
   "projects": [
     {
       "type": "Senior Project",
-      "badge": "{{PUBLICATION_STATUS}}",
+      "badge": "IAIT 2026 — Processing",
       "title": "Anomaly Detection & Alerting System Utilising Splunk Free License",
       "bodyHtml": "Designed and built a Splunk-based real-time monitoring system detecting <strong>Phishing, DoS, Cryptojacking, and Brute Force</strong> attacks across endpoint and network telemetry. Implemented LINE and SMTP email alerting with severity scoring and event-history context for analyst handoff.",
       "tags": ["Splunk", "SIEM", "Python", "Anomaly Detection", "Network Security"]

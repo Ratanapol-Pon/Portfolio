@@ -55,6 +55,6 @@ Certificates are listed separately in **`certs.json`** (Coursera / NCSA /
 workshops tabs) and are merged in at runtime. The certifications count stat
 is computed automatically from `certs.json`.
 
-Search the repo for `{{PLACEHOLDER}}` / `TODO` comments for values that
-still need to be filled in (e.g. the deployed site URL in the meta tags and
-`sitemap.xml`, and the senior-project publication status).
+The senior-project badge in `content.json` (`projects[0].badge`) tracks the
+IAIT 2026 publication status — update it as the status changes (e.g.
+"Accepted", "Presented", "Published").

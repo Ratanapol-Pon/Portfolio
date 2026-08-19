@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO: replace {{SITE_URL}} with the deployed site URL (e.g. https://your-site.netlify.app) -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>{{SITE_URL}}/</loc>
+    <loc>https://rattanapolportfolio.netlify.app/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
