@@ -604,6 +604,11 @@ strong { color: var(--text); font-weight: 600; }
   filter: saturate(0.93) contrast(1.02);
 }
 
+.hero-portrait-photo {
+  transform: scale(1.55);
+  transform-origin: 50% 62%;
+}
+
 .hero-name {
   font-family: var(--heading);
   font-size: clamp(2.8rem, 5.3vw, 4rem);
