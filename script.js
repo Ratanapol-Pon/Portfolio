@@ -547,17 +547,18 @@ async function loadHTB() {
 function certPlatformIcon(issuer) {
   const low = (issuer || '').toLowerCase();
   if (low.includes('google'))  return 'google';
-  if (low.includes('ncsa') || low.includes('mooc')) return 'ncsa';
+  if (low.includes('ncsa') || low.includes('mooc') || low.includes('national cyber security agency')) return 'ncsa';
   return 'default';
 }
 
 function certPlatformLabel(issuer) {
   const low = (issuer || '').toLowerCase();
   if (low.includes('google'))  return '<i class="fab fa-google" aria-hidden="true"></i>';
-  if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved" aria-hidden="true"></i>';
+  if (low.includes('ncsa') || low.includes('mooc') || low.includes('national cyber security agency')) return '<i class="fas fa-shield-halved" aria-hidden="true"></i>';
   if (low.includes('fortinet')) return '<i class="fas fa-network-wired" aria-hidden="true"></i>';
   if (low.includes('sentinelone')) return '<i class="fas fa-eye" aria-hidden="true"></i>';
-  if (low.includes('nsrc') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud" aria-hidden="true"></i>';
+  if (low.includes('cisco')) return '<i class="fas fa-network-wired" aria-hidden="true"></i>';
+  if (low.includes('nsrc') || low.includes('network startup resource center') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud" aria-hidden="true"></i>';
   return '<i class="fas fa-graduation-cap" aria-hidden="true"></i>';
 }
 
@@ -567,7 +568,7 @@ function renderCertCard(c) {
   const grade  = c.grade    ? `<div class="cert-grade"><i class="fas fa-star" aria-hidden="true"></i> ${c.grade}${c.hours ? ' &nbsp;·&nbsp; ' + c.hours : ''}</div>` : '';
   const certId = c.cert_id  ? `<div class="cert-id"><i class="fas fa-fingerprint" aria-hidden="true"></i> ${c.cert_id}</div>` : '';
   const tags   = (c.skills || []).map(s => `<span class="tag sm">${s}</span>`).join('');
-  const details = [c.date, c.platform].filter(Boolean).join(' · ');
+  const details = [c.date, c.expires, c.platform].filter(Boolean).join(' · ');
 
   return `
     <div class="cert-card reveal">
@@ -610,15 +611,15 @@ async function loadCerts() {
     const res  = await fetch('/certs.json');
     if (!res.ok) throw new Error();
     const data = await res.json();
-    populateGrid(data.ncsa        || [], 'ncsaGrid',        'ncsaCount');
-    populateGrid(data.fortinet    || [], 'fortinetGrid',    'fortinetCount');
-    populateGrid(data.sentinelone || [], 'sentineloneGrid', 'sentineloneCount');
+    populateGrid(data.ncsa     || [], 'ncsaGrid',     'ncsaCount');
+    populateGrid(data.vendors  || [], 'vendorsGrid',  'vendorsCount');
+    populateGrid(data.learning || [], 'learningGrid', 'learningCount');
 
-    const total = (data.ncsa || []).length + (data.fortinet || []).length + (data.sentinelone || []).length;
+    const total = (data.ncsa || []).length + (data.vendors || []).length + (data.learning || []).length;
     const certStat = document.getElementById('statCertCount');
     if (certStat) certStat.textContent = total;
   } catch {
-    ['ncsaGrid', 'fortinetGrid', 'sentineloneGrid'].forEach(id => {
+    ['ncsaGrid', 'vendorsGrid', 'learningGrid'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = `<p style="color:var(--muted);font-size:.88rem">Could not load certificates.</p>`;
     });
@@ -638,6 +639,9 @@ function activateCertTab(tab) {
     if (panel) {
       panel.classList.toggle('active', selected);
       panel.hidden = !selected;
+      if (selected) {
+        panel.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      }
     }
   });
 }

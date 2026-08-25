@@ -2,19 +2,105 @@
   "ncsa": [
     {
       "title": "Cybersecurity Professional",
-      "issuer": "National Cyber Security Agency (NCSA)"
+      "issuer": "National Cyber Security Agency (Thailand)",
+      "date": "Issued Jul 2026"
+    },
+    {
+      "title": "Cybersecurity Foundation",
+      "issuer": "National Cyber Security Agency (Thailand)",
+      "date": "Issued Jun 2026"
+    },
+    {
+      "title": "Basic Cybersecurity",
+      "issuer": "National Cyber Security Agency (Thailand)",
+      "date": "Issued Apr 2026",
+      "cert_id": "SPG-VFNWOLJKNA5HS",
+      "link": "https://media.mooc.ncsa.or.th/certificate/VFNWOLJKNA5HS.pdf",
+      "skills": [
+        "Cybersecurity Fundamentals",
+        "Network Security",
+        "Information Security",
+        "Cyber Threats"
+      ]
     }
   ],
-  "fortinet": [
+  "vendors": [
     {
-      "title": "Fortinet NSE 3",
-      "issuer": "Fortinet"
+      "title": "Fortinet Certified Associate in Cybersecurity",
+      "issuer": "Fortinet",
+      "date": "Issued Jul 2026"
+    },
+    {
+      "title": "Fortinet Certified Fundamentals in Cybersecurity",
+      "issuer": "Fortinet",
+      "date": "Issued Jul 2026"
+    },
+    {
+      "title": "Pre-Sales Accreditations Learning Path",
+      "issuer": "SentinelOne",
+      "date": "Issued Jun 2026",
+      "expires": "Expires May 2027",
+      "cert_id": "s1-8221b86",
+      "link": "https://university.sentinelone.com/c/s/hvWcJjQas5sNIMUosdoarg_NozOwJ8aebFZvaK5WGEgTiPEdiX5fhhGleKcaUzCK"
+    },
+    {
+      "title": "Sales Accreditations Learning Path",
+      "issuer": "SentinelOne",
+      "date": "Issued Jun 2026",
+      "expires": "Expires Jun 2027",
+      "cert_id": "s1-qtnlet6",
+      "link": "https://university.sentinelone.com/c/s/qnEIgcHJVVZovIgdRkI9SNvxa34k3n3nrWrum7Qx4T9QsQTvKF5797gkWNtTeQ7Y"
+    },
+    {
+      "title": "Ethical Hacker",
+      "issuer": "Cisco",
+      "date": "Issued May 2026",
+      "link": "https://www.credly.com/badges/1c7c8d42-d565-4ddf-8a2c-04fe31595e56/linked_in_profile"
     }
   ],
-  "sentinelone": [
+  "learning": [
     {
-      "title": "SentinelOne",
-      "issuer": "SentinelOne"
+      "title": "Foundations of Cybersecurity",
+      "issuer": "Google",
+      "platform": "Coursera",
+      "date": "Issued May 2026",
+      "grade": "90.89%",
+      "hours": "9 hours",
+      "link": "https://coursera.org/account/accomplishments/verify/RSG3W1VBGPC1",
+      "skills": [
+        "Cyber Risk",
+        "SIEM",
+        "Network Security",
+        "Security Controls"
+      ]
+    },
+    {
+      "title": "Play It Safe: Manage Security Risks",
+      "issuer": "Google",
+      "platform": "Coursera",
+      "date": "Issued May 2026",
+      "grade": "88.42%",
+      "hours": "9 hours",
+      "cert_id": "2TW6TR9752AD",
+      "link": "https://www.coursera.org/account/accomplishments/records/2TW6TR9752AD",
+      "skills": [
+        "Threat Management",
+        "Risk Analysis",
+        "Event Monitoring",
+        "Risk Mitigation"
+      ]
+    },
+    {
+      "title": "ThaiREN Cloud Virtualization Workshop",
+      "issuer": "Network Startup Resource Center",
+      "platform": "ThaiREN",
+      "date": "Issued May 2026",
+      "skills": [
+        "Cloud Virtualization",
+        "Network Infrastructure",
+        "Linux Networking",
+        "Virtualization Technologies"
+      ]
     }
   ]
 }

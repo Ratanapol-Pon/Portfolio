@@ -22,7 +22,7 @@
     { "value": "JasTel", "labelHtml": "Cyber Security Business Development<br/>Current Role", "valueClass": "stat-role" },
     { "value": "2", "labelHtml": "National CTF Competitions<br/>best: 60th of 244 teams" },
     { "value": "-", "labelHtml": "HackTheBox Global Rank<br/>(live)", "id": "statHtbRank" },
-    { "value": "3", "labelHtml": "Professional Certificates<br/>listed on current resume", "id": "statCertCount" }
+    { "value": "11", "labelHtml": "Certificates &amp; Training<br/>verified portfolio records", "id": "statCertCount" }
   ],
   "experience": [
     {
