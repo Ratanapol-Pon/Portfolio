@@ -65,10 +65,10 @@ paragraphs, stats, experience entries, projects, achievements, education,
 contact info, and the footer "Last updated" date. Edit that one file and
 commit; no HTML changes needed.
 
-Certificates are listed separately in **`certs.json`** (Coursera / NCSA /
-workshops tabs) and are merged in at runtime. The certifications count stat
+Certificates are listed separately in **`certs.json`** (NCSA / Fortinet /
+SentinelOne tabs) and are merged in at runtime. The certifications count stat
 is computed automatically from `certs.json`.
 
-The senior-project badge in `content.json` (`projects[0].badge`) tracks the
-IAIT 2026 publication status — update it as the status changes (e.g.
+The senior-project badge in `content.json` (`projects[1].badge`) tracks the
+AINTEC 2026 publication status — update it as the status changes (e.g.
 "Accepted", "Presented", "Published").

@@ -555,6 +555,8 @@ function certPlatformLabel(issuer) {
   const low = (issuer || '').toLowerCase();
   if (low.includes('google'))  return '<i class="fab fa-google" aria-hidden="true"></i>';
   if (low.includes('ncsa') || low.includes('mooc')) return '<i class="fas fa-shield-halved" aria-hidden="true"></i>';
+  if (low.includes('fortinet')) return '<i class="fas fa-network-wired" aria-hidden="true"></i>';
+  if (low.includes('sentinelone')) return '<i class="fas fa-eye" aria-hidden="true"></i>';
   if (low.includes('nsrc') || low.includes('kasetsart') || low.includes('thairen')) return '<i class="fas fa-cloud" aria-hidden="true"></i>';
   return '<i class="fas fa-graduation-cap" aria-hidden="true"></i>';
 }
@@ -565,6 +567,7 @@ function renderCertCard(c) {
   const grade  = c.grade    ? `<div class="cert-grade"><i class="fas fa-star" aria-hidden="true"></i> ${c.grade}${c.hours ? ' &nbsp;·&nbsp; ' + c.hours : ''}</div>` : '';
   const certId = c.cert_id  ? `<div class="cert-id"><i class="fas fa-fingerprint" aria-hidden="true"></i> ${c.cert_id}</div>` : '';
   const tags   = (c.skills || []).map(s => `<span class="tag sm">${s}</span>`).join('');
+  const details = [c.date, c.platform].filter(Boolean).join(' · ');
 
   return `
     <div class="cert-card reveal">
@@ -572,7 +575,7 @@ function renderCertCard(c) {
         <div class="cert-platform-icon ${iconClass}">${iconLabel}</div>
         <div class="cert-meta">
           <span class="cert-issuer">${c.issuer}</span>
-          <span class="cert-date">${c.date}${c.platform ? ' · ' + c.platform : ''}</span>
+          ${details ? `<span class="cert-date">${details}</span>` : ''}
         </div>
       </div>
       <h4 class="cert-title">${c.title}</h4>
@@ -607,15 +610,15 @@ async function loadCerts() {
     const res  = await fetch('/certs.json');
     if (!res.ok) throw new Error();
     const data = await res.json();
-    populateGrid(data.coursera || [], 'courseraGrid',  'courseraCount');
-    populateGrid(data.ncsa     || [], 'ncsaGrid',      'ncsaCount');
-    populateGrid(data.workshop || [], 'workshopGrid',  'workshopCount');
+    populateGrid(data.ncsa        || [], 'ncsaGrid',        'ncsaCount');
+    populateGrid(data.fortinet    || [], 'fortinetGrid',    'fortinetCount');
+    populateGrid(data.sentinelone || [], 'sentineloneGrid', 'sentineloneCount');
 
-    const total = (data.coursera || []).length + (data.ncsa || []).length + (data.workshop || []).length;
+    const total = (data.ncsa || []).length + (data.fortinet || []).length + (data.sentinelone || []).length;
     const certStat = document.getElementById('statCertCount');
     if (certStat) certStat.textContent = total;
   } catch {
-    ['courseraGrid', 'ncsaGrid', 'workshopGrid'].forEach(id => {
+    ['ncsaGrid', 'fortinetGrid', 'sentineloneGrid'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = `<p style="color:var(--muted);font-size:.88rem">Could not load certificates.</p>`;
     });

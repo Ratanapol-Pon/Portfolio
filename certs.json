@@ -1,74 +1,20 @@
 {
-  "coursera": [
-    {
-      "title": "Foundations of Cybersecurity",
-      "issuer": "Google",
-      "platform": "Coursera",
-      "date": "May 2026",
-      "grade": "90.89%",
-      "hours": "9 hours",
-      "link": "https://coursera.org/account/accomplishments/verify/RSG3W1VBGPC1",
-      "skills": [
-        "Cyber Risk",
-        "SIEM",
-        "Cyber Attacks",
-        "Network Security",
-        "Information Assurance",
-        "Security Management",
-        "Cybersecurity",
-        "Data Ethics",
-        "Security Controls"
-      ]
-    },
-    {
-      "title": "Play It Safe: Manage Security Risks",
-      "issuer": "Google",
-      "platform": "Coursera",
-      "date": "May 2026",
-      "grade": "88.42%",
-      "hours": "9 hours",
-      "link": "https://coursera.org/share/a624ad90769d2e527bfdc8650efeef56",
-      "skills": [
-        "Threat Management",
-        "Risk Analysis",
-        "Event Monitoring",
-        "Cybersecurity",
-        "Threat Detection",
-        "Business Risk Management",
-        "Risk Management Framework",
-        "Computer Security",
-        "Risk Mitigation"
-      ]
-    }
-  ],
   "ncsa": [
     {
-      "title": "Basic Cybersecurity",
-      "issuer": "MOOC NCSA",
-      "platform": "MOOC NCSA",
-      "date": "April 2026",
-      "cert_id": "SPG-VFNWOLJKNA5HS",
-      "link": "https://media.mooc.ncsa.or.th/certificate/VFNWOLJKNA5HS.pdf",
-      "skills": [
-        "Cybersecurity Fundamentals",
-        "Network Security",
-        "Information Security",
-        "Cyber Threats"
-      ]
+      "title": "Cybersecurity Professional",
+      "issuer": "National Cyber Security Agency (NCSA)"
     }
   ],
-  "workshop": [
+  "fortinet": [
     {
-      "title": "ThaiREN Cloud Virtualization Workshop",
-      "issuer": "NSRC / Kasetsart University",
-      "platform": "ThaiREN",
-      "date": "May 19–21, 2026",
-      "skills": [
-        "Cloud Virtualization",
-        "Network Infrastructure",
-        "Linux Networking",
-        "Virtualization Technologies"
-      ]
+      "title": "Fortinet NSE 3",
+      "issuer": "Fortinet"
+    }
+  ],
+  "sentinelone": [
+    {
+      "title": "SentinelOne",
+      "issuer": "SentinelOne"
     }
   ]
 }
