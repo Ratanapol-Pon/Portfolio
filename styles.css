@@ -277,13 +277,6 @@ body[data-season="summer"] .bird-wing {
   animation: bird-wing-flap 0.48s steps(2, end) infinite;
 }
 
-body.ambience-paused .season-particle,
-body.ambience-paused .mascot-track,
-body.ambience-paused .pixel-mascot,
-body.ambience-paused .bird-wing {
-  animation-play-state: paused !important;
-}
-
 @keyframes petal-fall {
   from { transform: translate3d(0, -12vh, 0) rotate(0deg); }
   to { transform: translate3d(var(--drift), 116vh, 0) rotate(540deg); }
@@ -542,84 +535,6 @@ strong { color: var(--text); font-weight: 600; }
 }
 
 .hero-inner { max-width: 680px; position: relative; z-index: 3; }
-
-.season-status {
-  max-width: 510px;
-  margin-bottom: 2rem;
-  padding: 0.9rem 1rem 0.95rem;
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  background: var(--surface);
-  background: color-mix(in srgb, var(--surface) 76%, transparent);
-  backdrop-filter: blur(9px);
-  box-shadow: 0 12px 35px rgba(40,35,25,0.05);
-}
-
-.season-status-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.55rem;
-}
-
-.season-eyebrow {
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.ambience-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.45rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: transparent;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 0.61rem;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-
-.ambience-toggle:hover {
-  color: var(--text);
-  border-color: var(--accent-border);
-  background: var(--accent-bg);
-}
-
-.season-title-row { display: flex; align-items: baseline; gap: 0.6rem; }
-
-.season-kanji {
-  color: var(--accent);
-  font-family: var(--heading);
-  font-size: 1.8rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.season-name {
-  color: var(--text);
-  font-family: var(--heading);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.season-window {
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.03em;
-}
-
-.season-mood { color: var(--muted); font-size: 0.76rem; line-height: 1.55; margin-top: 0.35rem; }
-
 
 .hero-name {
   font-family: var(--heading);
@@ -1292,15 +1207,11 @@ strong { color: var(--text); font-weight: 600; }
   .edu-card { flex-direction: column; }
   .htb-header { flex-direction: column; align-items: flex-start; }
   .skills-grid { grid-template-columns: 1fr; }
-  .season-status { margin-bottom: 1.6rem; }
-  .season-status-top { align-items: flex-start; }
-  .ambience-toggle span { display: none; }
   .mascot-track { right: 8px; width: 62px; }
 }
 
 @media (max-width: 420px) {
   .contact-grid { grid-template-columns: 1fr; }
-  .season-window { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1311,5 +1222,4 @@ strong { color: var(--text); font-weight: 600; }
     scroll-behavior: auto !important;
   }
   .season-particles { display: none; }
-  .ambience-toggle { display: none; }
 }

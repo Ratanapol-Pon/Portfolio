@@ -20,8 +20,9 @@ The visual theme follows the current date in Japan (`Asia/Tokyo`) and uses
 five atmosphere modes: spring (Mar–May), rainy season (Jun–15 Jul), summer
 (16 Jul–Aug), autumn (Sep–Nov), and winter (Dec–Feb). Each mode has its own
 palette, ambient particles, and code-native pixel mascot. Visitors can pause
-the decorative motion from the season card, and system reduced-motion settings
-are respected automatically.
+the decorative motion through their system reduced-motion setting, which is
+respected automatically. Season selection runs in the background without a
+visible status card.
 
 For visual QA, append `?season=spring`, `?season=rainy`, `?season=summer`,
 `?season=autumn`, or `?season=winter` to preview a mode without changing the

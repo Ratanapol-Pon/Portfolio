@@ -6,10 +6,6 @@
 /* Seasonal atmosphere: driven by the current calendar date in Japan. */
 const SEASONS = {
   spring: {
-    name: 'Spring',
-    kanji: '春',
-    window: 'March — May',
-    mood: 'Sakura air, soft light, and a small rabbit wandering beneath the petals.',
     themeColor: '#fff6f4',
     particleCount: 32,
     duration: [9, 16],
@@ -36,10 +32,6 @@ const SEASONS = {
       </svg>`
   },
   rainy: {
-    name: 'Rainy season',
-    kanji: '梅雨',
-    window: 'June — mid-July',
-    mood: 'Cool blue rain, hydrangea calm, and a leaf-umbrella frog keeping watch.',
     themeColor: '#eaf1f3',
     particleCount: 52,
     duration: [0.65, 1.05],
@@ -67,10 +59,6 @@ const SEASONS = {
       </svg>`
   },
   summer: {
-    name: 'Summer',
-    kanji: '夏',
-    window: 'Mid-July — August',
-    mood: 'Warm beach light, drifting fireflies, and a little shorebird gliding above the waves.',
     themeColor: '#fff8df',
     particleCount: 22,
     duration: [3.5, 7],
@@ -96,10 +84,6 @@ const SEASONS = {
       </svg>`
   },
   autumn: {
-    name: 'Autumn',
-    kanji: '秋',
-    window: 'September — November',
-    mood: 'Amber light, crisp air, and a little fox padding through falling maple leaves.',
     themeColor: '#f6ebd9',
     particleCount: 34,
     duration: [10, 18],
@@ -124,10 +108,6 @@ const SEASONS = {
       </svg>`
   },
   winter: {
-    name: 'Winter',
-    kanji: '冬',
-    window: 'December — February',
-    mood: 'Quiet snow, clear blue air, and an 8-bit snowman taking the slow route.',
     themeColor: '#edf5f8',
     particleCount: 42,
     duration: [9, 18],
@@ -207,23 +187,12 @@ function renderSeasonParticles(seasonKey) {
   layer.replaceChildren(fragment);
 }
 
-function applySeason(seasonKey, date = new Date(), preview = false) {
+function applySeason(seasonKey) {
   const season = SEASONS[seasonKey];
   if (!season) return;
 
   document.body.dataset.season = seasonKey;
-  document.getElementById('seasonKanji').textContent = season.kanji;
-  document.getElementById('seasonName').textContent = season.name;
-  document.getElementById('seasonWindow').textContent = season.window;
-  document.getElementById('seasonMood').textContent = season.mood;
   document.getElementById('seasonMascot').innerHTML = season.mascot;
-
-  const dateLabel = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Tokyo',
-    day: 'numeric',
-    month: 'short'
-  }).format(date);
-  document.getElementById('seasonJapanDate').textContent = preview ? `${season.name} preview` : `${dateLabel} JST`;
 
   const themeMeta = document.getElementById('themeColor');
   if (themeMeta) themeMeta.setAttribute('content', season.themeColor);
@@ -234,26 +203,9 @@ function initSeason() {
   const now = new Date();
   const japanDate = getJapanDateParts(now);
   const requestedSeason = new URLSearchParams(window.location.search).get('season');
-  const preview = Object.hasOwn(SEASONS, requestedSeason);
-  const seasonKey = preview ? requestedSeason : getJapanSeason(japanDate.month, japanDate.day);
-  applySeason(seasonKey, now, preview);
-
-  const toggle = document.getElementById('ambienceToggle');
-  let paused = false;
-  try { paused = localStorage.getItem('seasonMotionPaused') === 'true'; } catch { /* storage unavailable */ }
-
-  function setMotionPaused(nextPaused) {
-    paused = nextPaused;
-    document.body.classList.toggle('ambience-paused', paused);
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'Resume seasonal animation' : 'Pause seasonal animation');
-    toggle.querySelector('i').className = paused ? 'fas fa-play' : 'fas fa-pause';
-    toggle.querySelector('span').textContent = paused ? 'Resume motion' : 'Pause motion';
-    try { localStorage.setItem('seasonMotionPaused', String(paused)); } catch { /* storage unavailable */ }
-  }
-
-  setMotionPaused(paused);
-  toggle.addEventListener('click', () => setMotionPaused(!paused));
+  const previewSeason = requestedSeason && SEASONS[requestedSeason] ? requestedSeason : null;
+  const seasonKey = previewSeason || getJapanSeason(japanDate.month, japanDate.day);
+  applySeason(seasonKey);
 }
 
 initSeason();
