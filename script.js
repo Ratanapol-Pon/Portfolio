@@ -70,31 +70,29 @@ const SEASONS = {
     name: 'Summer',
     kanji: '夏',
     window: 'Mid-July — August',
-    mood: 'Warm festival light, drifting fireflies, and a happi-coat cat on evening patrol.',
+    mood: 'Warm beach light, drifting fireflies, and a little shorebird gliding above the waves.',
     themeColor: '#fff8df',
     particleCount: 22,
     duration: [3.5, 7],
     size: [3, 5],
     mascot: `
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="57" width="52" height="3" fill="#d07a34" opacity=".42"/>
-        <rect x="15" y="15" width="9" height="10" fill="#bd7d4e"/>
-        <rect x="40" y="15" width="9" height="10" fill="#bd7d4e"/>
-        <rect x="11" y="10" width="9" height="9" fill="#bd7d4e"/>
-        <rect x="44" y="10" width="9" height="9" fill="#bd7d4e"/>
-        <rect x="15" y="19" width="34" height="27" fill="#cf9567"/>
-        <rect x="11" y="25" width="42" height="15" fill="#cf9567"/>
-        <rect x="21" y="28" width="5" height="5" fill="#302b26"/>
-        <rect x="38" y="28" width="5" height="5" fill="#302b26"/>
-        <rect x="29" y="35" width="6" height="4" fill="#71462f"/>
-        <rect x="19" y="44" width="26" height="13" fill="#2f8b85"/>
-        <rect x="29" y="44" width="6" height="13" fill="#f7e6b0"/>
-        <rect x="13" y="46" width="8" height="8" fill="#2f8b85"/>
-        <rect x="43" y="46" width="8" height="8" fill="#2f8b85"/>
-        <rect x="4" y="34" width="5" height="18" fill="#8b5b35"/>
-        <rect x="1" y="31" width="11" height="5" fill="#f1c84c"/>
-        <rect x="3" y="27" width="7" height="4" fill="#dc6a2d"/>
-        <rect x="22" y="13" width="20" height="4" fill="#e65c3e"/>
+        <rect x="8" y="30" width="41" height="12" fill="#f7faf8"/>
+        <rect x="14" y="25" width="31" height="21" fill="#f7faf8"/>
+        <rect x="39" y="26" width="14" height="14" fill="#f7faf8"/>
+        <rect x="49" y="31" width="9" height="5" fill="#e6a52e"/>
+        <rect x="55" y="33" width="7" height="3" fill="#d06b22"/>
+        <rect x="44" y="29" width="4" height="4" fill="#263942"/>
+        <g class="bird-wing">
+          <rect x="19" y="18" width="8" height="14" fill="#d7e1e1"/>
+          <rect x="25" y="13" width="8" height="17" fill="#f7faf8"/>
+          <rect x="31" y="17" width="8" height="13" fill="#d7e1e1"/>
+        </g>
+        <rect x="5" y="35" width="10" height="6" fill="#d7e1e1"/>
+        <rect x="1" y="38" width="9" height="4" fill="#f7faf8"/>
+        <rect x="20" y="43" width="18" height="5" fill="#d7e1e1"/>
+        <rect x="8" y="10" width="4" height="4" fill="#ffd95b"/>
+        <rect x="12" y="6" width="4" height="4" fill="#ffd95b"/>
       </svg>`
   },
   autumn: {

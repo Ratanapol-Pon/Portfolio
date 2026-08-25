@@ -240,7 +240,7 @@ body[data-season="winter"] .season-particle {
 
 .mascot-track {
   position: absolute;
-  left: 18px;
+  right: 18px;
   bottom: 8px;
   width: 76px;
   animation: mascot-wander 20s steps(12, end) infinite alternate;
@@ -260,9 +260,27 @@ body[data-season="winter"] .season-particle {
   shape-rendering: crispEdges;
 }
 
+body[data-season="summer"] .season-ground {
+  height: 10px;
+  opacity: 0.72;
+  background:
+    repeating-linear-gradient(90deg, #67b4c4 0 13px, #d7f0ed 13px 19px),
+    #e9c878;
+  border-bottom: 4px solid #e9c878;
+}
+
+body[data-season="summer"] .mascot-track { bottom: 30px; }
+body[data-season="summer"] .pixel-mascot { animation: mascot-flight 2.2s ease-in-out infinite; }
+body[data-season="summer"] .bird-wing {
+  transform-box: fill-box;
+  transform-origin: 70% 90%;
+  animation: bird-wing-flap 0.48s steps(2, end) infinite;
+}
+
 body.ambience-paused .season-particle,
 body.ambience-paused .mascot-track,
-body.ambience-paused .pixel-mascot {
+body.ambience-paused .pixel-mascot,
+body.ambience-paused .bird-wing {
   animation-play-state: paused !important;
 }
 
@@ -296,12 +314,22 @@ body.ambience-paused .pixel-mascot {
 
 @keyframes mascot-wander {
   from { transform: translateX(0); }
-  to { transform: translateX(92px); }
+  to { transform: translateX(-92px); }
 }
 
 @keyframes mascot-bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-3px); }
+}
+
+@keyframes mascot-flight {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+
+@keyframes bird-wing-flap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px) rotate(5deg); }
 }
 
 a { color: inherit; }
@@ -1267,7 +1295,7 @@ strong { color: var(--text); font-weight: 600; }
   .season-status { margin-bottom: 1.6rem; }
   .season-status-top { align-items: flex-start; }
   .ambience-toggle span { display: none; }
-  .mascot-track { left: 8px; width: 62px; }
+  .mascot-track { right: 8px; width: 62px; }
 }
 
 @media (max-width: 420px) {
