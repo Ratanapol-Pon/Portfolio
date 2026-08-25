@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rattanapol Chongchirakitkul | Cybersecurity Professional</title>
   <meta name="description" content="Rattanapol Chongchirakitkul — cybersecurity professional working in business development at JasTel Network, with hands-on offensive (CTF, HackTheBox, RAT research) and defensive (Splunk SIEM, ELK, AWS log analysis) experience. Bilingual in English and Thai." />
-  <meta name="theme-color" content="#f0edde" />
+  <meta name="theme-color" content="#f0edde" id="themeColor" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
   <!-- og:image is optional — create a 1200x630 og-image.png if you want a
@@ -57,6 +57,17 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
+  <!-- Date-driven seasonal atmosphere. Decorative artwork is generated in
+       script.js and kept outside the document reading order. -->
+  <div class="season-world" id="seasonWorld" aria-hidden="true">
+    <div class="season-sky"></div>
+    <div class="season-particles" id="seasonParticles"></div>
+    <div class="season-ground"></div>
+    <div class="mascot-track">
+      <div class="pixel-mascot" id="seasonMascot"></div>
+    </div>
+  </div>
+
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar" aria-label="Primary">
     <div class="nav-inner">
@@ -82,7 +93,22 @@
   <section class="hero" id="home" aria-label="Introduction">
     <div class="container">
       <div class="hero-inner">
-        <h1 class="hero-name">Rattanapol<br /><span style="color:#8EB486">Chongchirakitkul</span></h1>
+        <aside class="season-status" aria-label="Current season in Japan">
+          <div class="season-status-top">
+            <span class="season-eyebrow">Japan now <span aria-hidden="true">/</span> <span id="seasonJapanDate"></span></span>
+            <button class="ambience-toggle" id="ambienceToggle" type="button" aria-pressed="false" aria-label="Pause seasonal animation">
+              <i class="fas fa-pause" aria-hidden="true"></i>
+              <span>Pause motion</span>
+            </button>
+          </div>
+          <div class="season-title-row">
+            <span class="season-kanji" id="seasonKanji" aria-hidden="true"></span>
+            <span class="season-name" id="seasonName"></span>
+            <span class="season-window" id="seasonWindow"></span>
+          </div>
+          <p class="season-mood" id="seasonMood"></p>
+        </aside>
+        <h1 class="hero-name">Rattanapol<br /><span class="hero-surname">Chongchirakitkul</span></h1>
         <p class="hero-bio" id="heroBio"></p>
         <div class="hero-cta" id="heroCta"></div>
       </div>

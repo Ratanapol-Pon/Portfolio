@@ -14,6 +14,19 @@ RAT research) and defensive experience (Splunk SIEM, ELK, AWS log analysis).
 - Google Analytics (GA4)
 - Font Awesome + Google Fonts via CDN (pinned versions)
 
+## Seasonal atmosphere
+
+The visual theme follows the current date in Japan (`Asia/Tokyo`) and uses
+five atmosphere modes: spring (Mar–May), rainy season (Jun–15 Jul), summer
+(16 Jul–Aug), autumn (Sep–Nov), and winter (Dec–Feb). Each mode has its own
+palette, ambient particles, and code-native pixel mascot. Visitors can pause
+the decorative motion from the season card, and system reduced-motion settings
+are respected automatically.
+
+For visual QA, append `?season=spring`, `?season=rainy`, `?season=summer`,
+`?season=autumn`, or `?season=winter` to preview a mode without changing the
+real date-driven default.
+
 ## Local development
 
 Requires Node.js, then:

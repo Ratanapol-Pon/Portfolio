@@ -3,6 +3,263 @@
    Last successful copy is cached in localStorage so the site
    still renders when network calls fail.
    ════════════════════════════════════════════════════════════ */
+/* Seasonal atmosphere: driven by the current calendar date in Japan. */
+const SEASONS = {
+  spring: {
+    name: 'Spring',
+    kanji: '春',
+    window: 'March — May',
+    mood: 'Sakura air, soft light, and a small rabbit wandering beneath the petals.',
+    themeColor: '#fff6f4',
+    particleCount: 32,
+    duration: [9, 16],
+    size: [5, 9],
+    mascot: `
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="57" width="52" height="3" fill="#cf8fa4" opacity=".45"/>
+        <rect x="19" y="7" width="8" height="24" fill="#f2bdca"/>
+        <rect x="37" y="7" width="8" height="24" fill="#f2bdca"/>
+        <rect x="21" y="10" width="4" height="16" fill="#d87998"/>
+        <rect x="39" y="10" width="4" height="16" fill="#d87998"/>
+        <rect x="15" y="25" width="34" height="25" fill="#f7d7df"/>
+        <rect x="11" y="31" width="42" height="13" fill="#f7d7df"/>
+        <rect x="19" y="50" width="26" height="7" fill="#f2bdca"/>
+        <rect x="21" y="32" width="5" height="5" fill="#43323a"/>
+        <rect x="38" y="32" width="5" height="5" fill="#43323a"/>
+        <rect x="29" y="39" width="6" height="4" fill="#c95f82"/>
+        <rect x="26" y="45" width="5" height="3" fill="#a95570"/>
+        <rect x="33" y="45" width="5" height="3" fill="#a95570"/>
+        <rect x="48" y="18" width="5" height="5" fill="#e882a2"/>
+        <rect x="53" y="13" width="5" height="5" fill="#f1adc0"/>
+        <rect x="53" y="23" width="5" height="5" fill="#f1adc0"/>
+        <rect x="58" y="18" width="5" height="5" fill="#e882a2"/>
+      </svg>`
+  },
+  rainy: {
+    name: 'Rainy season',
+    kanji: '梅雨',
+    window: 'June — mid-July',
+    mood: 'Cool blue rain, hydrangea calm, and a leaf-umbrella frog keeping watch.',
+    themeColor: '#eaf1f3',
+    particleCount: 52,
+    duration: [0.65, 1.05],
+    size: [4, 7],
+    mascot: `
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="57" width="54" height="3" fill="#4e8395" opacity=".45"/>
+        <rect x="9" y="12" width="46" height="6" fill="#5e8c50"/>
+        <rect x="15" y="7" width="34" height="6" fill="#75a35f"/>
+        <rect x="23" y="4" width="18" height="4" fill="#8eb576"/>
+        <rect x="31" y="15" width="3" height="21" fill="#355b48"/>
+        <rect x="17" y="27" width="11" height="11" fill="#94bc64"/>
+        <rect x="36" y="27" width="11" height="11" fill="#94bc64"/>
+        <rect x="21" y="32" width="22" height="20" fill="#83ad55"/>
+        <rect x="16" y="37" width="32" height="11" fill="#83ad55"/>
+        <rect x="20" y="26" width="5" height="5" fill="#edf5d7"/>
+        <rect x="39" y="26" width="5" height="5" fill="#edf5d7"/>
+        <rect x="21" y="28" width="3" height="3" fill="#24372d"/>
+        <rect x="40" y="28" width="3" height="3" fill="#24372d"/>
+        <rect x="26" y="39" width="4" height="3" fill="#314b3a"/>
+        <rect x="34" y="39" width="4" height="3" fill="#314b3a"/>
+        <rect x="27" y="45" width="10" height="3" fill="#cf6d7d"/>
+        <rect x="18" y="51" width="12" height="7" fill="#e1b932"/>
+        <rect x="35" y="51" width="12" height="7" fill="#e1b932"/>
+      </svg>`
+  },
+  summer: {
+    name: 'Summer',
+    kanji: '夏',
+    window: 'Mid-July — August',
+    mood: 'Warm festival light, drifting fireflies, and a happi-coat cat on evening patrol.',
+    themeColor: '#fff8df',
+    particleCount: 22,
+    duration: [3.5, 7],
+    size: [3, 5],
+    mascot: `
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="57" width="52" height="3" fill="#d07a34" opacity=".42"/>
+        <rect x="15" y="15" width="9" height="10" fill="#bd7d4e"/>
+        <rect x="40" y="15" width="9" height="10" fill="#bd7d4e"/>
+        <rect x="11" y="10" width="9" height="9" fill="#bd7d4e"/>
+        <rect x="44" y="10" width="9" height="9" fill="#bd7d4e"/>
+        <rect x="15" y="19" width="34" height="27" fill="#cf9567"/>
+        <rect x="11" y="25" width="42" height="15" fill="#cf9567"/>
+        <rect x="21" y="28" width="5" height="5" fill="#302b26"/>
+        <rect x="38" y="28" width="5" height="5" fill="#302b26"/>
+        <rect x="29" y="35" width="6" height="4" fill="#71462f"/>
+        <rect x="19" y="44" width="26" height="13" fill="#2f8b85"/>
+        <rect x="29" y="44" width="6" height="13" fill="#f7e6b0"/>
+        <rect x="13" y="46" width="8" height="8" fill="#2f8b85"/>
+        <rect x="43" y="46" width="8" height="8" fill="#2f8b85"/>
+        <rect x="4" y="34" width="5" height="18" fill="#8b5b35"/>
+        <rect x="1" y="31" width="11" height="5" fill="#f1c84c"/>
+        <rect x="3" y="27" width="7" height="4" fill="#dc6a2d"/>
+        <rect x="22" y="13" width="20" height="4" fill="#e65c3e"/>
+      </svg>`
+  },
+  autumn: {
+    name: 'Autumn',
+    kanji: '秋',
+    window: 'September — November',
+    mood: 'Amber light, crisp air, and a little fox padding through falling maple leaves.',
+    themeColor: '#f6ebd9',
+    particleCount: 34,
+    duration: [10, 18],
+    size: [6, 10],
+    mascot: `
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="57" width="54" height="3" fill="#a6532d" opacity=".45"/>
+        <rect x="13" y="13" width="10" height="17" fill="#b84e25"/>
+        <rect x="41" y="13" width="10" height="17" fill="#b84e25"/>
+        <rect x="17" y="20" width="30" height="27" fill="#d8662e"/>
+        <rect x="12" y="27" width="40" height="13" fill="#d8662e"/>
+        <rect x="20" y="27" width="6" height="5" fill="#2e2822"/>
+        <rect x="38" y="27" width="6" height="5" fill="#2e2822"/>
+        <rect x="25" y="35" width="14" height="9" fill="#f0d2a4"/>
+        <rect x="30" y="35" width="5" height="4" fill="#3c2d26"/>
+        <rect x="22" y="46" width="22" height="11" fill="#bd5128"/>
+        <rect x="45" y="43" width="11" height="12" fill="#d8662e"/>
+        <rect x="52" y="38" width="8" height="15" fill="#d8662e"/>
+        <rect x="57" y="35" width="5" height="11" fill="#f1d3a6"/>
+        <rect x="2" y="35" width="7" height="7" fill="#a13e20"/>
+        <rect x="5" y="31" width="3" height="14" fill="#704123"/>
+      </svg>`
+  },
+  winter: {
+    name: 'Winter',
+    kanji: '冬',
+    window: 'December — February',
+    mood: 'Quiet snow, clear blue air, and an 8-bit snowman taking the slow route.',
+    themeColor: '#edf5f8',
+    particleCount: 42,
+    duration: [9, 18],
+    size: [3, 8],
+    mascot: `
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="57" width="56" height="4" fill="#b8d5e4"/>
+        <rect x="17" y="37" width="30" height="20" fill="#f8fcfd"/>
+        <rect x="12" y="43" width="40" height="10" fill="#f8fcfd"/>
+        <rect x="21" y="20" width="22" height="22" fill="#f8fcfd"/>
+        <rect x="17" y="25" width="30" height="12" fill="#f8fcfd"/>
+        <rect x="21" y="15" width="22" height="6" fill="#324a58"/>
+        <rect x="25" y="7" width="16" height="9" fill="#324a58"/>
+        <rect x="24" y="27" width="4" height="4" fill="#263943"/>
+        <rect x="37" y="27" width="4" height="4" fill="#263943"/>
+        <rect x="29" y="33" width="5" height="4" fill="#e77a34"/>
+        <rect x="23" y="38" width="20" height="5" fill="#4b83a5"/>
+        <rect x="38" y="42" width="6" height="11" fill="#4b83a5"/>
+        <rect x="30" y="46" width="5" height="5" fill="#49616e"/>
+        <rect x="8" y="38" width="10" height="3" fill="#6f5140"/>
+        <rect x="46" y="38" width="10" height="3" fill="#6f5140"/>
+      </svg>`
+  }
+};
+
+function getJapanDateParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  }).formatToParts(date);
+  return Object.fromEntries(parts.filter(p => p.type !== 'literal').map(p => [p.type, Number(p.value)]));
+}
+
+function getJapanSeason(month, day) {
+  if (month >= 3 && month <= 5) return 'spring';
+  if (month === 6 || (month === 7 && day <= 15)) return 'rainy';
+  if ((month === 7 && day >= 16) || month === 8) return 'summer';
+  if (month >= 9 && month <= 11) return 'autumn';
+  return 'winter';
+}
+
+function seededRandom(seedText) {
+  let seed = Array.from(seedText).reduce((value, char) => value + char.charCodeAt(0), 0) || 1;
+  return () => {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+}
+
+function renderSeasonParticles(seasonKey) {
+  const layer = document.getElementById('seasonParticles');
+  const season = SEASONS[seasonKey];
+  if (!layer || !season) return;
+
+  const random = seededRandom(seasonKey);
+  const mobileFactor = window.matchMedia('(max-width: 600px)').matches ? 0.7 : 1;
+  const count = Math.round(season.particleCount * mobileFactor);
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < count; i += 1) {
+    const particle = document.createElement('span');
+    const duration = season.duration[0] + random() * (season.duration[1] - season.duration[0]);
+    const size = season.size[0] + random() * (season.size[1] - season.size[0]);
+    particle.className = 'season-particle';
+    particle.style.setProperty('--x', (random() * 100).toFixed(2));
+    particle.style.setProperty('--y', (10 + random() * 80).toFixed(2));
+    particle.style.setProperty('--size', `${size.toFixed(1)}px`);
+    particle.style.setProperty('--drift', `${(-45 + random() * 90).toFixed(1)}px`);
+    particle.style.setProperty('--duration', `${duration.toFixed(2)}s`);
+    particle.style.setProperty('--delay', `${(-random() * duration).toFixed(2)}s`);
+    particle.style.setProperty('--opacity', (0.35 + random() * 0.45).toFixed(2));
+    fragment.appendChild(particle);
+  }
+
+  layer.replaceChildren(fragment);
+}
+
+function applySeason(seasonKey, date = new Date(), preview = false) {
+  const season = SEASONS[seasonKey];
+  if (!season) return;
+
+  document.body.dataset.season = seasonKey;
+  document.getElementById('seasonKanji').textContent = season.kanji;
+  document.getElementById('seasonName').textContent = season.name;
+  document.getElementById('seasonWindow').textContent = season.window;
+  document.getElementById('seasonMood').textContent = season.mood;
+  document.getElementById('seasonMascot').innerHTML = season.mascot;
+
+  const dateLabel = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Tokyo',
+    day: 'numeric',
+    month: 'short'
+  }).format(date);
+  document.getElementById('seasonJapanDate').textContent = preview ? `${season.name} preview` : `${dateLabel} JST`;
+
+  const themeMeta = document.getElementById('themeColor');
+  if (themeMeta) themeMeta.setAttribute('content', season.themeColor);
+  renderSeasonParticles(seasonKey);
+}
+
+function initSeason() {
+  const now = new Date();
+  const japanDate = getJapanDateParts(now);
+  const requestedSeason = new URLSearchParams(window.location.search).get('season');
+  const preview = Object.hasOwn(SEASONS, requestedSeason);
+  const seasonKey = preview ? requestedSeason : getJapanSeason(japanDate.month, japanDate.day);
+  applySeason(seasonKey, now, preview);
+
+  const toggle = document.getElementById('ambienceToggle');
+  let paused = false;
+  try { paused = localStorage.getItem('seasonMotionPaused') === 'true'; } catch { /* storage unavailable */ }
+
+  function setMotionPaused(nextPaused) {
+    paused = nextPaused;
+    document.body.classList.toggle('ambience-paused', paused);
+    toggle.setAttribute('aria-pressed', String(paused));
+    toggle.setAttribute('aria-label', paused ? 'Resume seasonal animation' : 'Pause seasonal animation');
+    toggle.querySelector('i').className = paused ? 'fas fa-play' : 'fas fa-pause';
+    toggle.querySelector('span').textContent = paused ? 'Resume motion' : 'Pause motion';
+    try { localStorage.setItem('seasonMotionPaused', String(paused)); } catch { /* storage unavailable */ }
+  }
+
+  setMotionPaused(paused);
+  toggle.addEventListener('click', () => setMotionPaused(!paused));
+}
+
+initSeason();
+
 const CONTENT_CACHE_KEY = 'contentCacheV1';
 
 async function loadContent() {
