@@ -534,11 +534,79 @@ strong { color: var(--text); font-weight: 600; }
   position: relative;
 }
 
-.hero-inner { max-width: 680px; position: relative; z-index: 3; }
+.hero-inner {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(250px, 0.8fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  width: 100%;
+}
+
+.hero-copy { min-width: 0; }
+
+.hero-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  justify-self: end;
+}
+
+.hero-portrait::before,
+.hero-portrait::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+}
+
+.hero-portrait::before {
+  top: -8px;
+  left: -8px;
+  border-top: 3px solid var(--accent);
+  border-left: 3px solid var(--accent);
+}
+
+.hero-portrait::after {
+  right: -8px;
+  bottom: -8px;
+  border-right: 3px solid var(--accent-soft);
+  border-bottom: 3px solid var(--accent-soft);
+}
+
+.hero-portrait-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 24px 60px rgba(35,35,28,0.12);
+}
+
+.hero-portrait-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+
+.hero-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.93) contrast(1.02);
+}
 
 .hero-name {
   font-family: var(--heading);
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-size: clamp(2.8rem, 5.3vw, 4rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -1191,6 +1259,23 @@ strong { color: var(--text); font-weight: 600; }
     padding: 1.5rem 2rem;
     gap: 1.2rem;
     border-bottom: 1px solid var(--border);
+  }
+  .hero-inner {
+    grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.7fr);
+    gap: 2rem;
+  }
+  .hero-name { font-size: clamp(2.7rem, 6vw, 3.5rem); }
+}
+
+@media (max-width: 760px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .hero-portrait {
+    order: -1;
+    justify-self: center;
+    width: min(56vw, 240px);
   }
 }
 
