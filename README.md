@@ -38,9 +38,7 @@ with challenge, action, evidence, and outcome fields stored in `content.json`.
 
 Motion remains progressive enhancement: normal document scrolling, keyboard
 controls, and `prefers-reduced-motion` support work without the cinematic
-effects. A scroll-driven 3D helix places milestone cards around a perspective
-rig, rotates and advances the rig through depth, and changes its accent color
-with the active chapter.
+effects.
 
 ## Local development
 

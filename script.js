@@ -392,45 +392,9 @@ const navbar   = document.getElementById('navbar');
 const sections = document.querySelectorAll('section[id]');
 const storyChapters = Array.from(document.querySelectorAll('.story-chapter'));
 const storyProgress = document.getElementById('storyProgress');
-const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-let previousAtmosphereScrollY = window.scrollY;
-let atmosphereStopTimer = null;
-
-function updateScrollAtmosphere(scrollY) {
-  if (reduceMotionQuery.matches) return;
-
-  const root = document.documentElement;
-  const scrollRange = Math.max(1, root.scrollHeight - window.innerHeight);
-  const progress = Math.max(0, Math.min(1, scrollY / scrollRange));
-  const delta = scrollY - previousAtmosphereScrollY;
-  const energy = Math.min(1, Math.abs(delta) / 42);
-  const horizontalPosition = 50 + Math.sin(progress * Math.PI * 3) * 26;
-  const spiralRotation = -18 - progress * 900;
-  const spiralDepth = -80 + Math.sin(progress * Math.PI * 5) * 55;
-  const spiralLift = Math.sin(progress * Math.PI * 2) * 36;
-
-  root.style.setProperty('--scroll-y', `${12 + progress * 76}%`);
-  root.style.setProperty('--scroll-x', `${horizontalPosition}%`);
-  root.style.setProperty('--chapter-shift', `${-96 * progress}px`);
-  root.style.setProperty('--spiral-rotate', `${spiralRotation}deg`);
-  root.style.setProperty('--spiral-depth', `${spiralDepth}px`);
-  root.style.setProperty('--spiral-lift', `${spiralLift}px`);
-  root.style.setProperty('--spiral-scale', (1 + energy * 0.045).toFixed(3));
-  root.style.setProperty('--spiral-opacity', (0.38 + energy * 0.18).toFixed(3));
-  document.body.classList.add('is-scrolling');
-  previousAtmosphereScrollY = scrollY;
-
-  clearTimeout(atmosphereStopTimer);
-  atmosphereStopTimer = setTimeout(() => {
-    document.body.classList.remove('is-scrolling');
-    root.style.setProperty('--spiral-scale', '1');
-    root.style.setProperty('--spiral-opacity', '0.38');
-  }, 160);
-}
 
 function updateNav() {
   const scrollY = window.scrollY;
-  updateScrollAtmosphere(scrollY);
 
   // Scrolled class
   navbar.classList.toggle('scrolled', scrollY > 40);
