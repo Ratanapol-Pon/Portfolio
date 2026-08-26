@@ -164,9 +164,19 @@ function renderSeasonParticles(seasonKey) {
   const season = SEASONS[seasonKey];
   if (!layer || !season) return;
 
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    layer.replaceChildren();
+    return;
+  }
+
   const random = seededRandom(seasonKey);
-  const mobileFactor = window.matchMedia('(max-width: 600px)').matches ? 0.7 : 1;
-  const count = Math.round(season.particleCount * mobileFactor);
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+  const isTablet = window.matchMedia('(max-width: 900px)').matches;
+  const limitedHardware = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+  const particleFactor = isMobile ? 0.45 : isTablet ? 0.65 : limitedHardware ? 0.65 : 0.8;
+  const particleLimit = isMobile ? 18 : isTablet ? 26 : 36;
+  const count = Math.min(particleLimit, Math.round(season.particleCount * particleFactor));
   const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < count; i += 1) {
@@ -209,6 +219,10 @@ function initSeason() {
 }
 
 initSeason();
+
+document.addEventListener('visibilitychange', () => {
+  document.body.classList.toggle('animations-paused', document.hidden);
+});
 
 const CONTENT_CACHE_KEY = 'contentCacheV1';
 
@@ -389,52 +403,109 @@ function renderContent(c) {
 
 /* ── Navbar scroll + active link ─────────────────────────── */
 const navbar   = document.getElementById('navbar');
-const sections = document.querySelectorAll('section[id]');
+const sections = Array.from(document.querySelectorAll('section[id]'));
 const storyChapters = Array.from(document.querySelectorAll('.story-chapter'));
 const storyProgress = document.getElementById('storyProgress');
+const navEntries = sections.map(section => ({
+  section,
+  link: document.querySelector(`.nav-links a[href="#${section.id}"]`)
+}));
+const railLinks = Array.from(document.querySelectorAll('[data-rail]'));
+
+let sectionMetrics = [];
+let chapterMetrics = [];
+let scrollFrame = 0;
+let metricsFrame = 0;
+let activeNavId = '';
+let activeChapterId = '';
+let navbarIsScrolled = false;
+let previousProgress = -1;
+
+function refreshScrollMetrics() {
+  const pageTop = window.scrollY;
+  sectionMetrics = navEntries.map(entry => {
+    const rect = entry.section.getBoundingClientRect();
+    const top = rect.top + pageTop - 110;
+    return { ...entry, id: entry.section.id, top, bottom: top + rect.height };
+  });
+  chapterMetrics = storyChapters.map(chapter => {
+    const rect = chapter.getBoundingClientRect();
+    const top = rect.top + pageTop;
+    return { chapter, id: chapter.id, top, bottom: top + rect.height };
+  });
+}
 
 function updateNav() {
+  scrollFrame = 0;
   const scrollY = window.scrollY;
 
-  // Scrolled class
-  navbar.classList.toggle('scrolled', scrollY > 40);
+  const shouldBeScrolled = scrollY > 40;
+  if (shouldBeScrolled !== navbarIsScrolled) {
+    navbarIsScrolled = shouldBeScrolled;
+    navbar.classList.toggle('scrolled', shouldBeScrolled);
+  }
 
-  // Active link highlight
-  sections.forEach(sec => {
-    const top    = sec.offsetTop - 110;
-    const bottom = top + sec.offsetHeight;
-    const id     = sec.getAttribute('id');
-    const link   = document.querySelector(`.nav-links a[href="#${id}"]`);
-    if (link) link.classList.toggle('active', scrollY >= top && scrollY < bottom);
-  });
+  const currentSection = sectionMetrics.find(metric => scrollY >= metric.top && scrollY < metric.bottom);
+  const nextNavId = currentSection?.link ? currentSection.id : '';
+  if (nextNavId !== activeNavId) {
+    activeNavId = nextNavId;
+    sectionMetrics.forEach(metric => metric.link?.classList.toggle('active', metric.id === activeNavId));
+  }
 
-  if (!storyChapters.length) return;
+  if (!chapterMetrics.length) return;
 
   const readingPoint = scrollY + window.innerHeight * 0.42;
-  const firstTop = storyChapters[0].offsetTop;
-  const lastChapter = storyChapters[storyChapters.length - 1];
-  const lastBottom = lastChapter.offsetTop + lastChapter.offsetHeight;
+  const firstTop = chapterMetrics[0].top;
+  const lastBottom = chapterMetrics[chapterMetrics.length - 1].bottom;
   const readableEnd = lastBottom - window.innerHeight * 0.58;
   const progress = Math.max(0, Math.min(1, (readingPoint - firstTop) / Math.max(1, readableEnd - firstTop)));
-  if (storyProgress) storyProgress.style.height = `${progress * 100}%`;
+  if (storyProgress && Math.abs(progress - previousProgress) > 0.001) {
+    previousProgress = progress;
+    storyProgress.style.transform = `scaleY(${progress})`;
+  }
 
-  let activeChapter = null;
-  storyChapters.forEach(chapter => {
-    if (readingPoint >= chapter.offsetTop) activeChapter = chapter;
-  });
+  let nextChapterId = '';
+  for (const metric of chapterMetrics) {
+    if (readingPoint >= metric.top) nextChapterId = metric.id;
+    else break;
+  }
 
-  if (activeChapter) {
-    const activeId = activeChapter.id;
-    document.body.dataset.activeChapter = activeId;
-    document.querySelectorAll('[data-rail]').forEach(link => {
-      link.classList.toggle('active', link.dataset.rail === activeId);
-      if (link.dataset.rail === activeId) link.setAttribute('aria-current', 'step');
+  if (nextChapterId !== activeChapterId) {
+    activeChapterId = nextChapterId;
+    if (activeChapterId) document.body.dataset.activeChapter = activeChapterId;
+    else delete document.body.dataset.activeChapter;
+    railLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.rail === activeChapterId);
+      if (link.dataset.rail === activeChapterId) link.setAttribute('aria-current', 'step');
       else link.removeAttribute('aria-current');
     });
   }
 }
 
-window.addEventListener('scroll', updateNav, { passive: true });
+function scheduleNavUpdate() {
+  if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateNav);
+}
+
+function scheduleScrollMetricsRefresh() {
+  if (metricsFrame) return;
+  metricsFrame = window.requestAnimationFrame(() => {
+    metricsFrame = 0;
+    refreshScrollMetrics();
+    updateNav();
+  });
+}
+
+window.addEventListener('scroll', scheduleNavUpdate, { passive: true });
+window.addEventListener('resize', scheduleScrollMetricsRefresh, { passive: true });
+window.addEventListener('load', scheduleScrollMetricsRefresh, { once: true });
+
+if ('ResizeObserver' in window) {
+  const layoutObserver = new ResizeObserver(scheduleScrollMetricsRefresh);
+  const main = document.getElementById('main');
+  if (main) layoutObserver.observe(main);
+}
+
+refreshScrollMetrics();
 updateNav();
 
 /* ── Mobile hamburger ───────────────────────────────────── */
@@ -692,6 +763,22 @@ async function loadCerts() {
   }
 }
 
+function loadWhenNear(selector, loader) {
+  const target = document.querySelector(selector);
+  if (!target || !('IntersectionObserver' in window)) {
+    loader();
+    return;
+  }
+
+  const lazyObserver = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    lazyObserver.disconnect();
+    loader();
+  }, { rootMargin: '900px 0px' });
+
+  lazyObserver.observe(target);
+}
+
 /* ── Certificate tabs ───────────────────────────────────── */
 const certTabs = Array.from(document.querySelectorAll('.cert-tab'));
 
@@ -752,6 +839,33 @@ const dwellObserver = new IntersectionObserver(
 
 document.querySelectorAll('section[id]').forEach(sec => dwellObserver.observe(sec));
 
+function loadAnalytics() {
+  if (document.querySelector('script[data-google-analytics]')) return;
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-DF2G53VKGS';
+  script.dataset.googleAnalytics = 'true';
+  document.head.appendChild(script);
+}
+
+function scheduleAnalytics() {
+  let analyticsTimer = 0;
+  const loadOnce = () => {
+    if (analyticsTimer) window.clearTimeout(analyticsTimer);
+    loadAnalytics();
+    window.removeEventListener('pointerdown', loadOnce);
+    window.removeEventListener('keydown', loadOnce);
+    window.removeEventListener('scroll', loadOnce);
+  };
+
+  window.addEventListener('pointerdown', loadOnce, { once: true, passive: true });
+  window.addEventListener('keydown', loadOnce, { once: true });
+  window.addEventListener('scroll', loadOnce, { once: true, passive: true });
+  analyticsTimer = window.setTimeout(loadOnce, 12000);
+}
+
+window.addEventListener('load', scheduleAnalytics, { once: true });
+
 /* ── Init: render content, then start async loads ───────── */
 (async function init() {
   const content = await loadContent();
@@ -765,6 +879,7 @@ document.querySelectorAll('section[id]').forEach(sec => dwellObserver.observe(se
   }
 
   initReveal();
-  loadHTB();
-  loadCerts();
+  scheduleScrollMetricsRefresh();
+  loadWhenNear('#attack', loadHTB);
+  loadWhenNear('#proof', loadCerts);
 })();

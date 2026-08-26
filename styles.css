@@ -156,6 +156,7 @@ main,
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  contain: strict;
 }
 
 .season-sky {
@@ -167,7 +168,12 @@ main,
   transition: background 0.7s ease;
 }
 
-.season-particles { position: absolute; inset: 0; overflow: hidden; }
+.season-particles { position: absolute; inset: 0; overflow: hidden; contain: strict; }
+
+body.animations-paused .season-particle,
+body.animations-paused .mascot-track,
+body.animations-paused .pixel-mascot,
+body.animations-paused .bird-wing { animation-play-state: paused !important; }
 
 .season-particle {
   --x: 50;
@@ -369,7 +375,6 @@ strong { color: var(--text); font-weight: 600; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.75rem;
-  backdrop-filter: blur(5px);
   transition: border-color 0.2s, background-color 0.7s ease;
 }
 
@@ -473,8 +478,6 @@ strong { color: var(--text); font-weight: 600; }
 
 .navbar.scrolled {
   background: var(--nav-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -602,6 +605,12 @@ strong { color: var(--text); font-weight: 600; }
   object-fit: cover;
   object-position: center;
   filter: saturate(0.93) contrast(1.02);
+}
+
+.hero-portrait picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-portrait-photo {
@@ -1260,7 +1269,6 @@ strong { color: var(--text); font-weight: 600; }
     position: fixed;
     top: 60px; left: 0; right: 0;
     background: var(--nav-open-bg);
-    backdrop-filter: blur(14px);
     padding: 1.5rem 2rem;
     gap: 1.2rem;
     border-bottom: 1px solid var(--border);
@@ -1412,10 +1420,12 @@ strong { color: var(--text); font-weight: 600; }
 .story-rail-track span {
   position: absolute;
   inset: 0 0 auto;
-  height: 0;
+  height: 100%;
   background: var(--accent);
   box-shadow: 0 0 10px var(--accent);
-  transition: height 0.16s linear;
+  transform: scaleY(0);
+  transform-origin: top;
+  will-change: transform;
 }
 
 .story-rail ol { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
@@ -1501,6 +1511,7 @@ strong { color: var(--text); font-weight: 600; }
 .story-chapter {
   position: relative;
   isolation: isolate;
+  contain: paint;
   overflow: hidden;
   padding: clamp(88px, 10vw, 138px) 0;
   scroll-margin-top: 72px;
@@ -1724,4 +1735,8 @@ strong { color: var(--text); font-weight: 600; }
   .live-dot { animation: none; }
   .case-file:hover { transform: none; }
   .story-rail-track span { transition: none; }
+}
+
+@media (prefers-reduced-data: reduce) {
+  .season-particles { display: none; }
 }

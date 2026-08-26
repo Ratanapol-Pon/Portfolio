@@ -35,9 +35,10 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="/content.json" as="fetch" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css" />
   <!-- Google Fonts: pinned families/weights, display=swap (SRI not possible —
        Google serves per-user-agent CSS) -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -45,7 +46,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DF2G53VKGS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -123,15 +123,22 @@
         </div>
         <figure class="hero-portrait">
           <div class="hero-portrait-frame">
-            <img
-              class="hero-portrait-photo"
-              src="assets/rattanapol-japan-riverside.jpg"
-              alt="Rattanapol Chongchirakitkul by a riverside in Japan"
-              width="1086"
-              height="1448"
-              decoding="async"
-              fetchpriority="high"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="assets/rattanapol-japan-riverside-240.webp 240w, assets/rattanapol-japan-riverside-360.webp 360w, assets/rattanapol-japan-riverside-480.webp 480w, assets/rattanapol-japan-riverside-800.webp 800w"
+                sizes="(max-width: 760px) 220px, 340px"
+              />
+              <img
+                class="hero-portrait-photo"
+                src="assets/rattanapol-japan-riverside.jpg"
+                alt="Rattanapol Chongchirakitkul by a riverside in Japan"
+                width="1086"
+                height="1448"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </picture>
           </div>
         </figure>
       </div>
@@ -438,6 +445,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
