@@ -28,7 +28,7 @@ For visual QA, append `?season=spring`, `?season=rainy`, `?season=summer`,
 `?season=autumn`, or `?season=winter` to preview a mode without changing the
 real date-driven default.
 
-## Signal Trace story experience
+## Portfolio story experience
 
 The portfolio is organized as a seven-chapter professional journey: Origin,
 Explore, Build, Bridge, Proof, Next, and Connect. A fixed progress rail links
