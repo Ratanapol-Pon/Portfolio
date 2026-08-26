@@ -61,6 +61,48 @@
        script.js and kept outside the document reading order. -->
   <div class="season-world" id="seasonWorld" aria-hidden="true">
     <div class="season-sky"></div>
+    <div class="scroll-atmosphere" id="scrollAtmosphere">
+      <div class="spiral-haze"></div>
+      <div class="spiral-scene">
+        <div class="spiral-rig" id="spiralRig">
+          <div class="spiral-core"></div>
+          <div class="spiral-ring ring-a"></div>
+          <div class="spiral-ring ring-b"></div>
+          <div class="spiral-ring ring-c"></div>
+
+          <div class="spiral-card spiral-photo" style="--angle:0deg;--lift:-315px;--image:url('assets/rattanapol-japan-riverside.jpg')">
+            <span>ORIGIN / 01</span><strong>THE JOURNEY BEGINS</strong>
+          </div>
+          <div class="spiral-card" style="--angle:42deg;--lift:-245px">
+            <span>NETWORK FOUNDATION</span><strong>MAHIDOL UNIVERSITY</strong><small>Computer Network</small>
+          </div>
+          <div class="spiral-card" style="--angle:84deg;--lift:-175px">
+            <span>ATTACK SURFACE</span><strong>CTF + HACKTHEBOX</strong><small>Think like an attacker</small>
+          </div>
+          <div class="spiral-card spiral-photo" style="--angle:126deg;--lift:-105px;--image:url('assets/rattanapol-portfolio.png')">
+            <span>RESEARCH / 03</span><strong>BUILD THE DEFENSE</strong>
+          </div>
+          <div class="spiral-card" style="--angle:168deg;--lift:-35px">
+            <span>RANSOMWATCH TH</span><strong>58 AUTOMATED TESTS</strong><small>Threat data → action</small>
+          </div>
+          <div class="spiral-card" style="--angle:210deg;--lift:35px">
+            <span>SPLUNK SIEM</span><strong>DETECT → SCORE → ALERT</strong><small>Real-time analyst handoff</small>
+          </div>
+          <div class="spiral-card" style="--angle:252deg;--lift:105px">
+            <span>SECURITY + BUSINESS</span><strong>BRIDGE THE GAP</strong><small>Technical depth, business meaning</small>
+          </div>
+          <div class="spiral-card spiral-photo" style="--angle:294deg;--lift:175px;--image:url('assets/rattanapol-professional-4k.jpg')">
+            <span>JASTEL / 04</span><strong>FROM ALERTS TO ACTION</strong>
+          </div>
+          <div class="spiral-card" style="--angle:336deg;--lift:245px">
+            <span>EVIDENCE / 05</span><strong>PROOF, NOT CLAIMS</strong><small>Practice · projects · credentials</small>
+          </div>
+          <div class="spiral-card" style="--angle:378deg;--lift:315px">
+            <span>NEXT MISSION</span><strong>LEAD ACROSS BORDERS</strong><small>Customer impact and growth</small>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="season-particles" id="seasonParticles"></div>
     <div class="season-ground"></div>
     <div class="mascot-track">
@@ -113,7 +155,7 @@
           <h1 class="hero-name"><span>I learned how</span> networks break.<br /><span class="hero-surname">Now I help organizations protect them.</span></h1>
           <p class="hero-bio" id="heroBio"></p>
           <div class="hero-cta">
-            <a href="#journey" class="btn btn-primary journey-start"><span>Begin the journey</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+            <a href="#origin" class="btn btn-primary journey-start"><span>Begin the journey</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
             <div id="heroCta"></div>
           </div>
           <div class="hero-identity">
@@ -136,74 +178,9 @@
         </figure>
       </div>
     </div>
-    <a href="#journey" class="scroll-hint" aria-label="Begin the journey">
+    <a href="#origin" class="scroll-hint" aria-label="Begin the journey">
       <i class="fas fa-chevron-down"></i>
     </a>
-  </section>
-
-  <!-- MAIN STORY: SCROLL-DRIVEN 3D SPIRAL -->
-  <section class="spiral-journey" id="journey" aria-labelledby="journeyTitle">
-    <div class="spiral-sticky">
-      <div class="spiral-copy">
-        <p class="chapter-kicker">Scroll to travel through the story</p>
-        <h2 id="journeyTitle">Seven chapters.<br />One connected journey.</h2>
-        <p>Each turn of the spiral brings a defining step into focus.</p>
-      </div>
-
-        <div class="journey-scene">
-        <div class="journey-rig" id="journeyRig">
-          <div class="journey-axis" aria-hidden="true"></div>
-          <div class="journey-ring ring-one" aria-hidden="true"></div>
-          <div class="journey-ring ring-two" aria-hidden="true"></div>
-          <div class="journey-ring ring-three" aria-hidden="true"></div>
-
-          <a class="journey-card is-active" href="#origin" data-journey-card="0" style="--angle:0deg;--lift:-270px">
-            <span class="journey-card-number">01 / ORIGIN</span>
-            <div class="journey-card-image"><img src="assets/rattanapol-japan-riverside.jpg" alt="" /></div>
-            <div class="journey-card-body"><small>Where the signal started</small><h3>Learning how systems communicate</h3><p>Computer networking became the foundation for everything that followed.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#attack" data-journey-card="1" style="--angle:52deg;--lift:-180px">
-            <span class="journey-card-number">02 / EXPLORE</span>
-            <div class="journey-card-symbol"><i class="fas fa-crosshairs"></i></div>
-            <div class="journey-card-body"><small>Entering the attack surface</small><h3>CTF, HackTheBox, and malware research</h3><p>Learning to think like an attacker—and communicate like a defender.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#defense" data-journey-card="2" style="--angle:104deg;--lift:-90px">
-            <span class="journey-card-number">03 / BUILD</span>
-            <div class="journey-card-symbol"><i class="fas fa-shield-halved"></i></div>
-            <div class="journey-card-body"><small>Building the defense</small><h3>Investigation became systems that act</h3><p>RansomWatch TH, Splunk detection, and controlled RAT investigation.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#bridge" data-journey-card="3" style="--angle:156deg;--lift:0px">
-            <span class="journey-card-number">04 / BRIDGE</span>
-            <div class="journey-card-image"><img src="assets/rattanapol-professional-4k.jpg" alt="" /></div>
-            <div class="journey-card-body"><small>From alerts to action</small><h3>Connecting security with business</h3><p>Helping customers and partners turn technical capabilities into decisions.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#proof" data-journey-card="4" style="--angle:208deg;--lift:90px">
-            <span class="journey-card-number">05 / PROOF</span>
-            <div class="journey-card-symbol"><i class="fas fa-fingerprint"></i></div>
-            <div class="journey-card-body"><small>Evidence, not claims</small><h3>Practice, projects, and credentials</h3><p>Measurable work provides the strongest signal of continuous progress.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#next" data-journey-card="5" style="--angle:260deg;--lift:180px">
-            <span class="journey-card-number">06 / NEXT</span>
-            <div class="journey-card-symbol"><i class="fas fa-earth-asia"></i></div>
-            <div class="journey-card-body"><small>The next mission</small><h3>Grow into leadership across borders</h3><p>Deeper judgment, customer impact, and the ability to lead the room.</p><strong>Explore chapter <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-
-          <a class="journey-card" href="#contact" data-journey-card="6" style="--angle:312deg;--lift:270px">
-            <span class="journey-card-number">07 / CONNECT</span>
-            <div class="journey-card-symbol"><i class="fas fa-link"></i></div>
-            <div class="journey-card-body"><small>Connection ready</small><h3>What should we build or solve next?</h3><p>Security opportunities, technical collaboration, and professional networking.</p><strong>Start a conversation <i class="fas fa-arrow-right"></i></strong></div>
-          </a>
-        </div>
-      </div>
-
-      <div class="spiral-step" aria-hidden="true"><span id="journeyStep">01</span><i><b id="journeyStepFill"></b></i><em>07</em></div>
-      <p class="spiral-scroll-cue"><i class="fas fa-computer-mouse"></i> Keep scrolling</p>
-    </div>
   </section>
 
   <!-- CHAPTER 01: ORIGIN -->

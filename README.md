@@ -38,9 +38,9 @@ with challenge, action, evidence, and outcome fields stored in `content.json`.
 
 Motion remains progressive enhancement: normal document scrolling, keyboard
 controls, and `prefers-reduced-motion` support work without the cinematic
-effects. The primary journey is a sticky, scroll-driven 3D helix: seven main
-content cards rotate into focus in sequence and link directly to their full
-evidence chapters below. The spiral is intentionally not a background effect.
+effects. A scroll-driven 3D helix places milestone cards around a perspective
+rig, rotates and advances the rig through depth, and changes its accent color
+with the active chapter.
 
 ## Local development
 
