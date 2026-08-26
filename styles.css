@@ -1,3 +1,105 @@
+/* Self-hosted variable fonts and the Font Awesome glyphs used by this site. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('assets/fonts/archivo-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url('assets/fonts/space-grotesk-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('assets/fonts/jetbrains-mono-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url('assets/fonts/fa-solid-subset.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('assets/fonts/fa-brands-subset.woff2') format('woff2');
+}
+
+.fa,
+.fas,
+.fa-solid,
+.fab,
+.fa-brands {
+  display: inline-block;
+  min-width: 1em;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-align: center;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fa,
+.fas,
+.fa-solid { font-family: 'Font Awesome 6 Free'; font-weight: 900; }
+.fab,
+.fa-brands { font-family: 'Font Awesome 6 Brands'; font-weight: 400; }
+.fa-spin { animation: fa-spin 2s linear infinite; }
+
+@keyframes fa-spin { to { transform: rotate(360deg); } }
+
+.fa-arrow-down::before { content: "\f063"; }
+.fa-arrow-up-right-from-square::before { content: "\f08e"; }
+.fa-building-shield::before { content: "\e4d8"; }
+.fa-calendar-days::before { content: "\f073"; }
+.fa-certificate::before { content: "\f0a3"; }
+.fa-chart-simple::before { content: "\e473"; }
+.fa-chevron-down::before { content: "\f078"; }
+.fa-circle-notch::before { content: "\f1ce"; }
+.fa-clock-rotate-left::before { content: "\f1da"; }
+.fa-cloud::before { content: "\f0c2"; }
+.fa-code::before { content: "\f121"; }
+.fa-crosshairs::before { content: "\f05b"; }
+.fa-cube::before { content: "\f1b2"; }
+.fa-earth-asia::before { content: "\f57e"; }
+.fa-envelope::before { content: "\f0e0"; }
+.fa-eye::before { content: "\f06e"; }
+.fa-fingerprint::before { content: "\f577"; }
+.fa-flag::before { content: "\f024"; }
+.fa-github::before { content: "\f09b"; }
+.fa-google::before { content: "\f1a0"; }
+.fa-graduation-cap::before { content: "\f19d"; }
+.fa-handshake::before { content: "\f2b5"; }
+.fa-handshake-angle::before { content: "\f4c4"; }
+.fa-language::before { content: "\f1ab"; }
+.fa-linkedin::before { content: "\f08c"; }
+.fa-location-dot::before { content: "\f3c5"; }
+.fa-network-wired::before { content: "\f6ff"; }
+.fa-people-group::before { content: "\e533"; }
+.fa-phone::before { content: "\f095"; }
+.fa-plus::before { content: "\2b"; }
+.fa-screwdriver-wrench::before { content: "\f7d9"; }
+.fa-shield-halved::before { content: "\f3ed"; }
+.fa-star::before { content: "\f005"; }
+.fa-terminal::before { content: "\f120"; }
+.fa-triangle-exclamation::before { content: "\f071"; }
+.fa-university::before { content: "\f19c"; }
+
 /* Reset & base */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -35,7 +137,6 @@ body {
   font-size: 17px;
   line-height: 1.75;
   overflow-x: hidden;
-  transition: background-color 0.7s ease, color 0.7s ease;
 }
 
 body[data-season="spring"] {
@@ -165,7 +266,6 @@ main,
   background:
     radial-gradient(circle at 84% 12%, var(--sky-top), transparent 25%),
     linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 50%);
-  transition: background 0.7s ease;
 }
 
 .season-particles { position: absolute; inset: 0; overflow: hidden; contain: strict; }
@@ -375,7 +475,6 @@ strong { color: var(--text); font-weight: 600; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.75rem;
-  transition: border-color 0.2s, background-color 0.7s ease;
 }
 
 .card:hover { border-color: var(--accent-border); }
@@ -425,7 +524,7 @@ strong { color: var(--text); font-weight: 600; }
   font-weight: 500;
   font-family: var(--sans);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: transform 0.2s;
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
@@ -613,10 +712,7 @@ strong { color: var(--text); font-weight: 600; }
   height: 100%;
 }
 
-.hero-portrait-photo {
-  transform: scale(1.55);
-  transform-origin: 50% 62%;
-}
+.hero-portrait-photo { object-position: center 48%; }
 
 .hero-name {
   font-family: var(--heading);
@@ -627,7 +723,7 @@ strong { color: var(--text); font-weight: 600; }
   margin-bottom: 1.2rem;
 }
 
-.hero-surname { color: var(--accent-soft); transition: color 0.7s ease; }
+.hero-surname { color: var(--accent-soft); }
 
 
 .hero-bio {
@@ -649,7 +745,6 @@ strong { color: var(--text); font-weight: 600; }
   font-size: 0.875rem;
   text-decoration: none;
   animation: bounce 2.5s ease-in-out infinite;
-  transition: color 0.2s;
 }
 
 .scroll-hint:hover { color: var(--text); }
@@ -1060,7 +1155,6 @@ strong { color: var(--text); font-weight: 600; }
   background: transparent;
   color: var(--muted);
   font-family: var(--sans);
-  transition: all 0.2s;
 }
 
 .cert-tab:hover { color: var(--text); border-color: rgba(0,0,0,0.2); }
@@ -1161,7 +1255,6 @@ strong { color: var(--text); font-weight: 600; }
   color: var(--muted);
   border: 1px solid var(--border);
   background: transparent;
-  transition: all 0.2s;
   align-self: flex-start;
   font-family: var(--sans);
   cursor: pointer;
