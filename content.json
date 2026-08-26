@@ -5,7 +5,7 @@
   },
   "lastUpdated": "August 2026",
   "hero": {
-    "bioHtml": "<strong>Cybersecurity Business Development professional</strong> with a technical foundation in offensive and defensive security. I work with national and international vendors, distributors, and clients to turn solutions across <strong>EDR, XDR, NDR, OT security, MFA, VAPT, phishing simulation, awareness training, and SOC services</strong> into practical business recommendations.",
+    "bioHtml": "I connect <strong>hands-on offensive and defensive security</strong> with customer needs—turning technical signals into practical decisions, stronger solutions, and business action.",
     "cta": [
       { "label": "LinkedIn", "icon": "fab fa-linkedin", "url": "https://www.linkedin.com/in/rattanapol", "class": "btn-linkedin" },
       { "label": "GitHub", "icon": "fab fa-github", "url": "https://github.com/Ratanapol-Pon", "class": "btn-github" }
@@ -60,6 +60,11 @@
     {
       "type": "Technical Project",
       "title": "RansomWatch TH",
+      "summary": "Threat intelligence designed to move from public incident data to business follow-up.",
+      "challenge": "Public ransomware disclosures are fragmented, duplicated, and difficult to turn into timely action for Thai organizations.",
+      "actionHtml": "Built scheduled ingestion, normalization, deduplication, watchlist matching, Discord and email alerts, incident lookups, trend statistics, and sourced AI briefings.",
+      "evidenceHtml": "Python, FastAPI, Supabase/PostgreSQL, Discord.py, TypeScript/Deno, and Docker working as one automated pipeline.",
+      "outcomeHtml": "Created a business-development follow-up workflow and validated reliability with <strong>58 automated tests</strong> across data processing, delivery, and timezone-safe scheduling.",
       "bodyHtml": "Built an automated ransomware threat-intelligence platform monitoring Thai organizations and converting public incident data into a business-development follow-up pipeline. Designed scheduled ingestion, normalization and deduplication, watchlist matching, Discord and email alerts, incident lookups, trend statistics, and sourced AI briefings. Validated reliability with <strong>58 automated tests</strong> covering data processing, alert delivery, and timezone-safe scheduling.",
       "tags": ["Python", "FastAPI", "Supabase/PostgreSQL", "Discord.py", "TypeScript/Deno", "Docker"]
     },
@@ -67,12 +72,22 @@
       "type": "Senior Project",
       "badge": "AINTEC 2026 - Manuscript Submitted",
       "title": "Anomaly Detection and Alerting System Utilizing Splunk Free License",
+      "summary": "A real-time detection workflow built under the constraints of Splunk's free license.",
+      "challenge": "Detect multiple attack patterns and give analysts useful context without relying on an enterprise Splunk license.",
+      "actionHtml": "Designed detections for phishing, DoS, cryptojacking, and brute-force activity across endpoint and network telemetry.",
+      "evidenceHtml": "Implemented Splunk searches, severity scoring, LINE and SMTP notifications, and event-history context.",
+      "outcomeHtml": "Produced a working analyst-handoff flow and submitted the resulting manuscript to <strong>AINTEC 2026</strong>.",
       "bodyHtml": "Designed and built a Splunk-based real-time monitoring system detecting <strong>phishing, DoS, cryptojacking, and brute-force attacks</strong> across endpoint and network telemetry. Implemented LINE and SMTP email alerting with severity scoring and event-history context for analyst handoff.",
       "tags": ["Splunk", "SIEM", "Python", "Anomaly Detection", "Network Security"]
     },
     {
       "type": "Academic Research",
       "title": "Remote Access Trojan (RAT) Investigation for Prevention",
+      "summary": "A controlled attacker–victim–C2 lab for turning offensive behavior into defensive controls.",
+      "challenge": "Understand how remote access trojans communicate, persist, and exfiltrate data without exposing real systems to uncontrolled risk.",
+      "actionHtml": "Designed an isolated attacker-victim-C2 environment and simulated command-and-control, persistence, and data-exfiltration behavior.",
+      "evidenceHtml": "Observed the same scenario from red-team and blue-team perspectives to connect attacker behavior with defensive visibility.",
+      "outcomeHtml": "Translated the investigation into practical <strong>detection signatures and prevention controls</strong>.",
       "bodyHtml": "Designed and built a controlled <strong>attacker-victim-C2 lab environment</strong> to study RAT behavior. Analyzed C2 communications, simulated persistence and data exfiltration, and translated offensive findings into practical detection signatures and prevention controls from red-team and blue-team perspectives.",
       "tags": ["C2 Analysis", "Malware Research", "Red Team", "Blue Team", "Detection Engineering"]
     }

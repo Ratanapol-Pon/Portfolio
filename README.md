@@ -28,6 +28,18 @@ For visual QA, append `?season=spring`, `?season=rainy`, `?season=summer`,
 `?season=autumn`, or `?season=winter` to preview a mode without changing the
 real date-driven default.
 
+## Signal Trace story experience
+
+The portfolio is organized as a seven-chapter professional journey: Origin,
+Explore, Build, Bridge, Proof, Next, and Connect. A fixed progress rail links
+the chapters on wide screens, while the compact navigation keeps the same
+story order on smaller devices. Project entries are interactive case files
+with challenge, action, evidence, and outcome fields stored in `content.json`.
+
+Motion remains progressive enhancement: normal document scrolling, keyboard
+controls, and `prefers-reduced-motion` support work without the cinematic
+effects.
+
 ## Local development
 
 Requires Node.js, then:

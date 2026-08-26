@@ -282,16 +282,54 @@ function renderContent(c) {
   // Projects
   const projectsGrid = document.getElementById('projectsGrid');
   if (projectsGrid && c.projects) {
-    projectsGrid.innerHTML = c.projects.map(p => `
-      <div class="card project-card">
-        <div class="project-top">
-          <span class="project-type">${p.type}</span>
-          ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
-        </div>
-        <h3>${p.title}</h3>
-        <p>${p.bodyHtml}</p>
-        <div class="tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      </div>`).join('');
+    projectsGrid.innerHTML = c.projects.map((p, index) => {
+      const caseId = `case-file-${index + 1}`;
+      const details = [
+        ['Challenge', p.challenge || p.bodyHtml],
+        ['Action', p.actionHtml || p.bodyHtml],
+        ['Evidence', p.evidenceHtml || 'Technical implementation and project documentation.'],
+        ['Outcome', p.outcomeHtml || p.bodyHtml]
+      ];
+
+      return `
+        <article class="card project-card case-file">
+          <button class="case-file-toggle" type="button" aria-expanded="false" aria-controls="${caseId}">
+            <span class="case-file-heading">
+              <span class="case-number">CASE / ${String(index + 1).padStart(2, '0')}</span>
+              <span class="case-title-wrap">
+                <span class="project-top">
+                  <span class="project-type">${p.type}</span>
+                  ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+                </span>
+                <h3>${p.title}</h3>
+                <p>${p.summary || p.bodyHtml}</p>
+              </span>
+              <span class="case-open-icon" aria-hidden="true"><i class="fas fa-plus"></i></span>
+            </span>
+          </button>
+          <div class="case-file-body" id="${caseId}" hidden>
+            <dl class="case-evidence-grid">
+              ${details.map(([label, value]) => `<div class="case-detail"><dt>${label}</dt><dd>${value}</dd></div>`).join('')}
+            </dl>
+            <div class="tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </article>`;
+    }).join('');
+
+    projectsGrid.querySelectorAll('.case-file-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.case-file');
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        const willOpen = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', String(willOpen));
+        card.classList.toggle('is-open', willOpen);
+        panel.hidden = !willOpen;
+
+        if (willOpen && typeof gtag !== 'undefined') {
+          gtag('event', 'case_file_open', { case_title: card.querySelector('h3')?.textContent || '' });
+        }
+      });
+    });
   }
 
   // Achievements
@@ -352,6 +390,8 @@ function renderContent(c) {
 /* ── Navbar scroll + active link ─────────────────────────── */
 const navbar   = document.getElementById('navbar');
 const sections = document.querySelectorAll('section[id]');
+const storyChapters = Array.from(document.querySelectorAll('.story-chapter'));
+const storyProgress = document.getElementById('storyProgress');
 
 function updateNav() {
   const scrollY = window.scrollY;
@@ -367,6 +407,31 @@ function updateNav() {
     const link   = document.querySelector(`.nav-links a[href="#${id}"]`);
     if (link) link.classList.toggle('active', scrollY >= top && scrollY < bottom);
   });
+
+  if (!storyChapters.length) return;
+
+  const readingPoint = scrollY + window.innerHeight * 0.42;
+  const firstTop = storyChapters[0].offsetTop;
+  const lastChapter = storyChapters[storyChapters.length - 1];
+  const lastBottom = lastChapter.offsetTop + lastChapter.offsetHeight;
+  const readableEnd = lastBottom - window.innerHeight * 0.58;
+  const progress = Math.max(0, Math.min(1, (readingPoint - firstTop) / Math.max(1, readableEnd - firstTop)));
+  if (storyProgress) storyProgress.style.height = `${progress * 100}%`;
+
+  let activeChapter = null;
+  storyChapters.forEach(chapter => {
+    if (readingPoint >= chapter.offsetTop) activeChapter = chapter;
+  });
+
+  if (activeChapter) {
+    const activeId = activeChapter.id;
+    document.body.dataset.activeChapter = activeId;
+    document.querySelectorAll('[data-rail]').forEach(link => {
+      link.classList.toggle('active', link.dataset.rail === activeId);
+      if (link.dataset.rail === activeId) link.setAttribute('aria-current', 'step');
+      else link.removeAttribute('aria-current');
+    });
+  }
 }
 
 window.addEventListener('scroll', updateNav, { passive: true });
@@ -409,7 +474,7 @@ const observer = new IntersectionObserver(
 
 function initReveal() {
   document.querySelectorAll(
-    '.card, .section-title, .section-sub, .tl-item, .hero-inner > *'
+    '.card, .section-title, .section-sub, .chapter-kicker, .chapter-lead, .tl-item, .next-card, .bridge-statement, .hero-inner > *'
   ).forEach((el, i) => {
     el.classList.add('reveal');
     el.style.transitionDelay = `${(i % 5) * 0.07}s`;
@@ -423,7 +488,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(anchor.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     }
   });
 });

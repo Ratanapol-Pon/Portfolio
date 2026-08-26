@@ -68,35 +68,59 @@
     </div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- STORY NAVIGATION -->
   <nav class="navbar" id="navbar" aria-label="Primary">
     <div class="nav-inner">
+      <a class="nav-brand" href="#home" aria-label="Rattanapol — back to the beginning">
+        <span class="nav-brand-mark" aria-hidden="true">RC</span>
+        <span class="nav-brand-copy"><strong>Signal Trace</strong><small>Rattanapol's journey</small></span>
+      </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#learning">Credentials</a></li>
-        <li><a href="#education">Education</a></li>
+        <li><a href="#origin">Origin</a></li>
+        <li><a href="#attack">Explore</a></li>
+        <li><a href="#defense">Build</a></li>
+        <li><a href="#bridge">Bridge</a></li>
+        <li><a href="#proof">Proof</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-status" aria-hidden="true"><span></span> Available in Bangkok</div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
+  <aside class="story-rail" aria-label="Journey progress">
+    <div class="story-rail-track"><span id="storyProgress"></span></div>
+    <ol id="storyRailLinks">
+      <li><a href="#origin" data-rail="origin"><span>01</span><em>Origin</em></a></li>
+      <li><a href="#attack" data-rail="attack"><span>02</span><em>Explore</em></a></li>
+      <li><a href="#defense" data-rail="defense"><span>03</span><em>Build</em></a></li>
+      <li><a href="#bridge" data-rail="bridge"><span>04</span><em>Bridge</em></a></li>
+      <li><a href="#proof" data-rail="proof"><span>05</span><em>Proof</em></a></li>
+      <li><a href="#next" data-rail="next"><span>06</span><em>Next</em></a></li>
+      <li><a href="#contact" data-rail="contact"><span>07</span><em>Connect</em></a></li>
+    </ol>
+  </aside>
+
   <main id="main">
 
-  <!-- HERO -->
+  <!-- OPENING SCENE -->
   <section class="hero" id="home" aria-label="Introduction">
     <div class="container">
       <div class="hero-inner">
         <div class="hero-copy">
-          <h1 class="hero-name">Rattanapol<br /><span class="hero-surname">Chongchirakitkul</span></h1>
+          <p class="hero-kicker"><span class="live-dot" aria-hidden="true"></span> Trace initialized · Bangkok, Thailand</p>
+          <h1 class="hero-name"><span>I learned how</span> networks break.<br /><span class="hero-surname">Now I help organizations protect them.</span></h1>
           <p class="hero-bio" id="heroBio"></p>
-          <div class="hero-cta" id="heroCta"></div>
+          <div class="hero-cta">
+            <a href="#origin" class="btn btn-primary journey-start"><span>Begin the journey</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+            <div id="heroCta"></div>
+          </div>
+          <div class="hero-identity">
+            <span class="hero-identity-name">Rattanapol Chongchirakitkul</span>
+            <span>Cyber Security Business Development</span>
+          </div>
         </div>
         <figure class="hero-portrait">
           <div class="hero-portrait-frame">
@@ -113,26 +137,31 @@
         </figure>
       </div>
     </div>
-    <a href="#about" class="scroll-hint" aria-label="Scroll down">
+    <a href="#origin" class="scroll-hint" aria-label="Begin the journey">
       <i class="fas fa-chevron-down"></i>
     </a>
   </section>
 
-  <!-- ABOUT -->
-  <section class="section" id="about">
+  <!-- CHAPTER 01: ORIGIN -->
+  <section class="section story-chapter" id="origin" data-chapter="01" data-label="Origin">
     <div class="container">
-      <h2 class="section-title">About</h2>
+      <header class="chapter-header">
+        <div class="chapter-index"><span>01</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">Where the signal started</p>
+          <h2 class="section-title">First, I learned how systems communicate.</h2>
+          <p class="chapter-lead">Networking became the foundation. Curiosity about what could go wrong pulled me toward cybersecurity.</p>
+        </div>
+      </header>
       <div class="about-grid">
         <div class="card about-bio" id="aboutBio"></div>
-        <div class="stats-row" id="statsRow"></div>
+        <div class="card edu-card origin-education">
+          <div class="edu-logo"><i class="fas fa-university" aria-hidden="true"></i></div>
+          <div class="edu-body" id="eduBody"></div>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="section" id="skills">
-    <div class="container">
-      <h2 class="section-title">Skills</h2>
+      <div class="section-bridge"><span>Foundation acquired</span><i class="fas fa-arrow-down" aria-hidden="true"></i></div>
+      <h3 class="story-subtitle">The toolkit I built along the way</h3>
       <div class="skills-grid">
 
         <div class="card skill-card">
@@ -228,42 +257,22 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section class="section" id="experience">
+  <!-- CHAPTER 02: ATTACK SURFACE -->
+  <section class="section story-chapter" id="attack" data-chapter="02" data-label="Explore">
     <div class="container">
-      <h2 class="section-title">Experience</h2>
-      <div class="timeline" id="timeline"></div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section class="section" id="projects">
-    <div class="container">
-      <h2 class="section-title">Research &amp; Projects</h2>
-      <!-- Senior-project badge text comes from content.json -> projects[1].badge.
-           Update it there as the publication status changes
-           (e.g. "AINTEC 2026 - Accepted", "AINTEC 2026 - Presented", or "Published"). -->
-      <div class="projects-grid" id="projectsGrid"></div>
-    </div>
-  </section>
-
-  <!-- ACHIEVEMENTS -->
-  <section class="section" id="achievements">
-    <div class="container">
-      <h2 class="section-title">Achievements &amp; Training</h2>
+      <header class="chapter-header">
+        <div class="chapter-index"><span>02</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">Entering the attack surface</p>
+          <h2 class="section-title">Then I stopped trusting the happy path.</h2>
+          <p class="chapter-lead">CTFs, HackTheBox, and controlled malware research taught me to think like an attacker—and communicate like a defender.</p>
+        </div>
+      </header>
       <div class="achieve-grid" id="achieveGrid"></div>
-    </div>
-  </section>
-
-  <!-- LEARNING & PROGRESS -->
-  <section class="section" id="learning">
-    <div class="container">
-      <h2 class="section-title">Practice &amp; Certifications</h2>
-
-      <div class="learn-block">
+      <div class="learn-block attack-live">
         <h3 class="learn-subtitle">
           <span class="learn-icon htb-color"><i class="fas fa-cube"></i></span>
-          HackTheBox
+          Live practice signal
         </h3>
         <div class="card htb-card" id="htbCard">
           <div class="htb-state" id="htbLoading">
@@ -293,6 +302,56 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 03: BUILD -->
+  <section class="section story-chapter chapter-build" id="defense" data-chapter="03" data-label="Build">
+    <div class="container">
+      <header class="chapter-header">
+        <div class="chapter-index"><span>03</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">Building the defense</p>
+          <h2 class="section-title">Investigation became systems that act.</h2>
+          <p class="chapter-lead">Three projects mark the shift from understanding threats to building detection, response, and intelligence workflows.</p>
+        </div>
+      </header>
+      <div class="case-file-instruction"><i class="fas fa-fingerprint" aria-hidden="true"></i><span>Select a case file to inspect the evidence.</span></div>
+      <div class="projects-grid case-files" id="projectsGrid"></div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 04: BUSINESS BRIDGE -->
+  <section class="section story-chapter" id="bridge" data-chapter="04" data-label="Bridge">
+    <div class="container">
+      <header class="chapter-header">
+        <div class="chapter-index"><span>04</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">From alerts to action</p>
+          <h2 class="section-title">Security only matters when people can act on it.</h2>
+          <p class="chapter-lead">My path moved from analyzing systems to helping customers, vendors, and stakeholders make practical security decisions.</p>
+        </div>
+      </header>
+      <div class="timeline" id="timeline"></div>
+      <blockquote class="bridge-statement">
+        <span aria-hidden="true">“</span>
+        <p>My edge is the bridge: enough technical depth to challenge a solution, and enough business context to explain why it matters.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CHAPTER 05: PROOF -->
+  <section class="section story-chapter" id="proof" data-chapter="05" data-label="Proof">
+    <div class="container">
+      <header class="chapter-header">
+        <div class="chapter-index"><span>05</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">Evidence, not claims</p>
+          <h2 class="section-title">The signal is strongest when it can be verified.</h2>
+          <p class="chapter-lead">Live practice, competition results, completed training, and measurable project work show continuous progress.</p>
+        </div>
+      </header>
+      <div class="stats-row proof-stats" id="statsRow"></div>
 
       <div class="learn-block">
         <h3 class="learn-subtitle">
@@ -332,24 +391,39 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section class="section" id="education">
+  <!-- CHAPTER 06: NEXT -->
+  <section class="section story-chapter chapter-next" id="next" data-chapter="06" data-label="Next">
     <div class="container">
-      <h2 class="section-title">Education</h2>
-      <div class="card edu-card">
-        <div class="edu-logo">
-          <i class="fas fa-university" aria-hidden="true"></i>
+      <header class="chapter-header">
+        <div class="chapter-index"><span>06</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">The next mission</p>
+          <h2 class="section-title">I am still building the person who can lead the room.</h2>
+          <p class="chapter-lead">The next stage is deeper cybersecurity judgment, stronger customer impact, and the ability to lead technical and commercial teams across borders.</p>
         </div>
-        <div class="edu-body" id="eduBody"></div>
+      </header>
+      <div class="next-grid">
+        <article class="next-card"><span>01</span><i class="fas fa-handshake-angle" aria-hidden="true"></i><h3>Create customer impact</h3><p>Turn security needs into credible solutions and measurable business outcomes.</p></article>
+        <article class="next-card"><span>02</span><i class="fas fa-people-group" aria-hidden="true"></i><h3>Grow into leadership</h3><p>Build the judgment, communication, and ownership required to lead teams.</p></article>
+        <article class="next-card"><span>03</span><i class="fas fa-earth-asia" aria-hidden="true"></i><h3>Learn across borders</h3><p>Pursue advanced cybersecurity study and bring the perspective back into practice.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="section" id="contact">
+  <!-- CHAPTER 07: CONNECTION -->
+  <section class="section story-chapter contact-section" id="contact" data-chapter="07" data-label="Connect">
     <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
+      <header class="chapter-header contact-header">
+        <div class="chapter-index"><span>07</span><i></i></div>
+        <div>
+          <p class="chapter-kicker">Connection ready</p>
+          <h2 class="section-title">What should we build or solve next?</h2>
+        </div>
+      </header>
       <p class="section-sub" id="contactSub"></p>
+      <div class="contact-paths" aria-label="Reasons to connect">
+        <span>Security opportunities</span><i></i><span>Technical collaboration</span><i></i><span>Professional network</span>
+      </div>
       <div class="contact-grid" id="contactGrid"></div>
     </div>
   </section>
