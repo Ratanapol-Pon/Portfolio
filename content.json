@@ -3,7 +3,7 @@
     "about": "Single source of truth for site copy. Edit this file to update the site - no HTML changes needed. Fields ending in 'Html' are injected as HTML, so keep tags balanced.",
     "todo": "Update projects[1].badge when the AINTEC 2026 manuscript status changes."
   },
-  "lastUpdated": "August 2026",
+  "lastUpdated": "September 2026",
   "hero": {
     "bioHtml": "I connect <strong>hands-on offensive and defensive security</strong> with customer needs—turning technical signals into practical decisions, stronger solutions, and business action.",
     "cta": [

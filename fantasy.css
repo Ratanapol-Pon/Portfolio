@@ -1,0 +1,236 @@
+/* Astral archive: editorial typography, celestial engraving, seasonal accents. */
+body.astral-portfolio {
+  --bg: #121716;
+  --surface: #1a211f;
+  --text: #eee8db;
+  --muted: #b4b9ac;
+  --accent: #ddbf83;
+  --accent-soft: #ddbf83;
+  --accent-bg: rgba(221,191,131,.07);
+  --accent-border: rgba(221,191,131,.46);
+  --border: rgba(221,191,131,.2);
+  --nav-bg: rgba(18,23,22,.97);
+  --nav-open-bg: #121716;
+  --tag-bg: transparent;
+  --tag-text: #c7cbbd;
+  --tag-border: rgba(221,191,131,.2);
+  --hover-surface: #242c27;
+  --display: Georgia, 'Times New Roman', serif;
+  --radius: 2px;
+  font-size: 16px;
+}
+body.astral-portfolio[data-season="spring"] { --accent: #e8b7c8; --accent-soft: #e8b7c8; --accent-border: #956777; }
+body.astral-portfolio[data-season="rainy"] { --accent: #9ccbd0; --accent-soft: #9ccbd0; --accent-border: #55888e; }
+body.astral-portfolio[data-season="summer"] { --accent: #dfc783; --accent-soft: #dfc783; --accent-border: #988047; }
+body.astral-portfolio[data-season="winter"] { --accent: #b5d7e8; --accent-soft: #b5d7e8; --accent-border: #6a94a9; }
+::selection { background: #ddbf83; color: #121716; }
+.astral-portfolio .container, .astral-portfolio .nav-inner { max-width: 1280px; padding-inline: 64px; }
+.astral-portfolio .navbar { border-bottom: 1px solid var(--border); background: var(--nav-bg); padding: 21px 0; }
+.astral-portfolio .navbar.scrolled { box-shadow: 0 8px 28px #0002; }
+.astral-portfolio .nav-brand { gap: 12px; }
+.astral-portfolio .nav-brand-mark { border-radius: 50%; width: 39px; height: 39px; font: 18px var(--display); }
+.astral-portfolio .nav-brand-mark::before, .astral-portfolio .nav-brand-mark::after { display: none; }
+.astral-portfolio .nav-brand-copy strong { font: 20px var(--display); text-transform: none; letter-spacing: -.4px; }
+.astral-portfolio .nav-brand-copy small { font: 9px var(--mono); letter-spacing: 1px; text-transform: uppercase; }
+.astral-portfolio .nav-links { gap: 22px; }
+.astral-portfolio .nav-links a { text-transform: none; font: 12px var(--sans); letter-spacing: 0; }
+.motion-control { display: flex; gap: 7px; align-items: center; cursor: pointer; background: none; border: 0; color: var(--muted); font: 10px var(--mono); padding: 8px 0 8px 12px; }
+.motion-control > span:first-child { font: 24px/1 var(--display); color: var(--accent); }
+.motion-control:hover { color: var(--text); }
+.astral-portfolio .hero { min-height: min(900px, 100svh); padding: 175px 0 125px; overflow: hidden; }
+.astral-portfolio .hero::before { background: radial-gradient(ellipse at 78% 48%, #72877218, transparent 45%); mask-image: none; }
+.astral-portfolio .hero::after { content: ''; position: absolute; inset: 25px; border: 1px solid var(--border); border-top: 0; pointer-events: none; opacity: .4; }
+.astral-portfolio .hero-inner { grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 40px; }
+.astral-portfolio .hero-kicker { font: 10px/1.8 var(--mono); letter-spacing: 1.5px; margin-bottom: 28px; }
+.astral-portfolio .hero-kicker > span { font-size: 17px; }
+.astral-portfolio .hero-name { font: 400 clamp(65px,7.5vw,108px)/.95 var(--display); letter-spacing: -5px; margin: 0 0 28px; }
+.astral-portfolio .hero-name em { display: block; color: var(--accent); font-weight: 400; white-space: nowrap; }
+.hero-role { max-width: 430px; font: 11px/1.8 var(--mono); color: var(--accent); margin-bottom: 17px; }
+.hero-role > span { margin: 0 8px; opacity: .5; }
+.astral-portfolio .hero-bio { font-size: 15px; line-height: 1.9; max-width: 450px; margin-bottom: 27px; }
+.astral-portfolio .hero-bio strong { font-weight: 400; color: var(--muted); }
+.astral-portfolio .hero-cta { gap: 18px; flex-wrap: wrap; }
+.astral-portfolio .btn { border-radius: 2px; font: 12px var(--sans); padding: 16px 20px; min-height: 46px; }
+.astral-portfolio .btn-primary { background: var(--accent); color: #171d19; border-color: var(--accent); gap: 28px; }
+.astral-portfolio .btn-primary:hover { background: #f0dec1; color: #171d19; transform: translateY(-3px); }
+.astral-portfolio .btn-linkedin, .astral-portfolio .btn-github { background: transparent; color: var(--text); border: 0; padding-inline: 7px; }
+.astral-portfolio .btn-linkedin:hover, .astral-portfolio .btn-github:hover { color: var(--accent); background: transparent; }
+.astral-portfolio .hero-identity { font: 10px/1.7 var(--sans); max-width: 450px; justify-content: space-between; margin-top: 28px; padding-top: 16px; }
+.hero-identity a { text-decoration: none; color: var(--accent); }
+.astral-portfolio .hero-portrait { width: 100%; max-width: 450px; margin: 0; justify-self: center; position: relative; padding: 50px 77px 34px; }
+.astral-portfolio .hero-portrait::before, .astral-portfolio .hero-portrait::after { display: none; }
+.celestial-map { position: absolute; inset: 50% auto auto 50%; width: 125%; aspect-ratio: 1; transform: translate(-50%,-50%); pointer-events: none; color: var(--accent); }
+.celestial-map svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: .65; opacity: .53; animation: orbit-turn 100s linear infinite; }
+.map-stars { fill: var(--accent); stroke: none; }
+.astral-portfolio .hero-portrait-frame { aspect-ratio: 3/4; border-radius: 150px 150px 3px 3px; border: 1px solid var(--accent-border); box-shadow: 0 0 0 9px var(--bg), 0 0 0 10px var(--border), 0 30px 60px #0004; position: relative; }
+.astral-portfolio .hero-portrait-frame::before { display: none; }
+.astral-portfolio .hero-portrait-frame::after { background: linear-gradient(0deg,#111b1859,transparent 50%); box-shadow: none; }
+.astral-portfolio .hero-portrait img { filter: saturate(.65); object-position: center 48%; }
+.portrait-coordinate { display: block; position: absolute; top: 8px; left: 0; right: 0; text-align: center; font: 8px var(--mono); letter-spacing: 2px; color: var(--accent); }
+.portrait-caption { display: flex; position: relative; align-items: center; justify-content: space-between; color: var(--accent); font: italic 13px var(--display); padding-top: 25px; white-space: nowrap; }
+.portrait-caption > span:last-child { font-size: 22px; }
+@keyframes orbit-turn { to { transform: rotate(360deg); } }
+.astral-portfolio .scroll-hint { display: flex; flex-direction: column; gap: 13px; bottom: 45px; font: 8px var(--mono); letter-spacing: 2px; color: var(--muted); }
+.astral-portfolio .scroll-hint i { font-size: 10px; }
+.expertise-ribbon { display: flex; position: relative; z-index: 2; justify-content: space-around; align-items: center; gap: 20px; padding: 26px 6vw; border-block: 1px solid var(--border); background: #181f1c; color: #d6cbb5; font: 11px var(--mono); text-transform: uppercase; letter-spacing: 2px; }
+.expertise-ribbon i { color: var(--accent); font: 22px var(--display); }
+.astral-portfolio .story-rail { right: 16px; opacity: .65; }
+.astral-portfolio .story-rail a em { background: var(--bg); }
+.astral-portfolio .season-sky { display: none; }
+.astral-portfolio .season-particles { opacity: .32; }
+.astral-portfolio .season-ground { height: 2px; opacity: .2; }
+.astral-portfolio .mascot-track { width: 48px; bottom: 12px; right: 16px; }
+.astral-portfolio .story-chapter { padding: 105px 0; }
+.astral-portfolio .story-chapter::after { font-family: var(--display); font-weight: 400; opacity: .045; }
+.astral-portfolio .chapter-header { grid-template-columns: 36px minmax(0,820px); gap: 24px; margin-bottom: 45px; }
+.astral-portfolio .chapter-index span { font: italic 20px var(--display); }
+.astral-portfolio .chapter-index i { background: linear-gradient(var(--accent-border),transparent); }
+.astral-portfolio .chapter-index i::before { border-radius: 0; width: 5px; height: 5px; transform: rotate(45deg); box-shadow: none; }
+.astral-portfolio .chapter-kicker { font: 10px var(--mono); letter-spacing: 2px; margin-bottom: 18px; }
+.astral-portfolio .chapter-header .section-title { font: 400 clamp(38px,4.8vw,65px)/1.05 var(--display); letter-spacing: -1.8px; max-width: 860px; }
+.astral-portfolio .chapter-lead { font-size: 15px; line-height: 1.9; max-width: 640px; }
+.astral-portfolio .card { border-radius: 2px; }
+.astral-portfolio .tag { font: 10px/1.6 var(--mono); border-radius: 2px; padding: 5px 9px; }
+.astral-portfolio #origin, .astral-portfolio #bridge, .astral-portfolio #next {
+  --bg: #eee8dc; --surface: #f5f0e6; --text: #26352d; --muted: #596259;
+  --accent: #74603a; --accent-soft: #74603a; --accent-bg: #8f795810; --accent-border: #98815d66;
+  --border: #86735833; --tag-bg: transparent; --tag-text: #4d5c50; --tag-border: #86735833; --hover-surface: #e3dece;
+  color: var(--text); background: var(--bg);
+}
+.astral-portfolio #origin .about-grid { gap: 24px; }
+.astral-portfolio #origin .about-bio { border: 0; padding: 0 25px 0 0; background: transparent; }
+.astral-portfolio .about-bio p { font-size: 15px; line-height: 1.9; }
+.astral-portfolio .origin-education { background: transparent; padding: 28px; }
+.astral-portfolio .skills-grid { background: transparent; border: 0; gap: 16px; }
+.astral-portfolio .skill-card { padding: 25px; border: 1px solid var(--border); }
+.astral-portfolio .skill-card h3 { font-size: 14px; }
+.astral-portfolio .skill-icon { color: var(--accent) !important; }
+.astral-portfolio .section-bridge { margin: 42px 0; font-size: 9px; }
+.astral-portfolio .chapter-build, .astral-portfolio .contact-section {
+  --bg: #101614; --surface: #18201b; --text: #eee8db; --muted: #b4b9ac;
+  --accent: #ddbf83; --accent-bg: #ddbf8310; --accent-border: #ddbf8366; --border: #ddbf8333;
+  --tag-bg: transparent; --tag-text: #c7cbbd; --tag-border: #ddbf8333;
+  background: var(--bg);
+}
+.astral-portfolio .chapter-build::before { background: radial-gradient(ellipse at 100% 30%, #bda46a0c, transparent 60%); }
+.astral-portfolio .case-files, .astral-portfolio .case-file-instruction { margin-left: 60px; }
+.astral-portfolio .case-file-instruction { font-size: 10px; margin-bottom: 25px; }
+.astral-portfolio .case-file { background: transparent; border: 0; border-top: 1px solid var(--border); }
+.astral-portfolio .case-file:last-child { border-bottom: 1px solid var(--border); }
+.astral-portfolio .case-file.is-open { background: #ddbf8305; }
+.astral-portfolio .case-file-toggle { padding: 30px 12px; }
+.astral-portfolio .case-title-wrap h3 { font: 400 29px/1.25 var(--display); max-width: 720px; }
+.astral-portfolio .case-title-wrap p { font-size: 13px; max-width: 650px; }
+.astral-portfolio .case-number { font: 10px var(--mono); padding-top: 9px; }
+.astral-portfolio .case-open-icon { border-radius: 50%; }
+.astral-portfolio .case-file-body { padding-left: 116px; }
+.astral-portfolio .case-detail { padding: 22px; }
+.astral-portfolio .case-evidence-grid { min-width: 0; }
+.astral-portfolio .case-detail { min-width: 0; overflow-wrap: anywhere; }
+.astral-portfolio .case-detail dd { font-size: 13px; }
+.astral-portfolio .case-detail dt { font-size: 9px; }
+.astral-portfolio .badge { font-size: 9px; white-space: normal; }
+.astral-portfolio .tl-header h3 { font-size: 19px; }
+.astral-portfolio .tl-card { background: transparent; }
+.astral-portfolio .tl-points { font-size: 14px; }
+.astral-portfolio .bridge-statement { max-width: none; margin-left: 60px; padding: 35px; }
+.astral-portfolio .bridge-statement p { font: italic 26px/1.5 var(--display); }
+.astral-portfolio .stats-row { background: transparent; border-radius: 2px; }
+.astral-portfolio .stat-val { font: 400 42px var(--display); color: var(--accent); }
+.astral-portfolio .stat-label { font-size: 11px; }
+.astral-portfolio .cert-count { background: var(--accent-bg); color: var(--accent); }
+.astral-portfolio .cert-tab { border-radius: 2px; min-height: 44px; padding: 10px 16px; font-size: 12px; }
+.astral-portfolio .cert-tab.active { border-color: var(--accent); }
+.astral-portfolio .cert-grid { background: transparent; gap: 15px; border: 0; overflow: visible; }
+.astral-portfolio .cert-card { border: 1px solid var(--border); padding: 25px; background: var(--surface); }
+.astral-portfolio .cert-title { font-size: 15px; }
+.astral-portfolio .cert-grade { color: var(--accent); }
+.astral-portfolio .cert-meta { min-width: 0; }
+.astral-portfolio .cert-date { line-height: 1.7; }
+.astral-portfolio .cert-btn { min-height: 40px; }
+.astral-portfolio .next-card { background: transparent; }
+.astral-portfolio .next-card h3 { font: 400 25px var(--display); }
+.astral-portfolio .next-card > span { font-family: var(--display); opacity: .1; }
+.astral-portfolio .contact-header .section-title { font-size: clamp(44px,6.2vw,86px); }
+.astral-portfolio .contact-grid { gap: 16px; border: 0; background: transparent; }
+.astral-portfolio .contact-card { border: 1px solid var(--border); }
+.astral-portfolio .contact-card i { color: var(--accent); }
+.astral-portfolio .footer { background: #0d1210; padding: 45px 0; border-top: 1px solid var(--border); }
+.astral-portfolio .footer-logo { font: 20px var(--display); }
+.astral-portfolio .footer-copy, .astral-portfolio .footer-updated { font-size: 10px; }
+.astral-portfolio .footer-logo .accent { display: none; }
+body[data-motion="paused"] *, body[data-motion="paused"] *::before, body[data-motion="paused"] *::after { animation-play-state: paused !important; }
+body[data-motion="paused"] .reveal { transition: none; }
+body[data-page-hidden="true"] *, body[data-page-hidden="true"] *::before, body[data-page-hidden="true"] *::after { animation-play-state: paused !important; }
+html:has(body[data-motion="paused"]) { scroll-behavior: auto; }
+@media (max-width: 1100px) {
+  .astral-portfolio .container, .astral-portfolio .nav-inner { padding-inline: 40px; }
+  .astral-portfolio .nav-links { gap: 16px; }
+  .astral-portfolio .nav-brand-copy small { display: none; }
+  .astral-portfolio .hero-name { font-size: 78px; letter-spacing: -4px; }
+  .astral-portfolio .hero-portrait { padding-inline: 48px; }
+  .motion-control { font-size: 9px; }
+}
+@media (max-width: 900px) {
+  .astral-portfolio .nav-inner { gap: 20px; }
+  .astral-portfolio .motion-control { margin-left: auto; }
+  .astral-portfolio .nav-links.open { top: 80px; align-items: flex-start; padding: 25px 40px; }
+  .astral-portfolio .nav-links.open a { font-size: 17px; padding: 8px 0; display: block; }
+  .astral-portfolio .hero-inner { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 20px; }
+  .astral-portfolio .hero-name { font-size: clamp(42px,6.3vw,60px); letter-spacing: -3px; }
+  .astral-portfolio .hero-portrait { padding-inline: 30px; order: 0; }
+  .portrait-coordinate { font-size: 6px; letter-spacing: 1px; }
+  .astral-portfolio .case-files, .astral-portfolio .case-file-instruction, .astral-portfolio .bridge-statement { margin-left: 0; }
+  .expertise-ribbon { font-size: 9px; letter-spacing: 1px; }
+}
+@media (max-width: 640px) {
+  .astral-portfolio .container, .astral-portfolio .nav-inner { padding-inline: 24px; }
+  .astral-portfolio .navbar { padding: 16px 0; }
+  .astral-portfolio .nav-brand-copy strong { font-size: 18px; }
+  .astral-portfolio .hero { min-height: auto; padding: 130px 0 95px; }
+  .astral-portfolio .hero::after { inset: 12px; }
+  .astral-portfolio .hero-inner { display: flex; flex-direction: column; align-items: stretch; gap: 30px; }
+  .astral-portfolio .hero-copy { position: relative; z-index: 2; }
+  .astral-portfolio .hero-name { font-size: clamp(40px,12.8vw,79px); letter-spacing: -2px; margin-bottom: 24px; }
+  .astral-portfolio .hero-kicker { font-size: 8px; letter-spacing: .8px; margin-bottom: 22px; }
+  .hero-role { font-size: 10px; }
+  .astral-portfolio .hero-bio { font-size: 14px; }
+  .astral-portfolio .hero-cta { flex-direction: row; gap: 12px; align-items: center; }
+  .astral-portfolio .hero-cta > #heroCta { display: flex; gap: 6px; }
+  .astral-portfolio .hero-cta .btn { font-size: 11px; padding: 14px 6px; }
+  .astral-portfolio .hero-cta .btn-primary { padding-inline: 17px; gap: 13px; }
+  .astral-portfolio .hero-portrait { order: 0; width: 310px; max-width: 90%; padding: 45px 55px 24px; align-self: center; }
+  .astral-portfolio .hero-portrait-frame { aspect-ratio: 3/4; }
+  .portrait-coordinate { font-size: 7px; }
+  .portrait-caption { font-size: 11px; }
+  .astral-portfolio .scroll-hint { bottom: 32px; }
+  .expertise-ribbon { flex-wrap: wrap; gap: 12px 18px; padding: 23px; font-size: 8px; }
+  .expertise-ribbon i { font-size: 13px; }
+  .expertise-ribbon i:last-child { display: none; }
+  .astral-portfolio .story-chapter { padding: 72px 0; }
+  .astral-portfolio .chapter-header { grid-template-columns: 1fr; gap: 0; }
+  .astral-portfolio .chapter-index { display: none; }
+  .astral-portfolio .chapter-header .section-title { font-size: 40px; letter-spacing: -1.3px; }
+  .astral-portfolio .chapter-lead { font-size: 14px; }
+  .astral-portfolio #origin .about-bio { padding: 0; }
+  .astral-portfolio .about-bio p { font-size: 14px; }
+  .astral-portfolio .case-file-toggle { padding: 24px 0; }
+  .astral-portfolio .case-title-wrap h3 { font-size: 26px; }
+  .astral-portfolio .case-file-body { padding: 0 0 24px; }
+  .astral-portfolio .case-evidence-grid { grid-template-columns: 1fr; }
+  .astral-portfolio .bridge-statement { padding: 25px 20px; gap: 5px; }
+  .astral-portfolio .bridge-statement p { font-size: 22px; }
+  .astral-portfolio .cert-tab { padding: 10px; font-size: 10px; }
+  .astral-portfolio .cert-card { padding: 21px; }
+  .astral-portfolio .next-grid, .astral-portfolio .contact-section .contact-grid { margin-left: 0; }
+  .astral-portfolio .contact-header .section-title { font-size: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celestial-map svg { animation: none; }
+  .astral-portfolio .reveal { opacity: 1; transform: none; transition: none; }
+}
+@media (max-width: 360px) {
+  .astral-portfolio .nav-inner { gap: 12px; }
+  .motion-control { min-width: 32px; justify-content: center; padding: 4px; }
+  #motionLabel { display: none; }
+}

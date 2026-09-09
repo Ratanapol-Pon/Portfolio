@@ -72,6 +72,12 @@ variables**):
 
 ## Updating content
 
+The astral visual layer lives in `fantasy.css`; `fantasy.js` manages the
+decorative-motion control. Its saved preference also pauses seasonal animation
+and smooth anchor scrolling. Device reduced-motion preferences take priority.
+Celestial artwork is inline SVG, with no additional image downloads or animation
+libraries. Existing Japan-season selection and certificate data remain independent.
+
 Almost all text content lives in **`content.json`** — hero bio, about
 paragraphs, stats, experience entries, projects, achievements, education,
 contact info, and the footer "Last updated" date. Edit that one file and

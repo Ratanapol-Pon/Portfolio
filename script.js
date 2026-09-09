@@ -559,7 +559,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(anchor.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        || document.body.dataset.motion === 'paused';
       target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     }
   });
