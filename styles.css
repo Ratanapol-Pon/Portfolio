@@ -1079,20 +1079,10 @@ body {
 
 .nav-brand-copy { display: flex; flex-direction: column; line-height: 1.25; }
 .nav-brand-copy strong { font-family: var(--heading); }
-.nav-brand-copy small { color: var(--muted); font-size: 0.72rem; }
 .nav-links a { font-weight: 500; }
 .nav-links a.active { color: var(--accent); }
 .navbar.scrolled { box-shadow: 0 4px 18px rgba(18,40,59,0.07); }
 .hamburger { padding: 10px; }
-
-.hero-kicker {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
 
 .hero-name span { display: block; overflow-wrap: anywhere; }
 .hero-role { color: var(--text); font-weight: 600; margin-bottom: 0.85rem; }
