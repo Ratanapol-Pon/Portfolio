@@ -14,32 +14,6 @@ RAT research) and defensive experience (Splunk SIEM, ELK, AWS log analysis).
 - Google Analytics (GA4)
 - Font Awesome + Google Fonts via CDN (pinned versions)
 
-## Seasonal atmosphere
-
-The visual theme follows the current date in Japan (`Asia/Tokyo`) and uses
-five atmosphere modes: spring (Mar–May), rainy season (Jun–15 Jul), summer
-(16 Jul–Aug), autumn (Sep–Nov), and winter (Dec–Feb). Each mode has its own
-palette, ambient particles, and code-native pixel mascot. Visitors can pause
-the decorative motion through their system reduced-motion setting, which is
-respected automatically. Season selection runs in the background without a
-visible status card.
-
-For visual QA, append `?season=spring`, `?season=rainy`, `?season=summer`,
-`?season=autumn`, or `?season=winter` to preview a mode without changing the
-real date-driven default.
-
-## Portfolio story experience
-
-The portfolio is organized as a seven-chapter professional journey: Origin,
-Explore, Build, Bridge, Proof, Next, and Connect. A fixed progress rail links
-the chapters on wide screens, while the compact navigation keeps the same
-story order on smaller devices. Project entries are interactive case files
-with challenge, action, evidence, and outcome fields stored in `content.json`.
-
-Motion remains progressive enhancement: normal document scrolling, keyboard
-controls, and `prefers-reduced-motion` support work without the cinematic
-effects.
-
 ## Local development
 
 Requires Node.js, then:
@@ -55,8 +29,8 @@ HackTheBox card works exactly as in production.
 > file (or in the Netlify UI for production). Without it the site still
 > renders — the HTB card falls back to cached/static content.
 
-You can also open `index.html` directly or use any static server
-(e.g. `npx serve .`) — everything except the live HTB fetch will work.
+For a static preview, serve this directory with a local HTTP server, for example
+`python -m http.server 8000`. Live Hack The Box stats use the Netlify function.
 
 ## Deployment
 
@@ -71,12 +45,6 @@ variables**):
 | `HTB_APP_TOKEN` | HackTheBox app API token (Bearer) |
 
 ## Updating content
-
-The astral visual layer lives in `fantasy.css`; `fantasy.js` manages the
-decorative-motion control. Its saved preference also pauses seasonal animation
-and smooth anchor scrolling. Device reduced-motion preferences take priority.
-Celestial artwork is inline SVG, with no additional image downloads or animation
-libraries. Existing Japan-season selection and certificate data remain independent.
 
 Almost all text content lives in **`content.json`** — hero bio, about
 paragraphs, stats, experience entries, projects, achievements, education,

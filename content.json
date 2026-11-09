@@ -5,7 +5,7 @@
   },
   "lastUpdated": "September 2026",
   "hero": {
-    "bioHtml": "I connect <strong>hands-on offensive and defensive security</strong> with customer needs—turning technical signals into practical decisions, stronger solutions, and business action.",
+    "bioHtml": "I help organizations clarify their cybersecurity needs, evaluate solutions, and make informed security decisions. My technical work includes detection engineering, cloud log analysis, and threat intelligence.",
     "cta": [
       { "label": "LinkedIn", "icon": "fab fa-linkedin", "url": "https://www.linkedin.com/in/rattanapol", "class": "btn-linkedin" },
       { "label": "GitHub", "icon": "fab fa-github", "url": "https://github.com/Ratanapol-Pon", "class": "btn-github" }
@@ -22,7 +22,7 @@
     { "value": "JasTel", "labelHtml": "Cyber Security Business Development<br/>Current Role", "valueClass": "stat-role" },
     { "value": "2", "labelHtml": "National CTF Competitions<br/>best: 60th of 244 teams" },
     { "value": "-", "labelHtml": "HackTheBox Global Rank<br/>(live)", "id": "statHtbRank" },
-    { "value": "11", "labelHtml": "Certificates &amp; Training<br/>verified portfolio records", "id": "statCertCount" }
+    { "value": "11", "labelHtml": "Certificates &amp; Training<br/>listed in this portfolio", "id": "statCertCount" }
   ],
   "experience": [
     {
@@ -60,7 +60,7 @@
     {
       "type": "Technical Project",
       "title": "RansomWatch TH",
-      "summary": "Threat intelligence designed to move from public incident data to business follow-up.",
+      "summary": "Automates ransomware monitoring and alerts for Thai organizations, with 58 tests covering data processing, alert delivery, and scheduling.",
       "challenge": "Public ransomware disclosures are fragmented, duplicated, and difficult to turn into timely action for Thai organizations.",
       "actionHtml": "Built scheduled ingestion, normalization, deduplication, watchlist matching, Discord and email alerts, incident lookups, trend statistics, and sourced AI briefings.",
       "evidenceHtml": "Python, FastAPI, Supabase/PostgreSQL, Discord.py, TypeScript/Deno, and Docker working as one automated pipeline.",
@@ -72,7 +72,7 @@
       "type": "Senior Project",
       "badge": "AINTEC 2026 - Manuscript Submitted",
       "title": "Anomaly Detection and Alerting System Utilizing Splunk Free License",
-      "summary": "A real-time detection workflow built under the constraints of Splunk's free license.",
+      "summary": "Built detections for phishing, denial-of-service, cryptojacking, and brute-force attacks using the Splunk free license.",
       "challenge": "Detect multiple attack patterns and give analysts useful context without relying on an enterprise Splunk license.",
       "actionHtml": "Designed detections for phishing, DoS, cryptojacking, and brute-force activity across endpoint and network telemetry.",
       "evidenceHtml": "Implemented Splunk searches, severity scoring, LINE and SMTP notifications, and event-history context.",
@@ -83,7 +83,7 @@
     {
       "type": "Academic Research",
       "title": "Remote Access Trojan (RAT) Investigation for Prevention",
-      "summary": "A controlled attacker–victim–C2 lab for turning offensive behavior into defensive controls.",
+      "summary": "Used an isolated malware lab to turn observations of persistence and data exfiltration into detection signatures and prevention controls.",
       "challenge": "Understand how remote access trojans communicate, persist, and exfiltrate data without exposing real systems to uncontrolled risk.",
       "actionHtml": "Designed an isolated attacker-victim-C2 environment and simulated command-and-control, persistence, and data-exfiltration behavior.",
       "evidenceHtml": "Observed the same scenario from red-team and blue-team perspectives to connect attacker behavior with defensive visibility.",

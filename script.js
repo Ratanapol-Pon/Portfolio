@@ -3,227 +3,6 @@
    Last successful copy is cached in localStorage so the site
    still renders when network calls fail.
    ════════════════════════════════════════════════════════════ */
-/* Seasonal atmosphere: driven by the current calendar date in Japan. */
-const SEASONS = {
-  spring: {
-    themeColor: '#fff6f4',
-    particleCount: 32,
-    duration: [9, 16],
-    size: [5, 9],
-    mascot: `
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="57" width="52" height="3" fill="#cf8fa4" opacity=".45"/>
-        <rect x="19" y="7" width="8" height="24" fill="#f2bdca"/>
-        <rect x="37" y="7" width="8" height="24" fill="#f2bdca"/>
-        <rect x="21" y="10" width="4" height="16" fill="#d87998"/>
-        <rect x="39" y="10" width="4" height="16" fill="#d87998"/>
-        <rect x="15" y="25" width="34" height="25" fill="#f7d7df"/>
-        <rect x="11" y="31" width="42" height="13" fill="#f7d7df"/>
-        <rect x="19" y="50" width="26" height="7" fill="#f2bdca"/>
-        <rect x="21" y="32" width="5" height="5" fill="#43323a"/>
-        <rect x="38" y="32" width="5" height="5" fill="#43323a"/>
-        <rect x="29" y="39" width="6" height="4" fill="#c95f82"/>
-        <rect x="26" y="45" width="5" height="3" fill="#a95570"/>
-        <rect x="33" y="45" width="5" height="3" fill="#a95570"/>
-        <rect x="48" y="18" width="5" height="5" fill="#e882a2"/>
-        <rect x="53" y="13" width="5" height="5" fill="#f1adc0"/>
-        <rect x="53" y="23" width="5" height="5" fill="#f1adc0"/>
-        <rect x="58" y="18" width="5" height="5" fill="#e882a2"/>
-      </svg>`
-  },
-  rainy: {
-    themeColor: '#eaf1f3',
-    particleCount: 52,
-    duration: [0.65, 1.05],
-    size: [4, 7],
-    mascot: `
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="57" width="54" height="3" fill="#4e8395" opacity=".45"/>
-        <rect x="9" y="12" width="46" height="6" fill="#5e8c50"/>
-        <rect x="15" y="7" width="34" height="6" fill="#75a35f"/>
-        <rect x="23" y="4" width="18" height="4" fill="#8eb576"/>
-        <rect x="31" y="15" width="3" height="21" fill="#355b48"/>
-        <rect x="17" y="27" width="11" height="11" fill="#94bc64"/>
-        <rect x="36" y="27" width="11" height="11" fill="#94bc64"/>
-        <rect x="21" y="32" width="22" height="20" fill="#83ad55"/>
-        <rect x="16" y="37" width="32" height="11" fill="#83ad55"/>
-        <rect x="20" y="26" width="5" height="5" fill="#edf5d7"/>
-        <rect x="39" y="26" width="5" height="5" fill="#edf5d7"/>
-        <rect x="21" y="28" width="3" height="3" fill="#24372d"/>
-        <rect x="40" y="28" width="3" height="3" fill="#24372d"/>
-        <rect x="26" y="39" width="4" height="3" fill="#314b3a"/>
-        <rect x="34" y="39" width="4" height="3" fill="#314b3a"/>
-        <rect x="27" y="45" width="10" height="3" fill="#cf6d7d"/>
-        <rect x="18" y="51" width="12" height="7" fill="#e1b932"/>
-        <rect x="35" y="51" width="12" height="7" fill="#e1b932"/>
-      </svg>`
-  },
-  summer: {
-    themeColor: '#fff8df',
-    particleCount: 22,
-    duration: [3.5, 7],
-    size: [3, 5],
-    mascot: `
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="8" y="30" width="41" height="12" fill="#f7faf8"/>
-        <rect x="14" y="25" width="31" height="21" fill="#f7faf8"/>
-        <rect x="39" y="26" width="14" height="14" fill="#f7faf8"/>
-        <rect x="49" y="31" width="9" height="5" fill="#e6a52e"/>
-        <rect x="55" y="33" width="7" height="3" fill="#d06b22"/>
-        <rect x="44" y="29" width="4" height="4" fill="#263942"/>
-        <g class="bird-wing">
-          <rect x="19" y="18" width="8" height="14" fill="#d7e1e1"/>
-          <rect x="25" y="13" width="8" height="17" fill="#f7faf8"/>
-          <rect x="31" y="17" width="8" height="13" fill="#d7e1e1"/>
-        </g>
-        <rect x="5" y="35" width="10" height="6" fill="#d7e1e1"/>
-        <rect x="1" y="38" width="9" height="4" fill="#f7faf8"/>
-        <rect x="20" y="43" width="18" height="5" fill="#d7e1e1"/>
-        <rect x="8" y="10" width="4" height="4" fill="#ffd95b"/>
-        <rect x="12" y="6" width="4" height="4" fill="#ffd95b"/>
-      </svg>`
-  },
-  autumn: {
-    themeColor: '#f6ebd9',
-    particleCount: 34,
-    duration: [10, 18],
-    size: [6, 10],
-    mascot: `
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="57" width="54" height="3" fill="#a6532d" opacity=".45"/>
-        <rect x="13" y="13" width="10" height="17" fill="#b84e25"/>
-        <rect x="41" y="13" width="10" height="17" fill="#b84e25"/>
-        <rect x="17" y="20" width="30" height="27" fill="#d8662e"/>
-        <rect x="12" y="27" width="40" height="13" fill="#d8662e"/>
-        <rect x="20" y="27" width="6" height="5" fill="#2e2822"/>
-        <rect x="38" y="27" width="6" height="5" fill="#2e2822"/>
-        <rect x="25" y="35" width="14" height="9" fill="#f0d2a4"/>
-        <rect x="30" y="35" width="5" height="4" fill="#3c2d26"/>
-        <rect x="22" y="46" width="22" height="11" fill="#bd5128"/>
-        <rect x="45" y="43" width="11" height="12" fill="#d8662e"/>
-        <rect x="52" y="38" width="8" height="15" fill="#d8662e"/>
-        <rect x="57" y="35" width="5" height="11" fill="#f1d3a6"/>
-        <rect x="2" y="35" width="7" height="7" fill="#a13e20"/>
-        <rect x="5" y="31" width="3" height="14" fill="#704123"/>
-      </svg>`
-  },
-  winter: {
-    themeColor: '#edf5f8',
-    particleCount: 42,
-    duration: [9, 18],
-    size: [3, 8],
-    mascot: `
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="57" width="56" height="4" fill="#b8d5e4"/>
-        <rect x="17" y="37" width="30" height="20" fill="#f8fcfd"/>
-        <rect x="12" y="43" width="40" height="10" fill="#f8fcfd"/>
-        <rect x="21" y="20" width="22" height="22" fill="#f8fcfd"/>
-        <rect x="17" y="25" width="30" height="12" fill="#f8fcfd"/>
-        <rect x="21" y="15" width="22" height="6" fill="#324a58"/>
-        <rect x="25" y="7" width="16" height="9" fill="#324a58"/>
-        <rect x="24" y="27" width="4" height="4" fill="#263943"/>
-        <rect x="37" y="27" width="4" height="4" fill="#263943"/>
-        <rect x="29" y="33" width="5" height="4" fill="#e77a34"/>
-        <rect x="23" y="38" width="20" height="5" fill="#4b83a5"/>
-        <rect x="38" y="42" width="6" height="11" fill="#4b83a5"/>
-        <rect x="30" y="46" width="5" height="5" fill="#49616e"/>
-        <rect x="8" y="38" width="10" height="3" fill="#6f5140"/>
-        <rect x="46" y="38" width="10" height="3" fill="#6f5140"/>
-      </svg>`
-  }
-};
-
-function getJapanDateParts(date = new Date()) {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Tokyo',
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric'
-  }).formatToParts(date);
-  return Object.fromEntries(parts.filter(p => p.type !== 'literal').map(p => [p.type, Number(p.value)]));
-}
-
-function getJapanSeason(month, day) {
-  if (month >= 3 && month <= 5) return 'spring';
-  if (month === 6 || (month === 7 && day <= 15)) return 'rainy';
-  if ((month === 7 && day >= 16) || month === 8) return 'summer';
-  if (month >= 9 && month <= 11) return 'autumn';
-  return 'winter';
-}
-
-function seededRandom(seedText) {
-  let seed = Array.from(seedText).reduce((value, char) => value + char.charCodeAt(0), 0) || 1;
-  return () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-}
-
-function renderSeasonParticles(seasonKey) {
-  const layer = document.getElementById('seasonParticles');
-  const season = SEASONS[seasonKey];
-  if (!layer || !season) return;
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    layer.replaceChildren();
-    return;
-  }
-
-  const random = seededRandom(seasonKey);
-  const isMobile = window.matchMedia('(max-width: 600px)').matches;
-  const isTablet = window.matchMedia('(max-width: 900px)').matches;
-  const limitedHardware = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
-    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
-  const particleFactor = isMobile ? 0.45 : isTablet ? 0.65 : limitedHardware ? 0.65 : 0.8;
-  const particleLimit = isMobile ? 18 : isTablet ? 26 : 36;
-  const count = Math.min(particleLimit, Math.round(season.particleCount * particleFactor));
-  const fragment = document.createDocumentFragment();
-
-  for (let i = 0; i < count; i += 1) {
-    const particle = document.createElement('span');
-    const duration = season.duration[0] + random() * (season.duration[1] - season.duration[0]);
-    const size = season.size[0] + random() * (season.size[1] - season.size[0]);
-    particle.className = 'season-particle';
-    particle.style.setProperty('--x', (random() * 100).toFixed(2));
-    particle.style.setProperty('--y', (10 + random() * 80).toFixed(2));
-    particle.style.setProperty('--size', `${size.toFixed(1)}px`);
-    particle.style.setProperty('--drift', `${(-45 + random() * 90).toFixed(1)}px`);
-    particle.style.setProperty('--duration', `${duration.toFixed(2)}s`);
-    particle.style.setProperty('--delay', `${(-random() * duration).toFixed(2)}s`);
-    particle.style.setProperty('--opacity', (0.35 + random() * 0.45).toFixed(2));
-    fragment.appendChild(particle);
-  }
-
-  layer.replaceChildren(fragment);
-}
-
-function applySeason(seasonKey) {
-  const season = SEASONS[seasonKey];
-  if (!season) return;
-
-  document.body.dataset.season = seasonKey;
-  document.getElementById('seasonMascot').innerHTML = season.mascot;
-
-  const themeMeta = document.getElementById('themeColor');
-  if (themeMeta) themeMeta.setAttribute('content', season.themeColor);
-  renderSeasonParticles(seasonKey);
-}
-
-function initSeason() {
-  const now = new Date();
-  const japanDate = getJapanDateParts(now);
-  const requestedSeason = new URLSearchParams(window.location.search).get('season');
-  const previewSeason = requestedSeason && SEASONS[requestedSeason] ? requestedSeason : null;
-  const seasonKey = previewSeason || getJapanSeason(japanDate.month, japanDate.day);
-  applySeason(seasonKey);
-}
-
-initSeason();
-
-document.addEventListener('visibilitychange', () => {
-  document.body.classList.toggle('animations-paused', document.hidden);
-});
-
 const CONTENT_CACHE_KEY = 'contentCacheV1';
 
 async function loadContent() {
@@ -309,7 +88,6 @@ function renderContent(c) {
         <article class="card project-card case-file">
           <button class="case-file-toggle" type="button" aria-expanded="false" aria-controls="${caseId}">
             <span class="case-file-heading">
-              <span class="case-number">CASE / ${String(index + 1).padStart(2, '0')}</span>
               <span class="case-title-wrap">
                 <span class="project-top">
                   <span class="project-type">${p.type}</span>
@@ -404,22 +182,16 @@ function renderContent(c) {
 /* ── Navbar scroll + active link ─────────────────────────── */
 const navbar   = document.getElementById('navbar');
 const sections = Array.from(document.querySelectorAll('section[id]'));
-const storyChapters = Array.from(document.querySelectorAll('.story-chapter'));
-const storyProgress = document.getElementById('storyProgress');
 const navEntries = sections.map(section => ({
   section,
   link: document.querySelector(`.nav-links a[href="#${section.id}"]`)
 }));
-const railLinks = Array.from(document.querySelectorAll('[data-rail]'));
 
 let sectionMetrics = [];
-let chapterMetrics = [];
 let scrollFrame = 0;
 let metricsFrame = 0;
 let activeNavId = '';
-let activeChapterId = '';
 let navbarIsScrolled = false;
-let previousProgress = -1;
 
 function refreshScrollMetrics() {
   const pageTop = window.scrollY;
@@ -427,11 +199,6 @@ function refreshScrollMetrics() {
     const rect = entry.section.getBoundingClientRect();
     const top = rect.top + pageTop - 110;
     return { ...entry, id: entry.section.id, top, bottom: top + rect.height };
-  });
-  chapterMetrics = storyChapters.map(chapter => {
-    const rect = chapter.getBoundingClientRect();
-    const top = rect.top + pageTop;
-    return { chapter, id: chapter.id, top, bottom: top + rect.height };
   });
 }
 
@@ -452,34 +219,6 @@ function updateNav() {
     sectionMetrics.forEach(metric => metric.link?.classList.toggle('active', metric.id === activeNavId));
   }
 
-  if (!chapterMetrics.length) return;
-
-  const readingPoint = scrollY + window.innerHeight * 0.42;
-  const firstTop = chapterMetrics[0].top;
-  const lastBottom = chapterMetrics[chapterMetrics.length - 1].bottom;
-  const readableEnd = lastBottom - window.innerHeight * 0.58;
-  const progress = Math.max(0, Math.min(1, (readingPoint - firstTop) / Math.max(1, readableEnd - firstTop)));
-  if (storyProgress && Math.abs(progress - previousProgress) > 0.001) {
-    previousProgress = progress;
-    storyProgress.style.transform = `scaleY(${progress})`;
-  }
-
-  let nextChapterId = '';
-  for (const metric of chapterMetrics) {
-    if (readingPoint >= metric.top) nextChapterId = metric.id;
-    else break;
-  }
-
-  if (nextChapterId !== activeChapterId) {
-    activeChapterId = nextChapterId;
-    if (activeChapterId) document.body.dataset.activeChapter = activeChapterId;
-    else delete document.body.dataset.activeChapter;
-    railLinks.forEach(link => {
-      link.classList.toggle('active', link.dataset.rail === activeChapterId);
-      if (link.dataset.rail === activeChapterId) link.setAttribute('aria-current', 'step');
-      else link.removeAttribute('aria-current');
-    });
-  }
 }
 
 function scheduleNavUpdate() {
@@ -531,27 +270,6 @@ document.addEventListener('keydown', e => {
     hamburger.focus();
   }
 });
-
-/* ── Scroll-reveal (IntersectionObserver) ─────────────── */
-const observer = new IntersectionObserver(
-  entries => entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  }),
-  { threshold: 0.08 }
-);
-
-function initReveal() {
-  document.querySelectorAll(
-    '.card, .section-title, .section-sub, .chapter-kicker, .chapter-lead, .tl-item, .next-card, .bridge-statement, .hero-inner > *'
-  ).forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.transitionDelay = `${(i % 5) * 0.07}s`;
-    observer.observe(el);
-  });
-}
 
 /* ── Smooth anchor scroll ───────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -709,7 +427,7 @@ function renderCertCard(c) {
   const details = [c.date, c.expires, c.platform].filter(Boolean).join(' · ');
 
   return `
-    <div class="cert-card reveal">
+    <div class="cert-card">
       <div class="cert-card-top">
         <div class="cert-platform-icon ${iconClass}">${iconLabel}</div>
         <div class="cert-meta">
@@ -740,8 +458,6 @@ function populateGrid(certs, gridId, countId) {
   grid.innerHTML = certs.map(renderCertCard).join('');
   if (count) count.textContent = certs.length;
 
-  // Observe new cards for scroll-reveal
-  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 async function loadCerts() {
@@ -793,9 +509,6 @@ function activateCertTab(tab) {
     if (panel) {
       panel.classList.toggle('active', selected);
       panel.hidden = !selected;
-      if (selected) {
-        panel.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-      }
     }
   });
 }
@@ -872,14 +585,8 @@ window.addEventListener('load', scheduleAnalytics, { once: true });
   const content = await loadContent();
   if (content) {
     renderContent(content);
-  } else {
-    const heroBio = document.getElementById('heroBio');
-    if (heroBio) {
-      heroBio.textContent = 'Content could not be loaded — please check your connection and reload the page.';
-    }
   }
 
-  initReveal();
   scheduleScrollMetricsRefresh();
   loadWhenNear('#attack', loadHTB);
   loadWhenNear('#proof', loadCerts);
