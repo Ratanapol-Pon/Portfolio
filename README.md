@@ -54,7 +54,3 @@ commit; no HTML changes needed.
 Certificates are listed separately in **`certs.json`** (NCSA / security vendor /
 courses and workshops tabs) and are merged in at runtime. The certifications count stat
 is computed automatically from `certs.json`.
-
-The senior-project badge in `content.json` (`projects[1].badge`) tracks the
-AINTEC 2026 publication status — update it as the status changes (e.g.
-"Accepted", "Presented", "Published").

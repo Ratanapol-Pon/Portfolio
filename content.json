@@ -1,7 +1,6 @@
 {
   "_notes": {
-    "about": "Single source of truth for site copy. Edit this file to update the site - no HTML changes needed. Fields ending in 'Html' are injected as HTML, so keep tags balanced.",
-    "todo": "Update projects[1].badge when the AINTEC 2026 manuscript status changes."
+    "about": "Single source of truth for site copy. Edit this file to update the site - no HTML changes needed. Fields ending in 'Html' are injected as HTML, so keep tags balanced."
   },
   "lastUpdated": "September 2026",
   "hero": {
@@ -70,13 +69,12 @@
     },
     {
       "type": "Senior Project",
-      "badge": "AINTEC 2026 - Manuscript Submitted",
       "title": "Anomaly Detection and Alerting System Utilizing Splunk Free License",
       "summary": "Built detections for phishing, denial-of-service, cryptojacking, and brute-force attacks using the Splunk free license.",
       "challenge": "Detect multiple attack patterns and give analysts useful context without relying on an enterprise Splunk license.",
       "actionHtml": "Designed detections for phishing, DoS, cryptojacking, and brute-force activity across endpoint and network telemetry.",
       "evidenceHtml": "Implemented Splunk searches, severity scoring, LINE and SMTP notifications, and event-history context.",
-      "outcomeHtml": "Produced a working analyst-handoff flow and submitted the resulting manuscript to <strong>AINTEC 2026</strong>.",
+      "outcomeHtml": "Built an analyst handoff workflow that included severity scores and event history.",
       "bodyHtml": "Designed and built a Splunk-based real-time monitoring system detecting <strong>phishing, DoS, cryptojacking, and brute-force attacks</strong> across endpoint and network telemetry. Implemented LINE and SMTP email alerting with severity scoring and event-history context for analyst handoff.",
       "tags": ["Splunk", "SIEM", "Python", "Anomaly Detection", "Network Security"]
     },
